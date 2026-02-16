@@ -1,0 +1,182 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header": {
+      "type": "product-logo-section",
+      "settings": {
+        "cart_text_color": "#000000",
+        "cart_number_color": "#ffffff",
+        "cart_number_bg_color": "#000000",
+        "show_date_time": true,
+        "index_date_color": "#000000",
+        "index_time_color": "#000000",
+        "align_date_time": "right"
+      }
+    },
+    "background": {
+      "type": "default-background",
+      "settings": {
+        "password_bg_style": "color",
+        "bg_color": "#ffffff",
+        "bg_color_mobile": "#ffffff",
+        "overlay_top_color": "#000000",
+        "overlay_top_opacity": 0,
+        "overlay_bottom_color": "#000000",
+        "overlay_bottom_opacity": 0,
+        "overlay_top_color_mobile": "#000000",
+        "overlay_top_opacity_mobile": 0,
+        "overlay_bottom_color_mobile": "#000000",
+        "overlay_bottom_opacity_mobile": 0,
+        "show_background_image_mobile": false
+      }
+    },
+    "product-section-2": {
+      "type": "product-section-2",
+      "blocks": {
+        "product_header-1": {
+          "type": "product_header",
+          "settings": {
+            "product_title": "#000000",
+            "product_header_margin": 5
+          }
+        },
+        "product_price-1": {
+          "type": "product_price",
+          "settings": {
+            "product_price": "#000000",
+            "price_font_size": 14,
+            "currency_format": "without_currency",
+            "product_was_text": "#000000",
+            "product_before_price": "#ff0000",
+            "sales_price_font_size": 16,
+            "price_margin": 0
+          }
+        },
+        "product_description-1": {
+          "type": "product_description",
+          "settings": {
+            "word_limit": 120,
+            "product_description": "#000000",
+            "description_margin": 20
+          }
+        },
+        "product_gallery-1": {
+          "type": "product_gallery",
+          "settings": {}
+        },
+        "product_variations-1": {
+          "type": "product_variations",
+          "settings": {
+            "show_next_product_button": false,
+            "add_to_cart_bg": "#000000",
+            "add_to_cart_text": "#ffffff",
+            "keep_shopping_bg": "#938989",
+            "keep_shopping_text": "#ffffff",
+            "next_item_text_color": "#000000",
+            "next_item_highlight_color": "#938989",
+            "next_item_highlight_txt_color": "#ffffff",
+            "out_of_stock_bg": "#938989",
+            "out_of_stock_text": "#ffffff",
+            "variants_button_radius": 0,
+            "variation_margin": 5
+          }
+        },
+        "product_accordion_LtiQWt": {
+          "type": "product_accordion",
+          "settings": {
+            "accordion_title": "Size Chart",
+            "accordion_color": "#ffffff",
+            "accordion_title_color": "#1b1b1b",
+            "accordion_drop_title_color": "#1b1b1b",
+            "accordion_drop_content_color": "#1b1b1b",
+            "accordion_arrow_color": "#1b1b1b",
+            "accordion_description": "",
+            "accordion_page": "size-chart",
+            "accordion_margin": 20
+          }
+        },
+        "product_accordion_eHYy7t": {
+          "type": "product_accordion",
+          "settings": {
+            "accordion_title": "Shipping Details & Refund",
+            "accordion_color": "#ffffff",
+            "accordion_title_color": "#1b1b1b",
+            "accordion_drop_title_color": "#1b1b1b",
+            "accordion_drop_content_color": "#1b1b1b",
+            "accordion_arrow_color": "#1b1b1b",
+            "accordion_description": "<p>Products are all made-to-order and will be shipped between 1 to 4 weeks after the order is confirmed.</p><p>All products are made to order. Therefore, all sales are final, no refund can be done.</p>",
+            "accordion_page": "",
+            "accordion_margin": 20
+          }
+        },
+        "product_accordion-1": {
+          "type": "product_accordion",
+          "settings": {
+            "accordion_title": "Care Instructions",
+            "accordion_color": "#ffffff",
+            "accordion_title_color": "#1b1b1b",
+            "accordion_drop_title_color": "#1b1b1b",
+            "accordion_drop_content_color": "#1b1b1b",
+            "accordion_arrow_color": "#1b1b1b",
+            "accordion_description": "<p>{{ product.metafields.custom.care_guide | metafield_tag }}</p>",
+            "accordion_page": "",
+            "accordion_margin": 20
+          }
+        }
+      },
+      "block_order": [
+        "product_header-1",
+        "product_price-1",
+        "product_description-1",
+        "product_gallery-1",
+        "product_variations-1",
+        "product_accordion_LtiQWt",
+        "product_accordion_eHYy7t",
+        "product_accordion-1"
+      ],
+      "settings": {
+        "switch_productinfo_image": false,
+        "place_additional_photos_under_main": true,
+        "reverse_additional_photos_and_main": false,
+        "product_info_alignment": "left",
+        "product_info_alignment_mobile": "left",
+        "fade_duration": 2,
+        "gallery_column_amount": 4,
+        "gallery_desktop_image_size": 60,
+        "gallery_mobile_image_size": 40,
+        "gallery_margin": 5
+      }
+    },
+    "related_products": {
+      "type": "related-products",
+      "settings": {
+        "related_title_color": "#000000",
+        "related_title_size": 18,
+        "show-related-title": true,
+        "related_product_title_color": "#000000",
+        "related_product_title_hover_color": "#ffffff",
+        "related_product_title_highlight_color": "#fe0100",
+        "related_product_title_size": 18,
+        "show-related-product-title": true,
+        "related_product_price_color": "#000000",
+        "related_product_price_size": 12,
+        "show_related_price": false,
+        "related_currency_format": "without_currency"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "background",
+    "product-section-2",
+    "related_products"
+  ]
+}

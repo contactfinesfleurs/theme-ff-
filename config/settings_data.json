@@ -1,0 +1,127 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "announcement_text": "Friends & Family Prices at the checkout!",
+    "announcement_text_size": 10,
+    "show_announcement_bar": false,
+    "show_fomo_timer": false,
+    "timezone": "Europe/Brussels",
+    "desktop-layout": "1fr 1fr 1fr",
+    "mobile-layout": "1fr",
+    "product-size": 100,
+    "homepage_redirect_url": "shopify://collections/spring-summer-2025",
+    "footer_email_header": "Join our newsletter and friends & family list below.",
+    "email_description": "",
+    "footer_copyright_text": "Fines Fleurs - Near La Bodega - 2026.",
+    "show_footer_on_home": false,
+    "show_copyright": true,
+    "show_email_footer_signup": false,
+    "footer_header_text_size_desktop": 10,
+    "footer_text_size": 8,
+    "footer_text_size_mobile": 8,
+    "footer_copyright_size": 13,
+    "footer_email_btn_color": "#252525",
+    "footer_text_color_highlighed_bg": "#9E9E9E",
+    "global_menu": "menu",
+    "show_global_menu_cart": false,
+    "global_search_bar": false,
+    "hide_global_login_link": true,
+    "hide_global_menu_on_collection_desktop": true,
+    "enter_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
+    "show_home_logo": true,
+    "global_menu_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
+    "global_menu_logo_size": 150,
+    "shop_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
+    "collection_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
+    "collection_screen_logo_size": 165,
+    "product_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
+    "password_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
+    "password_screen_logo_size": 141,
+    "disable_highlight_animation": true,
+    "show_song_bar": false,
+    "sound_bar_color": "linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 100%)",
+    "favicon": "shopify://shop_images/f_logo_mini_icon_7c5c8816-995d-4ace-8e92-4bcb2794d15a.png",
+    "apple_touch_icon": "shopify://shop_images/f_logo_mini_icon_7c5c8816-995d-4ace-8e92-4bcb2794d15a.png",
+    "nav_font": "sans_serif_n4",
+    "countdown_font": "helvetica_n4",
+    "font_header": "helvetica_n4",
+    "body_font": "helvetica_n4",
+    "btn_font": "helvetica_n4",
+    "checkout_logo_image": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "large",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Helvetica Neue",
+    "sections": {
+      "global-menu": {
+        "type": "global-menu",
+        "settings": {}
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "custom_css": [],
+        "settings": {}
+      },
+      "music-player": {
+        "type": "music-player",
+        "settings": {}
+      },
+      "theme-footer": {
+        "type": "theme-footer",
+        "blocks": {
+          "link_list_LfLGEP": {
+            "type": "link_list",
+            "settings": {
+              "heading": "Terms of Sale & Service",
+              "menu": "politiques"
+            }
+          },
+          "link_list_yMQQzh": {
+            "type": "link_list",
+            "settings": {
+              "heading": "Refund Policy",
+              "menu": "refund-policy"
+            }
+          }
+        },
+        "block_order": [
+          "link_list_LfLGEP",
+          "link_list_yMQQzh"
+        ],
+        "settings": {
+          "footer_success_message": "Thank you for subscribing!"
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "6406956604159796213": {
+        "type": "shopify://apps/smart-seo/blocks/smartseo/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
+        "disabled": false,
+        "settings": {}
+      },
+      "4976129024724438625": {
+        "type": "shopify://apps/smart-seo/blocks/brokenLinkDetection/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
+        "disabled": false,
+        "settings": {}
+      },
+      "13694372020385051692": {
+        "type": "shopify://apps/analyzely-google-analytics-4/blocks/analyzely/b3a3a697-6f42-4507-a5ae-c447f6da2c9d",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  }
+}

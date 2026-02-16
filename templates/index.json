@@ -1,0 +1,119 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "background": {
+      "type": "default-background",
+      "settings": {
+        "password_bg_style": "color",
+        "bg_color": "#ffffff",
+        "bg_color_mobile": "#ffffff",
+        "overlay_top_color": "#000000",
+        "overlay_top_opacity": 0,
+        "overlay_bottom_color": "#000000",
+        "overlay_bottom_opacity": 0,
+        "overlay_top_color_mobile": "#000000",
+        "overlay_top_opacity_mobile": 0,
+        "overlay_bottom_color_mobile": "#000000",
+        "overlay_bottom_opacity_mobile": 0,
+        "show_background_image_mobile": false
+      }
+    },
+    "preloader_CreNEy": {
+      "type": "preloader",
+      "settings": {
+        "show_preloader": false,
+        "preloader_color": "#ffffff",
+        "preloader_logo_type": "text",
+        "preloader_text": "2027 DELIVERY 1.0  IS LIVE.",
+        "preloader_txt_color": "#000000",
+        "preloader_txt_size": 12,
+        "preloader_duration": 1
+      }
+    },
+    "index_center_3nKhTN": {
+      "type": "index-center",
+      "name": "Center Menu",
+      "settings": {
+        "show_date_time": true,
+        "index_date_color": "#000000",
+        "index_time_color": "#000000",
+        "center-menu": "menu",
+        "link-alignment": "center",
+        "display_login_link": "hide",
+        "nav_link_color": "#000000",
+        "navlink_hover_color": "#000000",
+        "navlink_background_color": "#ecf6ff",
+        "home_page_menu_positioning": 15,
+        "font-size": 14,
+        "menu-spacing": 32,
+        "disable_highlight_effect": false,
+        "enable_nav_scaling": false,
+        "show_apple": false,
+        "show_discord": false,
+        "show_facebook": false,
+        "show_instagram": false,
+        "show_pinterest": false,
+        "show_reddit": false,
+        "show_snapchat": false,
+        "show_spotify": false,
+        "show_soundcloud": false,
+        "show_telegram": false,
+        "show_threads": false,
+        "show_tiktok": false,
+        "show_tumblr": false,
+        "show_twitter": false,
+        "show_twitch": false,
+        "show_whatsapp": false,
+        "show_youtube": false,
+        "apple_link": "",
+        "discord_link": "",
+        "facebook_link": "",
+        "instagram_link": "",
+        "pinterest_link": "",
+        "reddit_link": "",
+        "snapchat_link": "",
+        "spotify_link": "",
+        "soundcloud_link": "",
+        "telegram_link": "",
+        "threads_link": "",
+        "tiktok_link": "",
+        "tumblr_link": "",
+        "twitter_link": "",
+        "twitch_link": "",
+        "whatsapp_link": "",
+        "youtube_link": "",
+        "apple_color": "#000000",
+        "discord_color": "#000000",
+        "facebook_color": "#000000",
+        "instagram_color": "#000000",
+        "pinterest_color": "#000000",
+        "reddit_color": "#000000",
+        "snapchat_color": "#000000",
+        "spotify_color": "#000000",
+        "soundcloud_color": "#000000",
+        "telegram_color": "#000000",
+        "threads_color": "#000000",
+        "tiktok_color": "#000000",
+        "tumblr_color": "#000000",
+        "twitter_color": "#000000",
+        "twitch_color": "#000000",
+        "whatsapp_color": "#000000",
+        "youtube_color": "#000000",
+        "social_media_size": 18
+      }
+    }
+  },
+  "order": [
+    "background",
+    "preloader_CreNEy",
+    "index_center_3nKhTN"
+  ]
+}
