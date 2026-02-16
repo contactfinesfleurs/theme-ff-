@@ -1,0 +1,17 @@
+{% if settings.enter_screen_logo %}
+  <img
+    src="{{ settings.enter_screen_logo | image_url }}"
+    alt="{{ shop.name }}"
+    class="top-header__logo"
+    style="width: {{ section.settings.logo_width }}px;"
+    loading="lazy">
+{% elsif settings.shop_screen_logo %}
+  <img
+    src="{{ settings.shop_screen_logo | image_url }}"
+    alt="{{ shop.name }}"
+    class="top-header__logo"
+    style="width: {{ section.settings.logo_width }}px;"
+    loading="lazy">
+{% else %}
+  <span class="top-header__shop-name">{{ shop.name }}</span>
+{% endif %}
