@@ -103,6 +103,20 @@
         "settings": {
           "footer_success_message": "Thank you for subscribing!"
         }
+      },
+      "top-header": {
+        "type": "top-header",
+        "settings": {
+          "show_header": false,
+          "logo_position": "right",
+          "logo_width": 80,
+          "header_font": "sans_serif_n4",
+          "header_font_size": 14,
+          "header_bg_color": "#ffffff",
+          "header_link_color": "#000000",
+          "header_link_hover_color": "#555555",
+          "header_padding": 15
+        }
       }
     },
     "content_for_index": [],
