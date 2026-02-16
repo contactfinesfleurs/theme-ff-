@@ -1,0 +1,279 @@
+{% if template.name != 'password' and section.settings.show_header %}
+<header class="top-header" style="
+  --header-bg: {{ section.settings.header_bg_color }};
+  --header-link-color: {{ section.settings.header_link_color }};
+  --header-link-hover-color: {{ section.settings.header_link_hover_color }};
+  --header-font-size: {{ section.settings.header_font_size }}px;
+  --header-padding: {{ section.settings.header_padding }}px;
+">
+  <div class="top-header__container {% if section.settings.logo_position == 'left' %}top-header--logo-left{% elsif section.settings.logo_position == 'center' %}top-header--logo-center{% else %}top-header--logo-right{% endif %}">
+
+    {% if section.settings.logo_position == 'left' %}
+      <!-- Logo LEFT -->
+      <div class="top-header__side">
+        <a href="{{ routes.root_url }}" class="top-header__logo-link">
+          {% render 'top-header-logo', section: section %}
+        </a>
+      </div>
+      <nav class="top-header__nav">
+        <a href="{{ routes.root_url }}" class="top-header__link">Home</a>
+        <a href="/collections/all" class="top-header__link">Shop</a>
+        <a href="/pages/contact" class="top-header__link">Contact</a>
+      </nav>
+      <div class="top-header__side"></div>
+
+    {% elsif section.settings.logo_position == 'center' %}
+      <!-- Logo CENTER -->
+      <nav class="top-header__nav">
+        <a href="{{ routes.root_url }}" class="top-header__link">Home</a>
+        <a href="/collections/all" class="top-header__link">Shop</a>
+      </nav>
+      <div class="top-header__center-logo">
+        <a href="{{ routes.root_url }}" class="top-header__logo-link">
+          {% render 'top-header-logo', section: section %}
+        </a>
+      </div>
+      <nav class="top-header__nav">
+        <a href="/pages/contact" class="top-header__link">Contact</a>
+      </nav>
+
+    {% else %}
+      <!-- Logo RIGHT (default) -->
+      <div class="top-header__side"></div>
+      <nav class="top-header__nav">
+        <a href="{{ routes.root_url }}" class="top-header__link">Home</a>
+        <a href="/collections/all" class="top-header__link">Shop</a>
+        <a href="/pages/contact" class="top-header__link">Contact</a>
+      </nav>
+      <div class="top-header__side">
+        <a href="{{ routes.root_url }}" class="top-header__logo-link">
+          {% render 'top-header-logo', section: section %}
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</header>
+
+<style>
+  .top-header {
+    width: 100%;
+    background-color: var(--header-bg);
+    padding: var(--header-padding) 0;
+    position: relative;
+    z-index: 3;
+  }
+
+  .top-header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  .top-header__side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Logo right: push logo to the end */
+  .top-header--logo-right .top-header__side:first-child {
+    justify-content: flex-start;
+  }
+  .top-header--logo-right .top-header__side:last-child {
+    justify-content: flex-end;
+  }
+
+  /* Logo left: push logo to the start */
+  .top-header--logo-left .top-header__side:first-child {
+    justify-content: flex-start;
+  }
+  .top-header--logo-left .top-header__side:last-child {
+    justify-content: flex-end;
+  }
+
+  /* Logo center */
+  .top-header__center-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 25px;
+  }
+
+  .top-header__nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .top-header__link {
+    font-family: {{ section.settings.header_font.family }}, sans-serif;
+    font-weight: {{ section.settings.header_font.weight }};
+    font-style: {{ section.settings.header_font.style }};
+    font-size: var(--header-font-size);
+    color: var(--header-link-color);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+  }
+
+  .top-header__link:hover {
+    color: var(--header-link-hover-color);
+  }
+
+  .top-header__logo-link {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .top-header__logo {
+    height: auto;
+    display: block;
+  }
+
+  .top-header__shop-name {
+    font-family: {{ section.settings.header_font.family }}, sans-serif;
+    font-weight: {{ section.settings.header_font.weight }};
+    font-size: 18px;
+    color: var(--header-link-color);
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 749px) {
+    .top-header__container {
+      padding: 0 15px;
+    }
+
+    .top-header__nav {
+      gap: 18px;
+    }
+
+    .top-header__link {
+      font-size: 12px;
+    }
+
+    /* Hide spacer on mobile for right/left layouts */
+    .top-header--logo-right .top-header__side:first-child,
+    .top-header--logo-left .top-header__side:last-child {
+      display: none;
+    }
+
+    .top-header__nav {
+      flex: auto;
+    }
+  }
+</style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Top Header",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show Header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "select",
+      "id": "logo_position",
+      "label": "Logo Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 30,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "header_font",
+      "label": "Navigation Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "header_font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_link_color",
+      "label": "Link Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "header_link_hover_color",
+      "label": "Link Hover Color",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "header_padding",
+      "min": 5,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical Padding",
+      "default": 15
+    }
+  ]
+}
+{% endschema %}
