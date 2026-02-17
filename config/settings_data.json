@@ -110,15 +110,15 @@
       "top-header": {
         "type": "top-header",
         "settings": {
-          "show_header": false,
-          "logo_position": "right",
+          "show_header": true,
+          "logo_position": "left",
           "logo_width": 80,
           "header_font": "sans_serif_n4",
-          "header_font_size": 14,
+          "header_font_size": 10,
           "header_bg_color": "#ffffff",
           "header_link_color": "#000000",
           "header_link_hover_color": "#555555",
-          "header_padding": 10
+          "header_padding": 14
         }
       }
     },
