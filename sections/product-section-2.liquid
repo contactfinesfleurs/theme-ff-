@@ -510,6 +510,70 @@
     ">{{ section.settings.sticky_btn_text_unavailable | default: 'Me prévenir' }}</button>
   {% endif %}
 </div>
+
+{% comment %} Notify Me Popup {% endcomment %}
+<div id="notify-popup-overlay" style="
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+">
+  <div id="notify-popup" style="
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    font-family: var(--font_body), sans-serif;
+  ">
+    <button id="notify-popup-close" style="
+      position: absolute;
+      top: 10px; right: 15px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #333;
+      line-height: 1;
+    ">&times;</button>
+    <h3 style="margin: 0 0 8px 0; font-size: 18px; color: #000;">{{ section.settings.sticky_btn_text_unavailable | default: 'Me prévenir' }}</h3>
+    <p style="margin: 0 0 20px 0; font-size: 13px; color: #666; line-height: 1.4;">
+      Entrez votre e-mail pour être prévenu(e) quand <strong>{{ product.title }}</strong> sera de nouveau disponible.
+    </p>
+    <form id="notify-form" style="display: flex; flex-direction: column; gap: 12px;">
+      <input type="hidden" name="product_title" value="{{ product.title | escape }}">
+      <input type="hidden" name="product_url" value="{{ product.url }}">
+      <input type="email" id="notify-email" name="email" required placeholder="Votre adresse e-mail" style="
+        padding: 12px 14px;
+        border: 1px solid #ddd;
+        border-radius: {{ section.settings.sticky_btn_radius }}px;
+        font-size: 14px;
+        font-family: var(--font_body), sans-serif;
+        outline: none;
+        transition: border-color 0.2s;
+      ">
+      <button type="submit" id="notify-submit-btn" style="
+        background-color: {{ section.settings.sticky_btn_notify_bg_color }};
+        color: {{ section.settings.sticky_btn_notify_text_color }};
+        border: none;
+        padding: 12px;
+        font-size: 14px;
+        font-family: var(--font_body), sans-serif;
+        cursor: pointer;
+        border-radius: {{ section.settings.sticky_btn_radius }}px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: opacity 0.2s;
+      ">Envoyer</button>
+      <p id="notify-message" style="display: none; margin: 0; font-size: 13px; text-align: center;"></p>
+    </form>
+  </div>
+</div>
 {% endif %}
 
 <script
@@ -568,11 +632,74 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   var notifyBtn = document.getElementById('sticky-notify-me');
+  var overlay = document.getElementById('notify-popup-overlay');
+  var popupClose = document.getElementById('notify-popup-close');
+  var notifyForm = document.getElementById('notify-form');
+  var notifyMsg = document.getElementById('notify-message');
+
+  function openNotifyPopup() {
+    if (!overlay) return;
+    overlay.style.display = 'flex';
+    var emailInput = document.getElementById('notify-email');
+    if (emailInput) emailInput.focus();
+  }
+
+  function closeNotifyPopup() {
+    if (!overlay) return;
+    overlay.style.display = 'none';
+    if (notifyMsg) { notifyMsg.style.display = 'none'; }
+  }
+
   if (notifyBtn) {
-    notifyBtn.addEventListener('click', function() {
-      var subject = encodeURIComponent('Notification produit: {{ product.title | escape }}');
-      var body = encodeURIComponent('Bonjour, je souhaite être prévenu(e) quand ce produit sera de nouveau disponible : {{ product.title | escape }} ({{ product.url }})');
-      window.location.href = 'mailto:{{ shop.email }}?subject=' + subject + '&body=' + body;
+    notifyBtn.addEventListener('click', openNotifyPopup);
+  }
+
+  if (popupClose) {
+    popupClose.addEventListener('click', closeNotifyPopup);
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeNotifyPopup();
+    });
+  }
+
+  if (notifyForm) {
+    notifyForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = document.getElementById('notify-email').value;
+      var submitBtn = document.getElementById('notify-submit-btn');
+      var productTitle = '{{ product.title | escape }}';
+      var productUrl = '{{ product.url }}';
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '...';
+
+      var formData = new FormData();
+      formData.append('form_type', 'customer');
+      formData.append('utf8', '\u2713');
+      formData.append('customer[email]', email);
+      formData.append('customer[tags]', 'notify-restock, ' + productTitle);
+      formData.append('customer[note]', 'Produit: ' + productTitle + ' (' + productUrl + ')');
+
+      fetch('/contact#contact_form', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      }).then(function() {
+        notifyMsg.style.display = 'block';
+        notifyMsg.style.color = '#16a34a';
+        notifyMsg.textContent = 'Merci ! Vous serez prévenu(e) dès que le produit sera disponible.';
+        notifyForm.querySelector('input[type="email"]').style.display = 'none';
+        submitBtn.style.display = 'none';
+        setTimeout(closeNotifyPopup, 3000);
+      }).catch(function() {
+        notifyMsg.style.display = 'block';
+        notifyMsg.style.color = '#dc2626';
+        notifyMsg.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Envoyer';
+      });
     });
   }
 });
