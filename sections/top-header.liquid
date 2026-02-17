@@ -6,11 +6,11 @@
   --header-font-size: {{ section.settings.header_font_size }}px;
   --header-padding: {{ section.settings.header_padding }}px;
 ">
-  <div class="top-header__container {% if section.settings.logo_position == 'left' %}top-header--logo-left{% elsif section.settings.logo_position == 'center' %}top-header--logo-center{% else %}top-header--logo-right{% endif %}">
+  <div class="top-header__container {% if section.settings.logo_position == 'left' %}top-header--logo-left{% elsif section.settings.logo_position == 'center' %}top-header--logo-center{% else %}top-header--logo-right{% endif %} {% if section.settings.logo_above_nav and section.settings.show_logo %}top-header--logo-above{% endif %}">
 
-    {% if section.settings.logo_position == 'left' %}
-      <!-- Logo LEFT -->
-      <div class="top-header__side">
+    {% if section.settings.logo_above_nav and section.settings.show_logo %}
+      <!-- Logo ABOVE nav -->
+      <div class="top-header__logo-above">
         <a href="{{ routes.root_url }}" class="top-header__logo-link">
           {% render 'top-header-logo', section: section %}
         </a>
@@ -20,7 +20,24 @@
         <a href="/collections/all" class="top-header__link">Shop</a>
         <a href="/pages/contact" class="top-header__link">Contact</a>
       </nav>
-      <div class="top-header__side"></div>
+
+    {% elsif section.settings.logo_position == 'left' %}
+      <!-- Logo LEFT -->
+      {% if section.settings.show_logo %}
+        <div class="top-header__side">
+          <a href="{{ routes.root_url }}" class="top-header__logo-link">
+            {% render 'top-header-logo', section: section %}
+          </a>
+        </div>
+      {% endif %}
+      <nav class="top-header__nav">
+        <a href="{{ routes.root_url }}" class="top-header__link">Home</a>
+        <a href="/collections/all" class="top-header__link">Shop</a>
+        <a href="/pages/contact" class="top-header__link">Contact</a>
+      </nav>
+      {% if section.settings.show_logo %}
+        <div class="top-header__side"></div>
+      {% endif %}
 
     {% elsif section.settings.logo_position == 'center' %}
       <!-- Logo CENTER -->
@@ -28,28 +45,34 @@
         <a href="{{ routes.root_url }}" class="top-header__link">Home</a>
         <a href="/collections/all" class="top-header__link">Shop</a>
       </nav>
-      <div class="top-header__center-logo">
-        <a href="{{ routes.root_url }}" class="top-header__logo-link">
-          {% render 'top-header-logo', section: section %}
-        </a>
-      </div>
+      {% if section.settings.show_logo %}
+        <div class="top-header__center-logo">
+          <a href="{{ routes.root_url }}" class="top-header__logo-link">
+            {% render 'top-header-logo', section: section %}
+          </a>
+        </div>
+      {% endif %}
       <nav class="top-header__nav">
         <a href="/pages/contact" class="top-header__link">Contact</a>
       </nav>
 
     {% else %}
       <!-- Logo RIGHT (default) -->
-      <div class="top-header__side"></div>
+      {% if section.settings.show_logo %}
+        <div class="top-header__side"></div>
+      {% endif %}
       <nav class="top-header__nav">
         <a href="{{ routes.root_url }}" class="top-header__link">Home</a>
         <a href="/collections/all" class="top-header__link">Shop</a>
         <a href="/pages/contact" class="top-header__link">Contact</a>
       </nav>
-      <div class="top-header__side">
-        <a href="{{ routes.root_url }}" class="top-header__logo-link">
-          {% render 'top-header-logo', section: section %}
-        </a>
-      </div>
+      {% if section.settings.show_logo %}
+        <div class="top-header__side">
+          <a href="{{ routes.root_url }}" class="top-header__logo-link">
+            {% render 'top-header-logo', section: section %}
+          </a>
+        </div>
+      {% endif %}
     {% endif %}
 
   </div>
@@ -93,6 +116,22 @@
   }
   .top-header--logo-left .top-header__side:last-child {
     justify-content: flex-end;
+  }
+
+  /* Logo above nav */
+  .top-header--logo-above {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .top-header__logo-above {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .top-header--logo-above .top-header__nav {
+    flex: none;
   }
 
   /* Logo center */
@@ -187,6 +226,19 @@
     {
       "type": "header",
       "content": "Logo"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_logo",
+      "label": "Show Logo",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_above_nav",
+      "label": "Logo Above Navigation",
+      "default": false,
+      "info": "When enabled, the logo appears above the navigation links instead of beside them"
     },
     {
       "type": "select",
