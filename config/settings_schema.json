@@ -1178,6 +1178,13 @@
         "id": "hide_global_menu_on_collection_desktop",
         "label": "Hide Global Menu On Collection Page (Desktop)",
         "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "hide_global_menu_button",
+        "label": "Hide Global Menu Button",
+        "default": false,
+        "info": "When enabled, the global menu button will be hidden on all pages"
       }
     ]
   },
