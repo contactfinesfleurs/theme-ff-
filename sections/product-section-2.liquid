@@ -367,7 +367,7 @@
             style="
             line-height: 18px;
             margin-top: {{ block.settings.description_margin }}px; margin-bottom: {{ block.settings.description_margin }}px;
-            font-size: 12px; 
+            font-size: 12px;
             color: {{ block.settings.product_description }};
             {% if section.settings.product_info_alignment == 'center' %} text-align: center; {% endif %}
             {% if section.settings.product_info_alignment == 'right' %} text-align: right; {% endif %}
@@ -375,6 +375,64 @@
             ">
             {{ product.description }}
           </div>
+
+        {% when 'product_info_badges' %}
+          {% assign badge_saison = product.metafields.custom.saison.value | default: block.settings.default_saison %}
+          {% assign badge_coloris = product.metafields.custom.nombre_coloris.value | default: block.settings.default_coloris %}
+          {% if badge_saison != blank or badge_coloris != blank %}
+          <div class="product-info-badges" style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: {{ block.settings.badge_gap }}px;
+            margin-top: {{ block.settings.badge_margin }}px;
+            margin-bottom: {{ block.settings.badge_margin }}px;
+            {% if section.settings.product_info_alignment == 'center' %} justify-content: center; {% endif %}
+            {% if section.settings.product_info_alignment == 'right' %} justify-content: flex-end; {% endif %}
+            {% if section.settings.product_info_alignment == 'left' %} justify-content: flex-start; {% endif %}
+          ">
+            {% if badge_saison != blank %}
+            <div class="info-badge" style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              padding: 8px 14px;
+              border-radius: {{ block.settings.badge_radius }}px;
+              background-color: {{ block.settings.badge_bg_color }};
+              border: 1px solid {{ block.settings.badge_border_color }};
+            ">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="{{ block.settings.badge_icon_color }}"/>
+              </svg>
+              <div style="display: flex; flex-direction: column; line-height: 1.3;">
+                <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: {{ block.settings.badge_label_color }}; font-family: var(--font_body), sans-serif;">Saison</span>
+                <span style="font-size: 13px; font-weight: 600; color: {{ block.settings.badge_value_color }}; font-family: var(--font_body), sans-serif;">{{ badge_saison }}</span>
+              </div>
+            </div>
+            {% endif %}
+
+            {% if badge_coloris != blank %}
+            <div class="info-badge" style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              padding: 8px 14px;
+              border-radius: {{ block.settings.badge_radius }}px;
+              background-color: {{ block.settings.badge_bg_color }};
+              border: 1px solid {{ block.settings.badge_border_color }};
+            ">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="7.5" cy="11.5" r="4.5" fill="{{ block.settings.badge_icon_color }}" opacity="0.6"/>
+                <circle cx="16.5" cy="11.5" r="4.5" fill="{{ block.settings.badge_icon_color }}" opacity="0.6"/>
+                <circle cx="12" cy="7" r="4.5" fill="{{ block.settings.badge_icon_color }}" opacity="0.6"/>
+              </svg>
+              <div style="display: flex; flex-direction: column; line-height: 1.3;">
+                <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: {{ block.settings.badge_label_color }}; font-family: var(--font_body), sans-serif;">Coloris</span>
+                <span style="font-size: 13px; font-weight: 600; color: {{ block.settings.badge_value_color }}; font-family: var(--font_body), sans-serif;">{{ badge_coloris }} disponible{% if badge_coloris != '1' and badge_coloris != 1 %}s{% endif %}</span>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
 
 
         {% when 'product_accordion' %}
@@ -616,6 +674,31 @@ document.addEventListener('DOMContentLoaded', function() {
 .featured-product-image:has(video, iframe, [class*="video"], [class*="model"]) {
   cursor: default;
 }
+
+/* Product Info Badges */
+.product-info-badges {
+  width: 100%;
+}
+
+.info-badge {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 768px) {
+  .product-info-badges {
+    justify-content: center !important;
+  }
+  .info-badge {
+    flex: 1;
+    min-width: 130px;
+    justify-content: center;
+  }
+}
 </style>
 
 <script>
@@ -719,9 +802,13 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           {
             "type": "product_gallery"
-          },  {
+          },
+          {
             "type": "product_description"
-          }, 
+          },
+          {
+            "type": "product_info_badges"
+          },
           {
             "type": "product_variations"
           },
@@ -1198,7 +1285,98 @@ document.addEventListener('DOMContentLoaded', function() {
             "default": 20
           }
         ]
-      }, {
+      },
+      {
+        "name": "Infos Produit (Saison / Coloris)",
+        "type": "product_info_badges",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Valeurs par défaut"
+          },
+          {
+            "type": "paragraph",
+            "content": "Ces valeurs s'affichent si le produit n'a pas de metafield custom.saison ou custom.nombre_coloris."
+          },
+          {
+            "type": "text",
+            "id": "default_saison",
+            "label": "Saison par défaut",
+            "default": "Printemps"
+          },
+          {
+            "type": "text",
+            "id": "default_coloris",
+            "label": "Nombre de coloris par défaut",
+            "default": "3"
+          },
+          {
+            "type": "header",
+            "content": "Style des badges"
+          },
+          {
+            "type": "color",
+            "id": "badge_bg_color",
+            "label": "Couleur de fond",
+            "default": "#F8F8F8"
+          },
+          {
+            "type": "color",
+            "id": "badge_border_color",
+            "label": "Couleur de bordure",
+            "default": "#E0E0E0"
+          },
+          {
+            "type": "color",
+            "id": "badge_icon_color",
+            "label": "Couleur des icônes",
+            "default": "#4A7C59"
+          },
+          {
+            "type": "color",
+            "id": "badge_label_color",
+            "label": "Couleur du label",
+            "default": "#888888"
+          },
+          {
+            "type": "color",
+            "id": "badge_value_color",
+            "label": "Couleur de la valeur",
+            "default": "#1B1B1B"
+          },
+          {
+            "type": "range",
+            "id": "badge_radius",
+            "label": "Arrondi des badges",
+            "min": 0,
+            "max": 20,
+            "unit": "px",
+            "step": 1,
+            "default": 8
+          },
+          {
+            "type": "range",
+            "id": "badge_gap",
+            "label": "Espacement entre badges",
+            "min": 4,
+            "max": 20,
+            "unit": "px",
+            "step": 1,
+            "default": 10
+          },
+          {
+            "type": "range",
+            "id": "badge_margin",
+            "label": "Marge haut/bas",
+            "min": 0,
+            "max": 30,
+            "unit": "px",
+            "step": 1,
+            "default": 10
+          }
+        ]
+      },
+      {
         "name": "Product Accordion",
         "type": "product_accordion",
         "settings": [
