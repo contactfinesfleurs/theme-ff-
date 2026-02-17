@@ -160,6 +160,7 @@
         "sticky_btn_text_color": "#ffffff",
         "sticky_btn_notify_bg_color": "#7184c1",
         "sticky_btn_notify_text_color": "#ffffff",
+        "sticky_btn_position": "center",
         "sticky_btn_radius": 4
       }
     },
