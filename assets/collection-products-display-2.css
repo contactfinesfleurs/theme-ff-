@@ -7,9 +7,12 @@
 .collection-sidenav{
     background-color: #202020;
     width: 300px;
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
+    z-index: 1;
 }
 .collection-products-container{
     width: 100%;
@@ -19,7 +22,8 @@
 }
 
 .collection-sidenav-logo{
-    position: fixed;
+    position: sticky;
+    top: 0;
 }
 
 .mobile-logo-container{
@@ -47,6 +51,12 @@
 
 .nav-item {
     margin: 4px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--nav-divider-color, rgba(255, 255, 255, 0.15));
+}
+
+.nav-item:last-child {
+    border-bottom: none;
 }
 
 @keyframes highlight {
