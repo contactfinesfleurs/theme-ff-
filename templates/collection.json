@@ -68,7 +68,7 @@
         "collection_menu": "",
         "index_date_color": "#000000",
         "index_time_color": "#000000",
-        "show_date_time": false,
+        "show_date_time": true,
         "cart_text_color": "#000000",
         "cart_number_color": "#ffffff",
         "cart_number_bg_color": "#000000",
