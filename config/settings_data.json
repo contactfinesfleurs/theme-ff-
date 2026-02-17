@@ -39,9 +39,11 @@
     "show_home_logo": true,
     "global_menu_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
     "global_menu_logo_size": 150,
+    "show_global_menu_logo": false,
     "shop_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
     "collection_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
     "collection_screen_logo_size": 165,
+    "show_collection_logo": false,
     "product_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
     "password_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
     "password_screen_logo_size": 141,
@@ -107,7 +109,7 @@
       "top-header": {
         "type": "top-header",
         "settings": {
-          "show_header": false,
+          "show_header": true,
           "logo_position": "right",
           "logo_width": 80,
           "header_font": "sans_serif_n4",
