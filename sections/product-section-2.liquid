@@ -406,10 +406,19 @@
 <div id="sticky-product-btn" class="sticky-product-btn" style="
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  {% if section.settings.sticky_btn_position == 'left' %}
+    left: 20px;
+  {% elsif section.settings.sticky_btn_position == 'center' %}
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+  {% else %}
+    right: 20px;
+  {% endif %}
   z-index: 999;
   opacity: 0;
-  transform: translateY(20px);
+  {% unless section.settings.sticky_btn_position == 'center' %}
+    transform: translateY(20px);
+  {% endunless %}
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
 ">
@@ -462,12 +471,13 @@
 document.addEventListener('DOMContentLoaded', function() {
   var stickyBtn = document.getElementById('sticky-product-btn');
   var addToCartSection = document.getElementById('add-to-cart-section');
+  var isCenter = '{{ section.settings.sticky_btn_position }}' === 'center';
   if (!stickyBtn) return;
 
   function toggleStickyBtn() {
     if (!addToCartSection) {
       stickyBtn.style.opacity = '1';
-      stickyBtn.style.transform = 'translateY(0)';
+      stickyBtn.style.transform = isCenter ? 'translateX(-50%) translateY(0)' : 'translateY(0)';
       stickyBtn.style.pointerEvents = 'auto';
       return;
     }
@@ -475,11 +485,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var isOutOfView = rect.bottom < 0 || rect.top > window.innerHeight;
     if (isOutOfView) {
       stickyBtn.style.opacity = '1';
-      stickyBtn.style.transform = 'translateY(0)';
+      stickyBtn.style.transform = isCenter ? 'translateX(-50%) translateY(0)' : 'translateY(0)';
       stickyBtn.style.pointerEvents = 'auto';
     } else {
       stickyBtn.style.opacity = '0';
-      stickyBtn.style.transform = 'translateY(20px)';
+      stickyBtn.style.transform = isCenter ? 'translateX(-50%) translateY(20px)' : 'translateY(20px)';
       stickyBtn.style.pointerEvents = 'none';
     }
   }
@@ -915,6 +925,26 @@ document.addEventListener('DOMContentLoaded', function() {
         "id": "sticky_btn_notify_text_color",
         "label": "Notify Button Text Color",
         "default": "#FFFFFF"
+      },
+      {
+        "type": "radio",
+        "id": "sticky_btn_position",
+        "label": "Button Position",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "right"
       },
       {
         "type": "range",
