@@ -65,7 +65,7 @@
         "sort_option_4"
       ],
       "settings": {
-        "collection_menu": "menu",
+        "collection_menu": "",
         "index_date_color": "#000000",
         "index_time_color": "#000000",
         "show_date_time": true,
