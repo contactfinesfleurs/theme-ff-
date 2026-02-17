@@ -1,4 +1,26 @@
-{% if template.name != 'password' and section.settings.show_header %}
+{%- assign show_top_header = false -%}
+
+{%- if section.settings.show_header and template.name != 'password' -%}
+  {%- if template.name == 'index' and section.settings.show_on_home -%}
+    {%- assign show_top_header = true -%}
+  {%- elsif template.name == 'collection' and section.settings.show_on_collection -%}
+    {%- assign show_top_header = true -%}
+  {%- elsif template.name == 'product' and section.settings.show_on_product -%}
+    {%- assign show_top_header = true -%}
+  {%- elsif template.name == 'page' and section.settings.show_on_pages -%}
+    {%- assign show_top_header = true -%}
+  {%- elsif template.name == 'blog' and section.settings.show_on_blog -%}
+    {%- assign show_top_header = true -%}
+  {%- elsif template.name == 'article' and section.settings.show_on_blog -%}
+    {%- assign show_top_header = true -%}
+  {%- elsif template.name == 'cart' and section.settings.show_on_pages -%}
+    {%- assign show_top_header = true -%}
+  {%- elsif template.name == 'search' and section.settings.show_on_pages -%}
+    {%- assign show_top_header = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+{% if show_top_header %}
 <header class="top-header" style="
   --header-bg: {{ section.settings.header_bg_color }};
   --header-link-color: {{ section.settings.header_link_color }};
@@ -220,7 +242,41 @@
     {
       "type": "checkbox",
       "id": "show_header",
-      "label": "Show Header",
+      "label": "Enable Top Header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Page Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_home",
+      "label": "Show on Home Page",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_collection",
+      "label": "Show on Collection Pages",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_product",
+      "label": "Show on Product Pages",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_pages",
+      "label": "Show on Pages (& Cart, Search)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_blog",
+      "label": "Show on Blog & Articles",
       "default": true
     },
     {
