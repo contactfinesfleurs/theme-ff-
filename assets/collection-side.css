@@ -11,6 +11,12 @@
 
 .nav-item {
     margin: 4px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--nav-divider-color, rgba(255, 255, 255, 0.15));
+}
+
+.nav-item:last-child {
+    border-bottom: none;
 }
 
 @keyframes highlight {

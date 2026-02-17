@@ -93,7 +93,7 @@
   {% endif %}
   {% if section.settings.sidebar_skin %}background-repeat: no-repeat; background-position: center; background-size: cover; object-fit: cover; background-image: url('{{ section.settings.sidebar_skin | image_url }}'); {% endif %} background-color: {{ section.settings.sidebar_nav_color | color_modify: 'alpha', section.settings.sidebar_nav_opacity }};"
      <!-- LOGO SECTION FOR SIDE BAR -->
-    <div class="logo-container collection collection-sidenav-logo" style="{% if section.settings.make_side_navbar_fixed %} position: fixed; {% else %} position: relative; {% endif %} z-index: 2; max-width: 200px;">
+    <div class="logo-container collection collection-sidenav-logo" style="{% if section.settings.make_side_navbar_fixed %} position: sticky; top: 0; align-self: flex-start; {% else %} position: relative; {% endif %} z-index: 1; max-width: 200px;">
     {% if settings.show_collection_logo %}
     <a href="{{ routes.root_url }}" class="logo-link w-inline-block">
       {% if settings.collection_screen_logo %}
@@ -136,7 +136,7 @@
           cart_count_color: section.settings.cart_number_color
       %}
     </div>
-        <div class="side-nav" style="width: 123px; {% if section.settings.text-alignment == 'start' %} margin-left: 18px; {% endif %}">
+        <div class="side-nav" style="width: 123px; --nav-divider-color: {{ section.settings.nav_divider_color }}; {% if section.settings.text-alignment == 'start' %} margin-left: 18px; {% endif %}"
             <ul class="nav-list">
                 {% for link in section.settings.collection_menu.links %}
                     {% if link.links.size > 0 %}
@@ -424,7 +424,48 @@
     {%- if section.settings.show-title -%}
     <div style="--mobile-product-collection-title-color: {{ section.settings.mobile_product_title_color }}; color: {{ section.settings.product_title_color }}; font-size:{{ section.settings.product_title_size }}px" class="prouduct-title product-title-collection-mobile">{{ item.title }}</div>
     {%- endif -%}
-  {%- if section.settings.show_price -%}    
+    {% comment %} Product badges: colors count & season {% endcomment %}
+    <div class="product-badges" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px;">
+      {%- if section.settings.show_color_count -%}
+        {%- assign color_count = 0 -%}
+        {%- for tag in item.tags -%}
+          {%- if tag contains 'colors:' -%}
+            {%- assign color_count = tag | split: ':' | last | plus: 0 -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if color_count > 1 -%}
+          <span class="product-badge product-badge-colors" style="
+            font-size: {{ section.settings.badge_font_size }}px;
+            color: {{ section.settings.badge_text_color }};
+            background-color: {{ section.settings.badge_bg_color }};
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+            line-height: 1.3;
+          ">{{ color_count }} couleurs</span>
+        {%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.show_season_badge -%}
+        {%- assign product_season = '' -%}
+        {%- for tag in item.tags -%}
+          {%- if tag contains 'season:' -%}
+            {%- assign product_season = tag | split: ':' | last -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if product_season != '' -%}
+          <span class="product-badge product-badge-season" style="
+            font-size: {{ section.settings.badge_font_size }}px;
+            color: {{ section.settings.season_badge_text_color }};
+            background-color: {{ section.settings.season_badge_bg_color }};
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+            line-height: 1.3;
+          ">{{ product_season }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  {%- if section.settings.show_price -%}
     <div style="--mobile-product-collection-price-color: {{ section.settings.mobile_product_price_color }}; color: {{ section.settings.product_price_color }}; font-size:{{ section.settings.product_price_size }}px" class="prouduct-title collection-product-price product-price-collection-mobile">
     {% if section.settings.currency_format == "with_currency" %}  
       {{ item.price | money_with_currency }}
@@ -1630,6 +1671,12 @@
         "label": "Sub Menu Link Arrow Color",
         "default": "#FFF"
       },
+      {
+        "type": "color",
+        "id": "nav_divider_color",
+        "label": "Menu Divider Color",
+        "default": "#ffffff26"
+      },
 
       {
         "type": "select",
@@ -1758,8 +1805,64 @@
     },
     {
       "type": "header",
+      "content": "Product Badges (Colors & Season)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Use product tags to display color count and season. Add tags like 'colors:3' and 'season:FW26' to your products."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_count",
+      "label": "Show Color Count Badge",
+      "default": true,
+      "info": "Tag format: colors:3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_season_badge",
+      "label": "Show Season Badge",
+      "default": true,
+      "info": "Tag format: season:FW26 or season:Printemps Été"
+    },
+    {
+      "type": "range",
+      "id": "badge_font_size",
+      "label": "Badge Font Size",
+      "min": 8,
+      "max": 16,
+      "unit": "px",
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Color Badge Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Color Badge Background",
+      "default": "#1B1B1B"
+    },
+    {
+      "type": "color",
+      "id": "season_badge_text_color",
+      "label": "Season Badge Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "season_badge_bg_color",
+      "label": "Season Badge Background",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
       "content": "Labels"
-    }, 
+    },
     {
       "type": "range",
       "id": "on_sale_text_size",
