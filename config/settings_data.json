@@ -112,7 +112,7 @@
       "top-header": {
         "type": "top-header",
         "settings": {
-          "show_header": true,
+          "show_header": false,
           "show_logo": true,
           "logo_above_nav": true,
           "logo_position": "left",
