@@ -35,6 +35,7 @@
     "global_search_bar": false,
     "hide_global_login_link": true,
     "hide_global_menu_on_collection_desktop": true,
+    "hide_global_menu_button": true,
     "enter_screen_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
     "show_home_logo": true,
     "global_menu_logo": "shopify://shop_images/fines_fleurs_logo_c674752f-a21a-4108-8229-b25a42082011.png",
