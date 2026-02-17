@@ -152,7 +152,15 @@
         "gallery_column_amount": 4,
         "gallery_desktop_image_size": 60,
         "gallery_mobile_image_size": 40,
-        "gallery_margin": 5
+        "gallery_margin": 5,
+        "show_sticky_button": true,
+        "sticky_btn_text_available": "Commander",
+        "sticky_btn_text_unavailable": "Me prévenir",
+        "sticky_btn_bg_color": "#000000",
+        "sticky_btn_text_color": "#ffffff",
+        "sticky_btn_notify_bg_color": "#7184c1",
+        "sticky_btn_notify_text_color": "#ffffff",
+        "sticky_btn_radius": 4
       }
     },
     "related_products": {
