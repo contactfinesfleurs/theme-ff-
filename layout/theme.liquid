@@ -349,12 +349,47 @@
     });
   })();
   </script>
-  <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer type="text/javascript"></script>
-  <script src="{{ 'pushy.js' | asset_url }}" defer type="text/javascript"></script>
-  <script src="{{ 'g-animate.js' | asset_url }}" defer type="text/javascript"></script>
-  <script src="{{ 'g-scroll.js' | asset_url }}" defer type="text/javascript"></script>
-  <script src="{{ 'ts.js' | asset_url }}" defer></script> 
-  <script src="{{ 'music.js' | asset_url }}" defer></script>
+  {% if request.page_type == 'index' %}
+    <script>
+      (function() {
+        var nonCriticalScripts = [
+          "{{ 'jquery-3.7.1.min.js' | asset_url }}",
+          "{{ 'g-animate.js' | asset_url }}",
+          "{{ 'g-scroll.js' | asset_url }}",
+          "{{ 'ts.js' | asset_url }}",
+          "{{ 'music.js' | asset_url }}"
+        ];
+
+        function loadScriptSequentially(index) {
+          if (index >= nonCriticalScripts.length) return;
+          var script = document.createElement('script');
+          script.src = nonCriticalScripts[index];
+          script.defer = true;
+          script.onload = function() { loadScriptSequentially(index + 1); };
+          script.onerror = function() { loadScriptSequentially(index + 1); };
+          document.body.appendChild(script);
+        }
+
+        function loadNonCriticalBundle() {
+          loadScriptSequentially(0);
+        }
+
+        window.addEventListener('load', function() {
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadNonCriticalBundle, { timeout: 2500 });
+          } else {
+            setTimeout(loadNonCriticalBundle, 1000);
+          }
+        });
+      })();
+    </script>
+  {% else %}
+    <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer type="text/javascript"></script>
+    <script src="{{ 'g-animate.js' | asset_url }}" defer type="text/javascript"></script>
+    <script src="{{ 'g-scroll.js' | asset_url }}" defer type="text/javascript"></script>
+    <script src="{{ 'ts.js' | asset_url }}" defer></script>
+    <script src="{{ 'music.js' | asset_url }}" defer></script>
+  {% endif %}
 </body>
 
 </html>

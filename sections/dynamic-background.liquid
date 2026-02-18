@@ -1,7 +1,7 @@
-{{ 'slider.css' | asset_url | stylesheet_tag }}
-
 {%- if section.settings.password_bg_style == 'slideshow' -%}
-  {{ 'slider.js' | asset_url | script_tag }}
+  <link rel="preload" href="{{ 'slider.css' | asset_url }}" as="style">
+  <link rel="stylesheet" href="{{ 'slider.css' | asset_url }}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="{{ 'slider.css' | asset_url }}"></noscript>
 {%- endif -%}
 
 <style>
@@ -175,13 +175,13 @@
       <div class="blaze-track-container">
         <div class="blaze-track">
           {% if pjCnfg.bg_slide_1 %}
-            <div class="slide slide-1" style="background-position: {{ pjCnfg.bg_slide_1.presentation.focal_point.x }}% {{ pjCnfg.bg_slide_1.presentation.focal_point.y }}%; background-image: url({{ pjCnfg.bg_slide_1 | image_url}})"></div>
+            <div class="slide slide-1" style="background-position: {{ pjCnfg.bg_slide_1.presentation.focal_point.x }}% {{ pjCnfg.bg_slide_1.presentation.focal_point.y }}%; background-image: url({{ pjCnfg.bg_slide_1 | image_url: width: 1920}})"></div>
           {% endif %}
           {% if pjCnfg.bg_slide_2 %}
-            <div class="slide slide-2" style="background-position: {{ pjCnfg.bg_slide_2.presentation.focal_point.x  }}% {{ pjCnfg.bg_slide_2.presentation.focal_point.y }}%; background-image: url({{ pjCnfg.bg_slide_2 | image_url}})"></div>
+            <div class="slide slide-2" style="background-position: {{ pjCnfg.bg_slide_2.presentation.focal_point.x  }}% {{ pjCnfg.bg_slide_2.presentation.focal_point.y }}%; background-image: url({{ pjCnfg.bg_slide_2 | image_url: width: 1920}})"></div>
           {% endif %}
           {% if pjCnfg.bg_slide_3 %}
-            <div class="slide slide-3" style="background-position: {{ pjCnfg.bg_slide_3.presentation.focal_point.x  }}% {{ pjCnfg.bg_slide_3.presentation.focal_point.y }}%; background-image: url({{ pjCnfg.bg_slide_3 | image_url}})"></div>
+            <div class="slide slide-3" style="background-position: {{ pjCnfg.bg_slide_3.presentation.focal_point.x  }}% {{ pjCnfg.bg_slide_3.presentation.focal_point.y }}%; background-image: url({{ pjCnfg.bg_slide_3 | image_url: width: 1920}})"></div>
           {% endif %}
         </div>
       </div>
@@ -207,7 +207,7 @@
                     "
     ></div>
 
-    {{ 'slider.js' | asset_url | script_tag }}
+    {{ 'slider.js' | asset_url | script_tag: defer: true }}
 
   <script>
     const el = document.querySelector('.blaze-slider')
@@ -229,7 +229,7 @@
     <div
             class="bg-image enter-screen mobile"
             style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color_mobile | color_modify: 'alpha', section.settings.overlay_top_opacity_mobile }}, {{ section.settings.overlay_bottom_color_mobile | color_modify: 'alpha', section.settings.overlay_bottom_opacity_mobile }}), 
-                   url('{% if section.settings.mobile_bg_image %}{{ section.settings.mobile_bg_image.src | img_url: 'master' }}{% else %}{{ 'dynamic-background.jpg' | asset_img_url: 'master' }}{% endif %}');
+                   url('{% if section.settings.mobile_bg_image %}{{ section.settings.mobile_bg_image | image_url: width: 960 }}{% else %}{{ 'dynamic-background.jpg' | asset_img_url: '960x' }}{% endif %}');
                    background-position: {% if section.settings.mobile_bg_image %}{{ section.settings.mobile_bg_image.presentation.focal_point.x }}% {{ section.settings.mobile_bg_image.presentation.focal_point.y }}%{% else %}center center{% endif %};"
     ></div>
   {% endif %}
@@ -247,6 +247,7 @@
       muted
       loop
       autoplay
+      preload="metadata"
       data-setup='{}'
       style="
         width: 100%;
@@ -288,7 +289,7 @@
                 {% if section.settings.show_background_image_mobile %}
                   <div
                           class="bg-image enter-screen mobile"
-                          style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color_mobile | color_modify: 'alpha', section.settings.overlay_top_opacity_mobile }}, {{ section.settings.overlay_bottom_color_mobile | color_modify: 'alpha', section.settings.overlay_bottom_opacity_mobile }}), url('{{ section.settings.mobile_bg_image.src | img_url: 'master'}}');
+                          style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color_mobile | color_modify: 'alpha', section.settings.overlay_top_opacity_mobile }}, {{ section.settings.overlay_bottom_color_mobile | color_modify: 'alpha', section.settings.overlay_bottom_opacity_mobile }}), url('{{ section.settings.mobile_bg_image | image_url: width: 960}}');
                          background-position: {{ section.settings.mobile_bg_image.presentation.focal_point.x }}% {{ section.settings.mobile_bg_image.presentation.focal_point.y }}%;"
                   ></div>
                   {% endif %}
@@ -299,14 +300,14 @@
   <div
     class="bg-image enter-screen desktop"
     style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color | color_modify: 'alpha', section.settings.overlay_top_opacity }}, {{ section.settings.overlay_bottom_color | color_modify: 'alpha', section.settings.overlay_bottom_opacity }}), 
-           url('{% if section.settings.desktop_bg_image %}{{ section.settings.desktop_bg_image.src | img_url: 'master' }}{% else %}{{ 'dynamic-background.jpg' | asset_img_url: 'master' }}{% endif %}');
+           url('{% if section.settings.desktop_bg_image %}{{ section.settings.desktop_bg_image | image_url: width: 1920 }}{% else %}{{ 'dynamic-background.jpg' | asset_img_url: '1920x' }}{% endif %}');
            background-position: {% if section.settings.desktop_bg_image %}{{ section.settings.desktop_bg_image.presentation.focal_point.x }}% {{ section.settings.desktop_bg_image.presentation.focal_point.y }}%{% else %}center center{% endif %};"
   ></div>
 
   <div
     class="bg-image enter-screen mobile"
     style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color_mobile | color_modify: 'alpha', section.settings.overlay_top_opacity_mobile }}, {{ section.settings.overlay_bottom_color_mobile | color_modify: 'alpha', section.settings.overlay_bottom_opacity_mobile }}), 
-           url('{% if section.settings.mobile_bg_image %}{{ section.settings.mobile_bg_image.src | img_url: 'master' }}{% else %}{{ 'dynamic-background.jpg' | asset_img_url: 'master' }}{% endif %}');
+           url('{% if section.settings.mobile_bg_image %}{{ section.settings.mobile_bg_image | image_url: width: 960 }}{% else %}{{ 'dynamic-background.jpg' | asset_img_url: '960x' }}{% endif %}');
            background-position: {% if section.settings.mobile_bg_image %}{{ section.settings.mobile_bg_image.presentation.focal_point.x }}% {{ section.settings.mobile_bg_image.presentation.focal_point.y }}%{% else %}center center{% endif %};"
   ></div>
 
@@ -321,7 +322,7 @@
     <div
             class="bg-image enter-screen mobile"
             style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color_mobile | color_modify: 'alpha', section.settings.overlay_top_opacity_mobile }}, {{ section.settings.overlay_bottom_color_mobile | color_modify: 'alpha', section.settings.overlay_bottom_opacity_mobile }}), 
-                   url('{% if section.settings.mobile_bg_image %}{{ section.settings.mobile_bg_image.src | img_url: 'master' }}{% else %}{{ 'dynamic-background.jpg' | asset_img_url: 'master' }}{% endif %}');
+                   url('{% if section.settings.mobile_bg_image %}{{ section.settings.mobile_bg_image | image_url: width: 960 }}{% else %}{{ 'dynamic-background.jpg' | asset_img_url: '960x' }}{% endif %}');
                    background-position: {% if section.settings.mobile_bg_image %}{{ section.settings.mobile_bg_image.presentation.focal_point.x }}% {{ section.settings.mobile_bg_image.presentation.focal_point.y }}%{% else %}center center{% endif %};"
     ></div>
     {%  else %}

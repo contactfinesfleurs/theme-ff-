@@ -64,14 +64,14 @@
 {%- if section.settings.show_background_image -%}
   <div
     class="bg-image enter-screen desktop"
-    style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color | color_modify: 'alpha', section.settings.overlay_top_opacity }}, {{ section.settings.overlay_bottom_color | color_modify: 'alpha', section.settings.overlay_bottom_opacity }}), url('{{ section.settings.desktop_bg_image.src | img_url: 'master' }}');"
+    style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color | color_modify: 'alpha', section.settings.overlay_top_opacity }}, {{ section.settings.overlay_bottom_color | color_modify: 'alpha', section.settings.overlay_bottom_opacity }}), url('{{ section.settings.desktop_bg_image | image_url: width: 1920 }}');"
   ></div>
 {%- endif -%}
 
 {%- if section.settings.show_background_image_mobile -%}
   <div
     class="bg-image enter-screen mobile"
-    style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color_mobile | color_modify: 'alpha', section.settings.overlay_top_opacity_mobile }}, {{ section.settings.overlay_bottom_color_mobile | color_modify: 'alpha', section.settings.overlay_bottom_opacity_mobile }}), url('{{ section.settings.mobile_bg_image.src | img_url: 'master' }}');"
+    style="background-image: linear-gradient(180deg, {{ section.settings.overlay_top_color_mobile | color_modify: 'alpha', section.settings.overlay_top_opacity_mobile }}, {{ section.settings.overlay_bottom_color_mobile | color_modify: 'alpha', section.settings.overlay_bottom_opacity_mobile }}), url('{{ section.settings.mobile_bg_image | image_url: width: 960 }}');"
   ></div>
 {%- endif -%}
 

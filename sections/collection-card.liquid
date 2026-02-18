@@ -43,7 +43,7 @@
           --category-bg-color: {{ block.settings.collection_bg_color }};
           --category-bg-hover-color: {{ block.settings.collection_bg_hover_color }};
           {% if block.settings.mobile_bg_image != null %}
-          --mobile-collection-img-url: url('{{ block.settings.mobile_bg_image | img_url: 'master' }}');
+          --mobile-collection-img-url: url('{{ block.settings.mobile_bg_image | image_url: width: 960 }}');
           {% else %}
             --mobile-collection-img-url: none; 
           {% endif %}

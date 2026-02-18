@@ -33,7 +33,13 @@
 
 {{ 'normalize.css' | asset_url | stylesheet_tag }}
 {{ 'components.css' | asset_url | stylesheet_tag }}
-{{ 'plain-jane.css' | asset_url | stylesheet_tag }}
+{% if request.page_type == 'index' %}
+  <link rel="preload" href="{{ 'plain-jane.css' | asset_url }}" as="style">
+  <link rel="stylesheet" href="{{ 'plain-jane.css' | asset_url }}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="{{ 'plain-jane.css' | asset_url }}"></noscript>
+{% else %}
+  {{ 'plain-jane.css' | asset_url | stylesheet_tag }}
+{% endif %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
 
