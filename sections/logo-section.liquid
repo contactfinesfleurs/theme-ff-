@@ -1,9 +1,23 @@
 <div class="logo-container">
       <a href="{{ routes.root_url }}" class="logo-link w-inline-block">
+              {% assign logo_size = settings.product_screen_logo_size | default: 150 %}
+              {% assign logo_2x = logo_size | times: 2 | at_least: 240 | at_most: 600 %}
               {% if settings.shop_screen_logo %}
-              <img src="{{ settings.shop_screen_logo | image_url }}" style="width: {{ settings.product_screen_logo_size }}px" alt="" class="logo">
+              {% assign logo_height = logo_size | divided_by: settings.shop_screen_logo.aspect_ratio | round %}
+              <img
+                src="{{ settings.shop_screen_logo | image_url: width: logo_2x }}"
+                srcset="{{ settings.shop_screen_logo | image_url: width: logo_size }} {{ logo_size }}w, {{ settings.shop_screen_logo | image_url: width: logo_2x }} {{ logo_2x }}w"
+                sizes="{{ logo_size }}px"
+                width="{{ logo_size }}"
+                height="{{ logo_height }}"
+                style="width: {{ logo_size }}px"
+                loading="eager"
+                decoding="sync"
+                fetchpriority="high"
+                alt="{{ shop.name | escape }}"
+                class="logo">
               {% else %}
-              <img src="{{ 'Supreme-dummy.png' | asset_url }}" style="width: {{ settings.product_screen_logo_size }}px" alt="" class="logo">
+              <img src="{{ 'Supreme-dummy.png' | asset_url }}" style="width: {{ logo_size }}px" loading="eager" decoding="sync" fetchpriority="high" alt="{{ shop.name | escape }}" class="logo">
               {% endif %}
             </a> 
       <!--   PRODUCT TIMEZONE SECTION     -->

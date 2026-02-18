@@ -1,18 +1,26 @@
 <div class="category-container" style="background-color:{{ section.settings.bg_color }};">
   <div class="logo-container categories">
     <a href="{{ routes.root_url }}" aria-current="page" class="logo-link w-inline-block w--current">
+      {% assign category_logo_size = settings.shop_screen_logo_size | default: 150 %}
+      {% assign category_logo_2x = category_logo_size | times: 2 | at_least: 240 | at_most: 600 %}
       {% if settings.shop_screen_logo %}
+        {% assign category_logo_height = category_logo_size | divided_by: settings.shop_screen_logo.aspect_ratio | round %}
         <img
-          src="{{ settings.shop_screen_logo | image_url }}"
-          height="auto"
-          style="width: {{ settings.shop_screen_logo_size }};"
-          alt=""
+          src="{{ settings.shop_screen_logo | image_url: width: category_logo_2x }}"
+          srcset="{{ settings.shop_screen_logo | image_url: width: category_logo_size }} {{ category_logo_size }}w, {{ settings.shop_screen_logo | image_url: width: category_logo_2x }} {{ category_logo_2x }}w"
+          sizes="{{ category_logo_size }}px"
+          width="{{ category_logo_size }}"
+          height="{{ category_logo_height }}"
+          style="width: {{ category_logo_size }}px;"
+          alt="{{ shop.name | escape }}"
           class="logo"
-          loading="lazy"
+          loading="eager"
+          decoding="sync"
+          fetchpriority="high"
         >
 
       {% else %}
-        <img src="{{ 'Supreme-dummy.png' | asset_url }}" loading="lazy" alt="" class="logo">
+        <img src="{{ 'Supreme-dummy.png' | asset_url }}" style="width: {{ category_logo_size }}px;" loading="eager" decoding="sync" fetchpriority="high" alt="{{ shop.name | escape }}" class="logo">
       {% endif %}
     </a>
   </div>

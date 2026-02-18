@@ -55,16 +55,25 @@
       {% endif %}
       {% if settings.show_collection_logo %}
     <a href="{{ routes.root_url }}" class="logo-link w-inline-block">
+      {% assign collection_logo_size_mobile = settings.collection_screen_logo_size | default: 150 %}
+      {% assign collection_logo_mobile_2x = collection_logo_size_mobile | times: 2 | at_least: 240 | at_most: 600 %}
       {% if settings.collection_screen_logo %}
+        {% assign collection_logo_mobile_height = collection_logo_size_mobile | divided_by: settings.collection_screen_logo.aspect_ratio | round %}
         <img
-          src="{{ settings.collection_screen_logo | image_url }}"
-          style="width: {{ settings.collection_screen_logo_size }}px"
-          loading="lazy"
-          alt=""
+          src="{{ settings.collection_screen_logo | image_url: width: collection_logo_mobile_2x }}"
+          srcset="{{ settings.collection_screen_logo | image_url: width: collection_logo_size_mobile }} {{ collection_logo_size_mobile }}w, {{ settings.collection_screen_logo | image_url: width: collection_logo_mobile_2x }} {{ collection_logo_mobile_2x }}w"
+          sizes="{{ collection_logo_size_mobile }}px"
+          width="{{ collection_logo_size_mobile }}"
+          height="{{ collection_logo_mobile_height }}"
+          style="width: {{ collection_logo_size_mobile }}px"
+          loading="eager"
+          decoding="sync"
+          fetchpriority="high"
+          alt="{{ shop.name | escape }}"
           class="logo"
         >
       {% else %}
-        <img height="auto" style="width: {{ settings.collection_screen_logo_size }}px;" src="{{ 'Supreme-dummy.png' | asset_url }}" loading="lazy" alt="" class="logo">
+        <img style="width: {{ collection_logo_size_mobile }}px;" src="{{ 'Supreme-dummy.png' | asset_url }}" loading="eager" decoding="sync" fetchpriority="high" alt="{{ shop.name | escape }}" class="logo">
       {% endif %}
     </a>
     {% endif %}
@@ -96,16 +105,25 @@
     <div class="logo-container collection collection-sidenav-logo" style="{% if section.settings.make_side_navbar_fixed %} position: sticky; top: 0; align-self: flex-start; {% else %} position: relative; {% endif %} z-index: 1; max-width: 200px;">
     {% if settings.show_collection_logo %}
     <a href="{{ routes.root_url }}" class="logo-link w-inline-block">
+      {% assign collection_logo_size_side = settings.collection_screen_logo_size | default: 150 %}
+      {% assign collection_logo_side_2x = collection_logo_size_side | times: 2 | at_least: 240 | at_most: 600 %}
       {% if settings.collection_screen_logo %}
+        {% assign collection_logo_side_height = collection_logo_size_side | divided_by: settings.collection_screen_logo.aspect_ratio | round %}
         <img
-          src="{{ settings.collection_screen_logo | image_url }}"
-          style="width: {{ settings.collection_screen_logo_size }}px"
+          src="{{ settings.collection_screen_logo | image_url: width: collection_logo_side_2x }}"
+          srcset="{{ settings.collection_screen_logo | image_url: width: collection_logo_size_side }} {{ collection_logo_size_side }}w, {{ settings.collection_screen_logo | image_url: width: collection_logo_side_2x }} {{ collection_logo_side_2x }}w"
+          sizes="{{ collection_logo_size_side }}px"
+          width="{{ collection_logo_size_side }}"
+          height="{{ collection_logo_side_height }}"
+          style="width: {{ collection_logo_size_side }}px"
           loading="lazy"
-          alt=""
+          decoding="async"
+          fetchpriority="auto"
+          alt="{{ shop.name | escape }}"
           class="logo"
         >
       {% else %}
-        <img height="auto" style="width: {{ settings.collection_screen_logo_size }}px;" src="{{ 'Supreme-dummy.png' | asset_url }}" loading="lazy" alt="" class="logo">
+        <img style="width: {{ collection_logo_size_side }}px;" src="{{ 'Supreme-dummy.png' | asset_url }}" loading="lazy" decoding="async" fetchpriority="auto" alt="{{ shop.name | escape }}" class="logo">
       {% endif %}
     </a>
     {% endif %}
@@ -776,18 +794,26 @@
 <div class="category-container" style="background-color:{{ section.settings.bg_color }};">
   <div class="logo-container categories">
     <a href="{{ routes.root_url }}" aria-current="page" class="logo-link w-inline-block w--current">
+      {% assign collection_logo_size_categories = settings.collection_screen_logo_size | default: 150 %}
+      {% assign collection_logo_categories_2x = collection_logo_size_categories | times: 2 | at_least: 240 | at_most: 600 %}
       {% if settings.collection_screen_logo %}
+        {% assign collection_logo_categories_height = collection_logo_size_categories | divided_by: settings.collection_screen_logo.aspect_ratio | round %}
         <img
-          src="{{ settings.collection_screen_logo | image_url }}"
-          height="auto"
-          style="width: {{ settings.collection_screen_logo_size }};"
-          alt=""
+          src="{{ settings.collection_screen_logo | image_url: width: collection_logo_categories_2x }}"
+          srcset="{{ settings.collection_screen_logo | image_url: width: collection_logo_size_categories }} {{ collection_logo_size_categories }}w, {{ settings.collection_screen_logo | image_url: width: collection_logo_categories_2x }} {{ collection_logo_categories_2x }}w"
+          sizes="{{ collection_logo_size_categories }}px"
+          width="{{ collection_logo_size_categories }}"
+          height="{{ collection_logo_categories_height }}"
+          style="width: {{ collection_logo_size_categories }}px;"
+          alt="{{ shop.name | escape }}"
           class="logo"
           loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
         >
 
       {% else %}
-        <img src="{{ 'Supreme-dummy.png' | asset_url }}" loading="lazy" alt="" class="logo">
+        <img src="{{ 'Supreme-dummy.png' | asset_url }}" loading="lazy" decoding="async" fetchpriority="auto" alt="{{ shop.name | escape }}" class="logo">
       {% endif %}
     </a>
   </div>

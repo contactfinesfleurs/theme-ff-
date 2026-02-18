@@ -1,10 +1,24 @@
 <div class="logo-container">
   {% if settings.show_product_logo %}
       <a href="{{ routes.root_url }}" class="logo-link w-inline-block">
+              {% assign product_logo_size = settings.product_screen_logo_size | default: 150 %}
+              {% assign product_logo_2x = product_logo_size | times: 2 | at_least: 240 | at_most: 600 %}
               {% if settings.product_screen_logo %}
-              <img src="{{ settings.product_screen_logo | image_url }}" style="width: {{ settings.product_screen_logo_size }}px" alt="" class="logo">
+              {% assign product_logo_height = product_logo_size | divided_by: settings.product_screen_logo.aspect_ratio | round %}
+              <img
+                src="{{ settings.product_screen_logo | image_url: width: product_logo_2x }}"
+                srcset="{{ settings.product_screen_logo | image_url: width: product_logo_size }} {{ product_logo_size }}w, {{ settings.product_screen_logo | image_url: width: product_logo_2x }} {{ product_logo_2x }}w"
+                sizes="{{ product_logo_size }}px"
+                width="{{ product_logo_size }}"
+                height="{{ product_logo_height }}"
+                style="width: {{ product_logo_size }}px"
+                loading="eager"
+                decoding="sync"
+                fetchpriority="high"
+                alt="{{ shop.name | escape }}"
+                class="logo">
               {% else %}
-              <img src="{{ 'Supreme-dummy.png' | asset_url }}" style="width: {{ settings.product_screen_logo_size }}px" alt="" class="logo">
+              <img src="{{ 'Supreme-dummy.png' | asset_url }}" style="width: {{ product_logo_size }}px" loading="eager" decoding="sync" fetchpriority="high" alt="{{ shop.name | escape }}" class="logo">
               {% endif %}
             </a> 
   {% endif %}

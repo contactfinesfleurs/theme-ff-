@@ -23,15 +23,24 @@ top: 0;
   style=""
   >
     {% if settings.enter_screen_logo %}
-      <img src="{{ settings.enter_screen_logo | image_url }}"
-           height="auto"
-           style="width: {{ settings.enter_screen_logo_size }}px;"
-           alt="Logo"
+      {% assign side_enter_logo_size = settings.enter_screen_logo_size | default: 120 %}
+      {% assign side_enter_logo_2x = side_enter_logo_size | times: 2 | at_least: 240 | at_most: 480 %}
+      {% assign side_enter_logo_height = side_enter_logo_size | divided_by: settings.enter_screen_logo.aspect_ratio | round %}
+      <img src="{{ settings.enter_screen_logo | image_url: width: side_enter_logo_2x }}"
+           srcset="{{ settings.enter_screen_logo | image_url: width: side_enter_logo_size }} {{ side_enter_logo_size }}w, {{ settings.enter_screen_logo | image_url: width: side_enter_logo_2x }} {{ side_enter_logo_2x }}w"
+           sizes="{{ side_enter_logo_size }}px"
+           width="{{ side_enter_logo_size }}"
+           height="{{ side_enter_logo_height }}"
+           style="width: {{ side_enter_logo_size }}px;"
+           loading="eager"
+           decoding="sync"
+           fetchpriority="high"
+           alt="{{ shop.name | escape }}"
            class="logo"
       >
     {% else %}
 
-      <img src="{{ 'Supreme-dummy.png' | asset_url }}" alt="" class="logo">
+      <img src="{{ 'Supreme-dummy.png' | asset_url }}" loading="eager" decoding="sync" fetchpriority="high" alt="{{ shop.name | escape }}" class="logo">
 
     {% endif %}
   </a>

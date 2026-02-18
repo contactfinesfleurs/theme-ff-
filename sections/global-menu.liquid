@@ -1,10 +1,6 @@
-{% if request.page_type == 'index' %}
-  <link rel="preload" href="{{ 'pushy.css' | asset_url }}" as="style">
-  <link rel="stylesheet" href="{{ 'pushy.css' | asset_url }}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="{{ 'pushy.css' | asset_url }}"></noscript>
-{% else %}
-  {{ 'pushy.css' | asset_url | stylesheet_tag }}
-{% endif %}
+<link rel="preload" href="{{ 'pushy.css' | asset_url }}" as="style">
+<link rel="stylesheet" href="{{ 'pushy.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="{{ 'pushy.css' | asset_url }}"></noscript>
 
   {% if template.name != 'password' %}
 
@@ -23,19 +19,28 @@
             margin-right: auto;
             margin-bottom: 4px;
             ">
+        {% assign global_menu_logo_size = settings.global_menu_logo_size | default: 120 %}
+        {% assign global_menu_logo_2x = global_menu_logo_size | times: 2 | at_least: 240 | at_most: 600 %}
         {% if settings.global_menu_logo %}
+          {% assign global_menu_logo_height = global_menu_logo_size | divided_by: settings.global_menu_logo.aspect_ratio | round %}
           <img
-            src="{{ settings.global_menu_logo | image_url }}"
-            style="width: {{ settings.global_menu_logo_size }}px"
+            src="{{ settings.global_menu_logo | image_url: width: global_menu_logo_2x }}"
+            srcset="{{ settings.global_menu_logo | image_url: width: global_menu_logo_size }} {{ global_menu_logo_size }}w, {{ settings.global_menu_logo | image_url: width: global_menu_logo_2x }} {{ global_menu_logo_2x }}w"
+            sizes="{{ global_menu_logo_size }}px"
+            width="{{ global_menu_logo_size }}"
+            height="{{ global_menu_logo_height }}"
+            style="width: {{ global_menu_logo_size }}px"
             loading="lazy"
-            alt=""
+            decoding="async"
+            alt="{{ shop.name | escape }}"
             class="logo">
         {% else %}
           <img
             src="{{ 'gm-logo.png' | asset_url }}"
-            style="width: {{ settings.global_menu_logo_size }}px"
+            style="width: {{ global_menu_logo_size }}px"
             loading="lazy"
-            alt=""
+            decoding="async"
+            alt="{{ shop.name | escape }}"
             class="logo">
         {% endif %}
       </a>

@@ -1,10 +1,24 @@
 
  <div class="main-menu">
-      <a href="{{ routes.root_url }}" aria-current="page" class="logo-link w-inline-block w--current">
+     <a href="{{ routes.root_url }}" aria-current="page" class="logo-link w-inline-block w--current">
         {% if settings.enter_screen_logo %}
-        <img src="{{ settings.enter_screen_logo | image_url: width: settings.enter_screen_logo_size | image_tag: height:'auto'}}" loading="lazy" alt="" class="logo">
+        {% assign index_menu_logo_size = settings.enter_screen_logo_size | default: 120 %}
+        {% assign index_menu_logo_2x = index_menu_logo_size | times: 2 | at_least: 240 | at_most: 480 %}
+        {% assign index_menu_logo_height = index_menu_logo_size | divided_by: settings.enter_screen_logo.aspect_ratio | round %}
+        <img
+          src="{{ settings.enter_screen_logo | image_url: width: index_menu_logo_2x }}"
+          srcset="{{ settings.enter_screen_logo | image_url: width: index_menu_logo_size }} {{ index_menu_logo_size }}w, {{ settings.enter_screen_logo | image_url: width: index_menu_logo_2x }} {{ index_menu_logo_2x }}w"
+          sizes="{{ index_menu_logo_size }}px"
+          width="{{ index_menu_logo_size }}"
+          height="{{ index_menu_logo_height }}"
+          style="width: {{ index_menu_logo_size }}px"
+          loading="eager"
+          decoding="sync"
+          fetchpriority="high"
+          alt="{{ shop.name | escape }}"
+          class="logo">
         {% else %}
-        <img src="{{ 'Supreme-dummy.png' | asset_url }}" loading="lazy" alt="" class="logo">
+        <img src="{{ 'Supreme-dummy.png' | asset_url }}" loading="eager" decoding="sync" fetchpriority="high" alt="{{ shop.name | escape }}" class="logo">
         {% endif %}
       </a>
       {%- section 'index-timezone' -%}
