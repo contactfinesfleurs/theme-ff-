@@ -46,12 +46,13 @@
             {% render 'image-element',
               image: mobile_image,
               image_class: "minimal-hero__image",
-              alt: section.settings.title
+              alt: section.settings.title,
+              loading: 'eager'
             %}
           </div>
         {% else %}
           <div class="minimal-hero__image-container mobile-only">
-            {{ 'ow-2.jpg' | asset_img_url: 'master' | img_tag: section.settings.title, 'minimal-hero__image minimal-hero__image--default' }}
+            <img src="{{ 'ow-2.jpg' | asset_img_url: '1600x' }}" alt="{{ section.settings.title }}" class="minimal-hero__image minimal-hero__image--default" loading="eager" fetchpriority="high" width="1600">
           </div>
         {% endif %}
 
@@ -61,7 +62,8 @@
               {% render 'image-element',
                 image: section.settings.image_2,
                 image_class: "minimal-hero__image",
-                alt: section.settings.title
+                alt: section.settings.title,
+                loading: 'eager'
               %}
             </div>
           {% endif %}
@@ -77,12 +79,13 @@
           {% render 'image-element',
             image: section.settings.image_1,
             image_class: "minimal-hero__image",
-            alt: section.settings.title
+            alt: section.settings.title,
+            loading: 'eager'
           %}
         </div>
       {% else %}
         <div class="minimal-hero__image-container">
-          {{ 'ow-2.jpg' | asset_img_url: 'master' | img_tag: section.settings.title, 'minimal-hero__image minimal-hero__image--default' }}
+          <img src="{{ 'ow-2.jpg' | asset_img_url: '1600x' }}" alt="{{ section.settings.title }}" class="minimal-hero__image minimal-hero__image--default" loading="eager" fetchpriority="high" width="1600">
         </div>
       {% endif %}
       
@@ -95,7 +98,8 @@
           {% render 'image-element',
             image: section.settings.image_2,
             image_class: "minimal-hero__image",
-            alt: section.settings.title
+            alt: section.settings.title,
+            loading: 'eager'
           %}
         </div>
       {% endif %}

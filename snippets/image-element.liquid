@@ -10,8 +10,9 @@
       {{ image | img_url: '1600x' }} 1600w,
       {{ image | img_url: '2000x' }} 2000w,
       {{ image | img_url: '2400x' }} 2400w"
-    sizes="100vw"
-    loading="lazy"
+    sizes="{{ sizes | default: '100vw' }}"
+    loading="{{ loading | default: 'lazy' }}"
+    {% if loading == 'eager' %}fetchpriority="high"{% endif %}
     alt="{{ alt | escape }}"
     width="{{ image.width }}"
     height="{{ image.height }}"
@@ -19,4 +20,4 @@
   >
 {%- else -%}
   {{ 'image' | placeholder_svg_tag: image_class }}
-{%- endif -%} 
+{%- endif -%}
