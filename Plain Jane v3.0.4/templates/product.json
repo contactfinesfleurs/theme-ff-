@@ -1,0 +1,75 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header": {
+      "type": "product-logo-section",
+      "settings": {}
+    },
+    "background": {
+      "type": "default-background",
+      "settings": {}
+    },
+    "product-section-2": {
+      "type": "product-section-2",
+      "blocks": {
+        "on_sale_label-1": {
+          "type": "on_sale_label",
+          "settings": {}
+        },
+        "product_header-1": {
+          "type": "product_header",
+          "settings": {}
+        },
+        "product_price-1": {
+          "type": "product_price",
+          "settings": {}
+        },
+        "product_description-1": {
+          "type": "product_description",
+          "settings": {}
+        },
+        "product_gallery-1": {
+          "type": "product_gallery",
+          "settings": {}
+        },
+        "product_variations-1": {
+          "type": "product_variations",
+          "settings": {}
+        },
+        "product_accordion-1": {
+          "type": "product_accordion",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "on_sale_label-1",
+        "product_header-1",
+        "product_price-1",
+        "product_description-1",
+        "product_gallery-1",
+        "product_variations-1",
+        "product_accordion-1"
+      ],
+      "settings": {}
+    },
+    "related_products": {
+      "type": "related-products",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header",
+    "background",
+    "product-section-2",
+    "related_products"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "background": {
+      "type": "default-background",
+      "settings": {}
+    },
+    "clock": {
+      "type": "default-timezone",
+      "settings": {}
+    },
+    "page-builder": {
+      "type": "page-text",
+      "settings": {}
+    }
+  },
+  "order": [
+    "background",
+    "clock",
+    "page-builder"
+  ]
+}

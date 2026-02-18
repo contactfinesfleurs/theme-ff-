@@ -1,0 +1,44 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "preloader": {
+      "type": "preloader",
+      "settings": {}
+    },
+    "email_popup": {
+      "type": "email-popup",
+      "settings": {}
+    },
+    "background": {
+      "type": "default-background",
+      "settings": {
+      }
+    },
+    "dynamic_background": {
+      "type": "dynamic-background",
+      "settings": {
+        "password_bg_style": "color",
+        "show_marquee": false
+      }
+    },
+    "index-center": {
+      "type": "index-center",
+      "settings": {}
+    }
+  },
+  "order": [
+    "preloader",
+    "email_popup",
+    "background",
+    "dynamic_background",
+    "index-center"
+  ]
+}
