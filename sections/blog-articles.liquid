@@ -9,7 +9,19 @@
           background-color: {{ section.settings.card_color }}; 
           border-radius: {{ section.settings.card_radius }}px" 
           class="news-item">
-            <img src="{{ article.image | img_url: 'master' }}" alt="News Image">
+            {% if article.image %}
+              {% assign article_image_alt = article.image.alt | default: article.title %}
+              <img
+                src="{{ article.image | image_url: width: 900 }}"
+                srcset="{{ article.image | image_url: width: 360 }} 360w, {{ article.image | image_url: width: 540 }} 540w, {{ article.image | image_url: width: 720 }} 720w, {{ article.image | image_url: width: 900 }} 900w, {{ article.image | image_url: width: 1200 }} 1200w"
+                sizes="(max-width: 749px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                width="{{ article.image.width }}"
+                height="{{ article.image.height }}"
+                loading="lazy"
+                decoding="async"
+                alt="{{ article_image_alt | escape }}"
+              >
+            {% endif %}
             <h5 style="
               text-align:{{ section.settings.header_alignment }}; 
               color:{{ section.settings.header_color }};

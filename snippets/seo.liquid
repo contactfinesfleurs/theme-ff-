@@ -31,6 +31,12 @@
 <meta name="description" content="{{ page_description | escape }}">
 {%- endif -%}
 
+{%- assign robots_content = 'index,follow,max-image-preview:large' -%}
+{%- if request.page_type == 'search' or request.page_type == 'password' or request.page_type == 'cart' -%}
+  {%- assign robots_content = 'noindex,follow,max-image-preview:large' -%}
+{%- endif -%}
+<meta name="robots" content="{{ robots_content }}">
+
 {%- if request.page_type == 'product' and settings.enable_product_rich_snippets -%}
   {% render "product-rich-snippets" %}
 {%- endif -%}

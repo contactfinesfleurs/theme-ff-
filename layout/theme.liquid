@@ -259,6 +259,11 @@
     {% section 'global-menu' %}
     {% section 'cart-drawer' %}
     <main id="container" style="flex: 1; background-color: transparent; width: 100%;">
+      {% if request.page_type == 'index' %}
+        <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
+          {{ shop.name }}
+        </h1>
+      {% endif %}
       {% section 'announcement-bar' %}
       {{ content_for_layout }}
   </main>
