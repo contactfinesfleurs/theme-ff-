@@ -16,14 +16,10 @@
 <meta content="width=device-width, initial-scale=1" name="viewport">
 
 <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+{{ 'normalize.css' | asset_url | stylesheet_tag }}
+{{ 'components.css' | asset_url | stylesheet_tag }}
 
 {% if request.page_type == 'index' %}
-  <link rel="preload" href="{{ 'normalize.css' | asset_url }}" as="style">
-  <link rel="stylesheet" href="{{ 'normalize.css' | asset_url }}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="{{ 'normalize.css' | asset_url }}"></noscript>
-  <link rel="preload" href="{{ 'components.css' | asset_url }}" as="style">
-  <link rel="stylesheet" href="{{ 'components.css' | asset_url }}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="{{ 'components.css' | asset_url }}"></noscript>
   <link rel="preload" href="{{ 'plain-jane.css' | asset_url }}" as="style">
   <link rel="stylesheet" href="{{ 'plain-jane.css' | asset_url }}" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="{{ 'plain-jane.css' | asset_url }}"></noscript>
@@ -80,10 +76,4 @@ body::-webkit-scrollbar-thumb {
 display: none;
 }
 </style>
-{% if request.page_type == 'index' %}
-  <link rel="preload" href="{{ 'udesly-common.min.css' | asset_url }}" as="style">
-  <link rel="stylesheet" href="{{ 'udesly-common.min.css' | asset_url }}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="{{ 'udesly-common.min.css' | asset_url }}"></noscript>
-{% else %}
-  {{ 'udesly-common.min.css' | asset_url | stylesheet_tag }}
-{% endif %}
+{{ 'udesly-common.min.css' | asset_url | stylesheet_tag }}
