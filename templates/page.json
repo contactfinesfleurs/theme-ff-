@@ -1,0 +1,147 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "background": {
+      "type": "default-background",
+      "settings": {
+        "password_bg_style": "color",
+        "bg_color": "#ffffff",
+        "bg_color_mobile": "#ffffff",
+        "overlay_top_color": "#000000",
+        "overlay_top_opacity": 0,
+        "overlay_bottom_color": "#000000",
+        "overlay_bottom_opacity": 0,
+        "overlay_top_color_mobile": "#000000",
+        "overlay_top_opacity_mobile": 0,
+        "overlay_bottom_color_mobile": "#000000",
+        "overlay_bottom_opacity_mobile": 0,
+        "show_background_image_mobile": false
+      }
+    },
+    "clock": {
+      "type": "default-timezone",
+      "settings": {
+        "index_date_color": "#000",
+        "index_time_color": "#000",
+        "background_color": "transparent"
+      }
+    },
+    "image_stream_6BUYdG": {
+      "type": "image-stream",
+      "blocks": {
+        "slide_Dx3jUq": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "slide_6NxG83": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "slide_DHtBpn": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "slide_Rnf4Vw": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "slide_97UfY3": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "slide_H87fy3": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_Dx3jUq",
+        "slide_6NxG83",
+        "slide_DHtBpn",
+        "slide_Rnf4Vw",
+        "slide_97UfY3",
+        "slide_H87fy3"
+      ],
+      "settings": {
+        "header_text": "",
+        "header_link": "",
+        "header_link_text": "",
+        "bg_color": "#ffffff",
+        "header_color": "#1B1B1B",
+        "desktop_items_per_row": "4",
+        "aspect_ratio": "3/4",
+        "height_mode": "responsive",
+        "reverse_direction": false,
+        "hide_on_mobile": false,
+        "auto_scroll_speed": 20,
+        "title_size_desktop": 20,
+        "title_size_mobile": 14,
+        "title_weight": true,
+        "link_weight": false,
+        "top_spacing": 20,
+        "bottom_spacing": 0,
+        "top_spacing_mobile": 16,
+        "bottom_spacing_mobile": 0,
+        "image_gap": "8"
+      }
+    },
+    "text_block_tUqjaf": {
+      "type": "text-block",
+      "settings": {
+        "subtitle": "SPRING SUMMER 2025",
+        "text": "This collection is a tribute to Caribbean and South American heritage, reinterpreting the traditional dress codes of our families while embracing the festive spirit that defines these cultures. Each piece is thoughtfully designed to honor this rich legacy.\n\nBeyond that, my team and I saw this as an opportunity to elevate the standards of craftsmanship in the places we come from. We were committed to working with the finest materials, and we stayed true to that vision.\n\nTimelessness was equally essential. Our goal was to create pieces that could be worn today, 30 years ago, or 20 years from now—unaffected by trends or the fast-fashion cycle.\n\nThis collection is made for both the connoisseur and the newcomer alike.",
+        "subtitle_alignment": "center",
+        "text_alignment": "center",
+        "subtitle_font": "helvetica_n4",
+        "enable_custom_subtitle_font": false,
+        "custom_subtitle_font_name": "",
+        "custom_subtitle_font": "",
+        "text_font": "helvetica_n4",
+        "enable_custom_text_font": false,
+        "custom_text_font_name": "",
+        "custom_text_font": "",
+        "subtitle_size": 14,
+        "subtitle_size_mobile": 10,
+        "text_size": 16,
+        "text_size_mobile": 14,
+        "subtitle_bold": false,
+        "text_bold": false,
+        "background_color": "#FFFFFF",
+        "subtitle_color": "#1B1B1B",
+        "text_color": "#1B1B1B",
+        "text_animation_type": "none",
+        "top_spacing": 0,
+        "bottom_spacing": 0,
+        "top_spacing_mobile": 2,
+        "bottom_spacing_mobile": 2,
+        "remove_padding": true
+      }
+    }
+  },
+  "order": [
+    "background",
+    "clock",
+    "image_stream_6BUYdG",
+    "text_block_tUqjaf"
+  ]
+}

@@ -1,0 +1,42 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ shop.url | append: article.url | json }}
+  },
+  "headline": {{ article.title | json }},
+  "articleBody": {{ article.content | strip_html | json }},
+  {% if article.excerpt != blank %}
+    "description": {{ article.excerpt | strip_html | json }},
+  {% endif %}
+  {% if article.image %}
+    {% assign image_size = article.image.width | append: 'x' %}
+    "image": {
+      "@type": "ImageObject",
+      "url": {{ article | img_url: image_size | prepend: "https:" | json }},
+      "width": {{ article.image.width | json }},
+      "height": {{ article.image.height | json }}
+    },
+  {% endif %}
+  "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+  "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+  "dateModified": {{ article.updated_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | json }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ shop.name | json }}
+    {% if settings.shop_screen_logo != blank %}
+    ,"logo": {
+      "@type": "ImageObject",
+      "url": {{ settings.shop_screen_logo | image_url: width: 600 | prepend: 'https:' | json }},
+      "width": 600
+    }
+    {% endif %}
+  }
+}
+</script>

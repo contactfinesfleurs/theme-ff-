@@ -1,0 +1,16 @@
+{%- assign headerSnippetPath = "header-index" -%}{%- assign wfPage = "640fa7dd0080a6209a51a0c0" -%}{%- assign bodyClasses = "" -%}
+  <div class="utility-page-wrap">
+    <div class="utility-page-content">
+      <a href="{{ routes.root_url }}" aria-current="page" class="logo-link w-inline-block w--current">
+        <img src="{{ settings.shop_screen_logo | image_url }}" style="width: {{ settings.shop_screen_logo_size }}px" loading="lazy" alt="{{ shop.name }}" class="logo">
+      </a>
+      <h1 class="page-404-mobile">{{ 'tn40b0787c' | t }}</h1>
+      <p>{{ 't556d64d8' | t }}</p>
+      <a href="{{ routes.root_url }}" class="btn-404" style="margin-top: 20px; display: inline-block; text-decoration: underline;">
+        {{ 'tn118a2ab5' | t | default: 'Back To Home' }}
+      </a>
+    </div>
+  </div>
+  <script src="{{ 'plain-jane.js' | asset_url }}" type="text/javascript"></script>
+
+{{ 'udesly-shopify.min.js' | asset_url | script_tag }}

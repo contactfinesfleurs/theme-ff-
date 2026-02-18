@@ -1,0 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "background": {
+      "type": "default-background",
+      "settings": {}
+    },
+    "clock": {
+      "type": "default-timezone",
+      "settings": {}
+    },
+    "dynamic_background": {
+      "type": "dynamic-background",
+      "settings": {
+        "section_height": "50vh",
+        "show_marquee": false
+      }
+    },
+    "text": {
+      "type": "text-block",
+      "settings": {
+        "subtitle": "ABOUT US",
+        "text": "OPENSPACES IS A CREATIVE COLLECTIVE OF ARTISTS AND DESIGNERS FROM AROUND THE WORLD. WITH ITS INNOVATIVE, DESIGN-LED APPROACH, THE BRAND TAKES INSPIRATION FROM CONTEMPORARY ART, ARCHITECTURE, AND THE SPIRIT OF MODERN CULTURE. OPENSPACES IS NOT ONE PERSON, NOR IS IT ONE IDEA. IT EXISTS IN THE SPACE BETWEEN PEOPLE."
+      }
+    }
+  },
+  "order": [
+    "background",
+    "clock",
+    "dynamic_background",
+    "text"
+  ]
+}
