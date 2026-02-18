@@ -17,7 +17,13 @@
 
 <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 {{ 'normalize.css' | asset_url | stylesheet_tag }}
-{{ 'components.css' | asset_url | stylesheet_tag }}
+{% if request.page_type == 'index' %}
+  <link rel="preload" href="{{ 'components.css' | asset_url }}" as="style">
+  <link rel="stylesheet" href="{{ 'components.css' | asset_url }}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="{{ 'components.css' | asset_url }}"></noscript>
+{% else %}
+  {{ 'components.css' | asset_url | stylesheet_tag }}
+{% endif %}
 
 {% if request.page_type == 'index' %}
   <link rel="preload" href="{{ 'plain-jane.css' | asset_url }}" as="style">

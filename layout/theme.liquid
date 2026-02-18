@@ -276,12 +276,14 @@
       {% section 'music-player' %}
     {% endif %}
 
-  <div
-  id="sort-menu"
-  class="sort-menu"
-  style="display: none; position: fixed; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 9999;">
-  <div id="sort-menu-handle" style="cursor: move; padding: 10px; background-color: #e0e0e0; text-align: center;">Drag to move</div>
-  </div>
+  {% if request.page_type == 'collection' %}
+    <div
+      id="sort-menu"
+      class="sort-menu"
+      style="display: none; position: fixed; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 9999;">
+      <div id="sort-menu-handle" style="cursor: move; padding: 10px; background-color: #e0e0e0; text-align: center;">Drag to move</div>
+    </div>
+  {% endif %}
     {% if settings.hide_footer_on_all_pages == false %}
       {% case template.name %}
         {% when 'index' %}
@@ -350,51 +352,35 @@
   })();
   </script>
   {% if request.page_type == 'index' %}
-    <script>
-      (function() {
-        var nonCriticalScripts = [
-          "{{ 'jquery-3.7.1.min.js' | asset_url }}",
-          "{{ 'g-animate.js' | asset_url }}",
-          "{{ 'g-scroll.js' | asset_url }}",
-          "{{ 'ts.js' | asset_url }}"
-        ];
+    {% if settings.show_music %}
+      <script>
+        (function() {
+          var musicLoaded = false;
 
-        {% if settings.show_music %}
-          nonCriticalScripts.push("{{ 'music.js' | asset_url }}");
-        {% endif %}
-
-        var scriptsLoaded = false;
-
-        function loadScriptSequentially(index) {
-          if (index >= nonCriticalScripts.length) return;
-          var script = document.createElement('script');
-          script.src = nonCriticalScripts[index];
-          script.defer = true;
-          script.onload = function() { loadScriptSequentially(index + 1); };
-          script.onerror = function() { loadScriptSequentially(index + 1); };
-          document.body.appendChild(script);
-        }
-
-        function loadNonCriticalBundle() {
-          if (scriptsLoaded) return;
-          scriptsLoaded = true;
-          loadScriptSequentially(0);
-        }
-
-        var interactionEvents = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
-        interactionEvents.forEach(function(eventName) {
-          window.addEventListener(eventName, loadNonCriticalBundle, { once: true, passive: true });
-        });
-
-        window.addEventListener('load', function() {
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(loadNonCriticalBundle, { timeout: 9000 });
-          } else {
-            setTimeout(loadNonCriticalBundle, 9000);
+          function loadMusicScript() {
+            if (musicLoaded) return;
+            musicLoaded = true;
+            var script = document.createElement('script');
+            script.src = "{{ 'music.js' | asset_url }}";
+            script.defer = true;
+            document.body.appendChild(script);
           }
-        });
-      })();
-    </script>
+
+          var interactionEvents = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+          interactionEvents.forEach(function(eventName) {
+            window.addEventListener(eventName, loadMusicScript, { once: true, passive: true });
+          });
+
+          window.addEventListener('load', function() {
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(loadMusicScript, { timeout: 5000 });
+            } else {
+              setTimeout(loadMusicScript, 5000);
+            }
+          });
+        })();
+      </script>
+    {% endif %}
   {% else %}
     <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer type="text/javascript"></script>
     <script src="{{ 'g-animate.js' | asset_url }}" defer type="text/javascript"></script>
