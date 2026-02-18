@@ -9,19 +9,28 @@
         aria-current="page"
         class="logo-link w-inline-block w--current">
         {% if settings.enter_screen_logo %}
+          {% assign home_logo_size = settings.enter_screen_logo_size | default: 300 %}
           <img
-            src="{{ settings.enter_screen_logo | image_url }}"
-            height="auto"
-            style="width: {{ settings.enter_screen_logo_size }}px;"
-            alt="Logo"
+            src="{{ settings.enter_screen_logo | image_url: width: 800 }}"
+            srcset="{{ settings.enter_screen_logo | image_url: width: 320 }} 320w, {{ settings.enter_screen_logo | image_url: width: 480 }} 480w, {{ settings.enter_screen_logo | image_url: width: 640 }} 640w, {{ settings.enter_screen_logo | image_url: width: 800 }} 800w, {{ settings.enter_screen_logo | image_url: width: 1200 }} 1200w"
+            sizes="(max-width: 749px) 70vw, {{ home_logo_size }}px"
+            width="{{ settings.enter_screen_logo.width }}"
+            height="{{ settings.enter_screen_logo.height }}"
+            loading="eager"
+            decoding="sync"
+            fetchpriority="high"
+            style="width: {{ home_logo_size }}px;"
+            alt="{{ shop.name | escape }}"
             class="logo">
         {% else %}
 
           <img
-            height="auto"
             style="width: {{ settings.enter_screen_logo_size }}px;"
             src="{{ 'Supreme-dummy.png' | asset_url }}"
-            alt=""
+            loading="eager"
+            decoding="sync"
+            fetchpriority="high"
+            alt="{{ shop.name | escape }}"
             class="logo">
 
         {% endif %}

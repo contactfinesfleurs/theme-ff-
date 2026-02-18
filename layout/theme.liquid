@@ -38,7 +38,7 @@
           font-display: swap;
         }
       {% else %}
-      {{ settings.body_font | font_face }}
+      {{ settings.body_font | font_face: font_display: 'swap' }}
     {% endif %}
     /* HEADER FONTS */
     {% if settings.enable_custom_font_header %}
@@ -49,7 +49,7 @@
         font-display: swap;
       }
     {% else %}
-    {{ settings.font_header | font_face }}
+    {{ settings.font_header | font_face: font_display: 'swap' }}
   {% endif %}
   /* BUTTON FONTS */
   {% if settings.enable_custom_btn_font %}
@@ -60,7 +60,7 @@
       font-display: swap;
     }
   {% else %}
-  {{ settings.btn_font | font_face }}
+  {{ settings.btn_font | font_face: font_display: 'swap' }}
 {% endif %}
 /* ENTER NAVIGATION FONTS */
 {% if settings.enable_custom_nav_font %}
@@ -71,7 +71,7 @@
     font-display: swap;
   }
 {% else %}
-{{ settings.nav_font | font_face }}
+{{ settings.nav_font | font_face: font_display: 'swap' }}
 {% endif %}
 /* COUNTDOWN TIMER FONT */
 {% if settings.enable_custom_countdown_font %}
@@ -82,7 +82,7 @@
     font-display: swap;
   }
 {% else %}
-{{ settings.countdown_font | font_face }}
+{{ settings.countdown_font | font_face: font_display: 'swap' }}
 {% endif %}
 /* MARQUEE FONT */
 {% if settings.enable_custom_marquee_font %}
@@ -93,7 +93,7 @@
     font-display: swap;
   }
 {% else %}
-{{ settings.marquee_font | font_face }}
+{{ settings.marquee_font | font_face: font_display: 'swap' }}
 {% endif %}
 :root  {
   --font_body: {% if settings.enable_custom_body_font %}{{ settings.custom_body_font_name }}
@@ -206,11 +206,17 @@
       </script>
     {% endif %}
     {{ content_for_header }}
-    <link rel="preload" href="{{ 'video.css' | asset_url }}" as="style">
-    <link rel="stylesheet" href="{{ 'video.css' | asset_url }}" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="{{ 'video.css' | asset_url }}"></noscript>
-    {{ 'video.js' | asset_url | script_tag: defer: true }}
-    {{ 'background-video.js' | asset_url | script_tag: defer: true }}
+    {%- assign needs_video_js = false -%}
+    {%- if content_for_layout contains 'video-js myVideo' -%}
+      {%- assign needs_video_js = true -%}
+    {%- endif -%}
+    {% if needs_video_js %}
+      <link rel="preload" href="{{ 'video.css' | asset_url }}" as="style">
+      <link rel="stylesheet" href="{{ 'video.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="{{ 'video.css' | asset_url }}"></noscript>
+      {{ 'video.js' | asset_url | script_tag: defer: true }}
+      {{ 'background-video.js' | asset_url | script_tag: defer: true }}
+    {% endif %}
    <!-- Google Webmaster Tools Site Verification -->
 <meta name="google-site-verification" content="cB62P-eDi__LzriWzrvLY6j1tRQ6VdE1BcfK9zIL1Fk" />
 </head>

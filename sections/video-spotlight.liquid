@@ -21,7 +21,7 @@
         data-show-controls="{{ section.settings.show_controls }}"
         poster="{{ section.settings.cover_image | img_url: 'master' }}"
         oncontextmenu="return false;"
-        preload="auto"
+        preload="metadata"
       >
         {% for source in section.settings.video.sources %}
           {% if source.mime_type == 'video/mp4' %}

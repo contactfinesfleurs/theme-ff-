@@ -1,7 +1,9 @@
 (function() {
   document.addEventListener('DOMContentLoaded', () => {
       const videoElements = document.querySelectorAll('.video-js.myVideo');
-      console.log(videoElements);
+    if (!videoElements.length || typeof window.videojs !== 'function') {
+      return;
+    }
     videoElements.forEach(videoElement => {
       const player = videojs(videoElement.id, {
         autoplay: false,

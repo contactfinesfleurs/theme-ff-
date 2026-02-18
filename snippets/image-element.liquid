@@ -1,20 +1,36 @@
 {%- if image != blank -%}
   {%- assign focal_point = image.presentation.focal_point -%}
   {%- assign image_loading = loading | default: 'lazy' -%}
-  {%- assign image_fetchpriority = fetchpriority | default: 'auto' -%}
+  {%- assign image_fetchpriority = fetchpriority -%}
+  {%- if image_fetchpriority == blank -%}
+    {%- if image_loading == 'lazy' -%}
+      {%- assign image_fetchpriority = 'low' -%}
+    {%- else -%}
+      {%- assign image_fetchpriority = 'auto' -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- assign image_decoding = decoding -%}
+  {%- if image_decoding == blank -%}
+    {%- if image_loading == 'eager' -%}
+      {%- assign image_decoding = 'sync' -%}
+    {%- else -%}
+      {%- assign image_decoding = 'async' -%}
+    {%- endif -%}
+  {%- endif -%}
   {%- assign image_sizes = sizes | default: '100vw' -%}
   <img
     class="{{ image_class }}"
-    src="{{ image | img_url: '1800x' }}"
+    src="{{ image | image_url: width: 1200 }}"
     srcset="
-      {{ image | img_url: '400x' }} 400w,
-      {{ image | img_url: '800x' }} 800w,
-      {{ image | img_url: '1200x' }} 1200w,
-      {{ image | img_url: '1600x' }} 1600w,
-      {{ image | img_url: '2000x' }} 2000w,
-      {{ image | img_url: '2400x' }} 2400w"
+      {{ image | image_url: width: 400 }} 400w,
+      {{ image | image_url: width: 800 }} 800w,
+      {{ image | image_url: width: 1200 }} 1200w,
+      {{ image | image_url: width: 1600 }} 1600w,
+      {{ image | image_url: width: 2000 }} 2000w,
+      {{ image | image_url: width: 2400 }} 2400w"
     sizes="{{ image_sizes }}"
     loading="{{ image_loading }}"
+    decoding="{{ image_decoding }}"
     fetchpriority="{{ image_fetchpriority }}"
     alt="{{ alt | escape }}"
     width="{{ image.width }}"
