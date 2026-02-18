@@ -35,6 +35,7 @@
           font-family: "{{ settings.custom_body_font_name }}";
           src: url("{{ settings.custom_body_font }}") format("woff2")
           , url("{{ settings.custom_body_font }}") format("woff");
+          font-display: swap;
         }
       {% else %}
       {{ settings.body_font | font_face }}
@@ -45,6 +46,7 @@
         font-family: "{{ settings.custom_font_header_name }}";
         src: url("{{ settings.custom_font_header }}") format("woff2")
         , url("{{ settings.custom_font_header }}") format("woff");
+        font-display: swap;
       }
     {% else %}
     {{ settings.font_header | font_face }}
@@ -55,6 +57,7 @@
       font-family: "{{ settings.custom_btn_font_name }}";
       src: url("{{ settings.custom_btn_font }}") format("woff2")
       , url("{{ settings.custom_btn_font }}") format("woff");
+      font-display: swap;
     }
   {% else %}
   {{ settings.btn_font | font_face }}
@@ -65,6 +68,7 @@
     font-family: "{{ settings.custom_nav_font_name }}";
     src: url("{{ settings.custom_nav_font }}") format("woff2")
     , url("{{ settings.custom_nav_font }}") format("woff");
+    font-display: swap;
   }
 {% else %}
 {{ settings.nav_font | font_face }}
@@ -75,6 +79,7 @@
     font-family: "{{ settings.custom_countdown_font_name }}";
     src: url("{{ settings.custom_countdown_font }}") format("woff2")
     , url("{{ settings.custom_countdown_font }}") format("woff");
+    font-display: swap;
   }
 {% else %}
 {{ settings.countdown_font | font_face }}
@@ -85,6 +90,7 @@
     font-family: "{{ settings.custom_marquee_font_name }}";
     src: url("{{ settings.custom_marquee_font }}") format("woff2")
     , url("{{ settings.custom_marquee_font }}") format("woff");
+    font-display: swap;
   }
 {% else %}
 {{ settings.marquee_font | font_face }}
@@ -200,9 +206,11 @@
       </script>
     {% endif %}
     {{ content_for_header }}
-    {{ 'video.css' | asset_url | stylesheet_tag }}
-    {{ 'video.js' | asset_url | script_tag }}
-    {{ 'background-video.js' | asset_url | script_tag }}
+    <link rel="preload" href="{{ 'video.css' | asset_url }}" as="style">
+    <link rel="stylesheet" href="{{ 'video.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ 'video.css' | asset_url }}"></noscript>
+    {{ 'video.js' | asset_url | script_tag: defer: true }}
+    {{ 'background-video.js' | asset_url | script_tag: defer: true }}
    <!-- Google Webmaster Tools Site Verification -->
 <meta name="google-site-verification" content="cB62P-eDi__LzriWzrvLY6j1tRQ6VdE1BcfK9zIL1Fk" />
 </head>
@@ -330,12 +338,12 @@
     });
   })();
   </script>
-  <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" type="text/javascript"></script>
-  <script src="{{ 'pushy.js' | asset_url }}" type="text/javascript"></script>
-  <script src="{{ 'g-animate.js' | asset_url }}" type="text/javascript"></script>
-  <script src="{{ 'g-scroll.js' | asset_url }}" type="text/javascript"></script>
-  <script src="{{ 'ts.js' | asset_url }}"></script> 
-  <script src="{{ 'music.js' | asset_url }}"></script>
+  <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer type="text/javascript"></script>
+  <script src="{{ 'pushy.js' | asset_url }}" defer type="text/javascript"></script>
+  <script src="{{ 'g-animate.js' | asset_url }}" defer type="text/javascript"></script>
+  <script src="{{ 'g-scroll.js' | asset_url }}" defer type="text/javascript"></script>
+  <script src="{{ 'ts.js' | asset_url }}" defer></script> 
+  <script src="{{ 'music.js' | asset_url }}" defer></script>
 </body>
 
 </html>
