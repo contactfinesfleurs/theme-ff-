@@ -95,8 +95,8 @@
                 {% assign side_logo_2x = side_logo_size | times: 2 | at_least: 240 | at_most: 480 %}
                 {% assign side_logo_height = side_logo_size | divided_by: settings.enter_screen_logo.aspect_ratio | round %}
                 <img
-                     src="{{ settings.enter_screen_logo | image_url: width: side_logo_2x }}"
-                     srcset="{{ settings.enter_screen_logo | image_url: width: side_logo_size }} {{ side_logo_size }}w, {{ settings.enter_screen_logo | image_url: width: side_logo_2x }} {{ side_logo_2x }}w"
+                     src="{{ settings.enter_screen_logo | image_url: width: side_logo_2x, format: 'webp' }}"
+                     srcset="{{ settings.enter_screen_logo | image_url: width: side_logo_size, format: 'webp' }} {{ side_logo_size }}w, {{ settings.enter_screen_logo | image_url: width: side_logo_2x, format: 'webp' }} {{ side_logo_2x }}w"
                      sizes="{{ side_logo_size }}px"
                      width="{{ side_logo_size }}"
                      height="{{ side_logo_height }}"

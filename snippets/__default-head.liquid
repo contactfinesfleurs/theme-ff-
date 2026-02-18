@@ -11,7 +11,6 @@
   {%- render "schema-collection" -%}
 {% endunless %}
 
-{% assign load_font_awesome = settings.show_music %}
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 
@@ -36,10 +35,8 @@
     @media(max-width:767px){.bg-color.enter-screen.desktop{display:none}.bg-color.enter-screen.mobile{display:block}}
   </style>
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-  <link rel="preload" href="{{ 'normalize.css' | asset_url }}" as="style">
   <link rel="stylesheet" href="{{ 'normalize.css' | asset_url }}" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="{{ 'normalize.css' | asset_url }}"></noscript>
-  <link rel="preload" href="{{ 'components.css' | asset_url }}" as="style">
   <link rel="stylesheet" href="{{ 'components.css' | asset_url }}" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="{{ 'components.css' | asset_url }}"></noscript>
 {% else %}
@@ -49,29 +46,51 @@
 {% endif %}
 
 {% if request.page_type == 'index' %}
-  <link rel="preload" href="{{ 'plain-jane.css' | asset_url }}" as="style">
-  <link rel="stylesheet" href="{{ 'plain-jane.css' | asset_url }}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="{{ 'plain-jane.css' | asset_url }}"></noscript>
   {% if settings.show_home_logo and settings.enter_screen_logo %}
     {% assign home_logo_size = settings.enter_screen_logo_size | default: 120 %}
     {% assign home_logo_preload_width = home_logo_size | times: 2 | at_least: 240 | at_most: 480 %}
     <link
       rel="preload"
       as="image"
-      href="{{ settings.enter_screen_logo | image_url: width: home_logo_preload_width }}"
-      imagesrcset="{{ settings.enter_screen_logo | image_url: width: home_logo_size }} {{ home_logo_size }}w, {{ settings.enter_screen_logo | image_url: width: home_logo_preload_width }} {{ home_logo_preload_width }}w"
+      href="{{ settings.enter_screen_logo | image_url: width: home_logo_preload_width, format: 'webp' }}"
+      imagesrcset="{{ settings.enter_screen_logo | image_url: width: home_logo_size, format: 'webp' }} {{ home_logo_size }}w, {{ settings.enter_screen_logo | image_url: width: home_logo_preload_width, format: 'webp' }} {{ home_logo_preload_width }}w"
       imagesizes="{{ home_logo_size }}px"
       fetchpriority="high"
     >
   {% endif %}
+  <script>
+    (function() {
+      var loaded = false;
+      function loadCss(href) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        document.head.appendChild(link);
+      }
+      function loadIndexNonCriticalStyles() {
+        if (loaded) return;
+        loaded = true;
+        loadCss("{{ 'plain-jane.css' | asset_url }}");
+        loadCss("{{ 'udesly-common.min.css' | asset_url }}");
+      }
+      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function(evt) {
+        window.addEventListener(evt, loadIndexNonCriticalStyles, { once: true, passive: true });
+      });
+      window.addEventListener('load', function() {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadIndexNonCriticalStyles, { timeout: 4000 });
+        } else {
+          setTimeout(loadIndexNonCriticalStyles, 2500);
+        }
+      });
+    })();
+  </script>
+  <noscript>
+    <link rel="stylesheet" href="{{ 'plain-jane.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'udesly-common.min.css' | asset_url }}">
+  </noscript>
 {% else %}
   {{ 'plain-jane.css' | asset_url | stylesheet_tag }}
-{% endif %}
-{% if load_font_awesome %}
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
 {% endif %}
 <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
 {%- if settings.favicon == blank -%}<link href="{{ 'favicon.png' | asset_url }}" rel="shortcut icon" type="image/x-icon">{%- endif -%}
@@ -80,10 +99,6 @@
 body{overflow-y:scroll;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none}
 body::-webkit-scrollbar{display:none}
 </style>
-{% if request.page_type == 'index' %}
-  <link rel="preload" href="{{ 'udesly-common.min.css' | asset_url }}" as="style">
-  <link rel="stylesheet" href="{{ 'udesly-common.min.css' | asset_url }}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="{{ 'udesly-common.min.css' | asset_url }}"></noscript>
-{% else %}
+{% unless request.page_type == 'index' %}
   {{ 'udesly-common.min.css' | asset_url | stylesheet_tag }}
-{% endif %}
+{% endunless %}
