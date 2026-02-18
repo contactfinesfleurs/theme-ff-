@@ -122,10 +122,11 @@
 
 {% endif %}
 
-{% if settings.global_menu_inverse_color %}
+{% if show_global_menu and settings.global_menu_inverse_color %}
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const menuIcon = document.querySelector('.global-menu');
+      if (!menuIcon) return;
       const paths = menuIcon.querySelectorAll('path');
       
       function getBackgroundColor(element) {
@@ -163,10 +164,7 @@
       window.addEventListener('resize', updateMenuColor);
       
       // Initial update
-      setTimeout(updateMenuColor, 100); // Small delay to ensure all elements are rendered
-      
-      // Update periodically to handle dynamic content changes
-      setInterval(updateMenuColor, 1000);
+      setTimeout(updateMenuColor, 100);
     });
   </script>
 {% endif %}

@@ -114,12 +114,12 @@
       },
       "4976129024724438625": {
         "type": "shopify://apps/smart-seo/blocks/brokenLinkDetection/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       },
       "13694372020385051692": {
         "type": "shopify://apps/analyzely-google-analytics-4/blocks/analyzely/b3a3a697-6f42-4507-a5ae-c447f6da2c9d",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       }
     }
