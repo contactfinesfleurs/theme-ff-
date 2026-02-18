@@ -206,6 +206,17 @@
       </script>
     {% endif %}
     {{ content_for_header }}
+    {%- assign needs_video_js = false -%}
+    {%- if content_for_layout contains 'video-js myVideo' -%}
+      {%- assign needs_video_js = true -%}
+    {%- endif -%}
+    {% if needs_video_js %}
+      <link rel="preload" href="{{ 'video.css' | asset_url }}" as="style">
+      <link rel="stylesheet" href="{{ 'video.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="{{ 'video.css' | asset_url }}"></noscript>
+      {{ 'video.js' | asset_url | script_tag: defer: true }}
+      {{ 'background-video.js' | asset_url | script_tag: defer: true }}
+    {% endif %}
    <!-- Google Webmaster Tools Site Verification -->
 <meta name="google-site-verification" content="cB62P-eDi__LzriWzrvLY6j1tRQ6VdE1BcfK9zIL1Fk" />
 </head>
@@ -338,59 +349,16 @@
     });
   })();
   </script>
-  <script>
-    (function() {
-      // Load video runtime only when a video background/player exists on the page.
-      if (!document.querySelector('.video-js.myVideo')) return;
-
-      var loadedAssets = {};
-
-      function appendStylesheetOnce(href) {
-        if (loadedAssets[href]) return;
-        loadedAssets[href] = true;
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = href;
-        document.head.appendChild(link);
-      }
-
-      function appendScriptOnce(src, onDone) {
-        if (loadedAssets[src]) {
-          if (onDone) onDone();
-          return;
-        }
-        loadedAssets[src] = true;
-        var script = document.createElement('script');
-        script.src = src;
-        script.defer = true;
-        script.onload = function() {
-          if (onDone) onDone();
-        };
-        script.onerror = function() {
-          if (onDone) onDone();
-        };
-        document.body.appendChild(script);
-      }
-
-      appendStylesheetOnce("{{ 'video.css' | asset_url }}");
-      appendScriptOnce("{{ 'video.js' | asset_url }}", function() {
-        appendScriptOnce("{{ 'background-video.js' | asset_url }}");
-      });
-    })();
-  </script>
   {% if request.page_type == 'index' %}
     <script>
       (function() {
-        var nonCriticalScripts = [];
-        nonCriticalScripts.push("{{ 'jquery-3.7.1.min.js' | asset_url }}");
-        nonCriticalScripts.push("{{ 'g-animate.js' | asset_url }}");
-        nonCriticalScripts.push("{{ 'g-scroll.js' | asset_url }}");
-        nonCriticalScripts.push("{{ 'ts.js' | asset_url }}");
-        {% if settings.show_music %}
-          nonCriticalScripts.push("{{ 'music.js' | asset_url }}");
-        {% endif %}
-
-        var hasLoadedBundle = false;
+        var nonCriticalScripts = [
+          "{{ 'jquery-3.7.1.min.js' | asset_url }}",
+          "{{ 'g-animate.js' | asset_url }}",
+          "{{ 'g-scroll.js' | asset_url }}",
+          "{{ 'ts.js' | asset_url }}",
+          "{{ 'music.js' | asset_url }}"
+        ];
 
         function loadScriptSequentially(index) {
           if (index >= nonCriticalScripts.length) return;
@@ -403,33 +371,16 @@
         }
 
         function loadNonCriticalBundle() {
-          if (hasLoadedBundle) return;
-          hasLoadedBundle = true;
-          removeInteractionListeners();
           loadScriptSequentially(0);
         }
 
-        function onFirstInteraction() {
-          loadNonCriticalBundle();
-        }
-
-        function removeInteractionListeners() {
-          window.removeEventListener('pointermove', onFirstInteraction, listenerOptions);
-          window.removeEventListener('mousedown', onFirstInteraction, listenerOptions);
-          window.removeEventListener('touchstart', onFirstInteraction, listenerOptions);
-          window.removeEventListener('keydown', onFirstInteraction, listenerOptions);
-          window.removeEventListener('wheel', onFirstInteraction, listenerOptions);
-        }
-
-        var listenerOptions = { once: true, passive: true };
-        window.addEventListener('pointermove', onFirstInteraction, listenerOptions);
-        window.addEventListener('mousedown', onFirstInteraction, listenerOptions);
-        window.addEventListener('touchstart', onFirstInteraction, listenerOptions);
-        window.addEventListener('keydown', onFirstInteraction, { once: true });
-        window.addEventListener('wheel', onFirstInteraction, listenerOptions);
-
-        // Safety fallback for sessions without interaction.
-        setTimeout(loadNonCriticalBundle, 30000);
+        window.addEventListener('load', function() {
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadNonCriticalBundle, { timeout: 2500 });
+          } else {
+            setTimeout(loadNonCriticalBundle, 1000);
+          }
+        });
       })();
     </script>
   {% else %}
