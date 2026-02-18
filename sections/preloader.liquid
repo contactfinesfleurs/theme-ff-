@@ -1,5 +1,5 @@
 {% if section.settings.show_preloader %}
-    <div id="preloader" 
+    <div id="preloader"
          data-duration="{{ section.settings.preloader_duration }}"
          style="background-color:{{ section.settings.preloader_color }};">
     {% if section.settings.preloader_logo_type == 'image' %}
@@ -8,23 +8,18 @@
               height="auto"
               style="width: 300px;"
               alt="Logo"
-              class="preloader-logo"  
+              class="preloader-logo"
             >
-            {% else %}        
+            {% else %}
             <img src="{{ 'Supreme-dummy.png' | asset_url }}" alt="" class="preloader-logo">
-            {% endif %} 
+            {% endif %}
     {% elsif section.settings.preloader_logo_type == 'text' %}
       <h6 style="color: {{ section.settings.preloader_txt_color }}; font-size: {{ section.settings.preloader_txt_size }}px;" class="preloader-logo">{{ section.settings.preloader_text }}</h6>
     {% endif %}
     </div>
+  {{ 'preloader.css' | asset_url | stylesheet_tag }}
+  {{ 'preloader.js' | asset_url | script_tag }}
 {% endif %}
-
-
-
-
-
-{{ 'preloader.css' | asset_url | stylesheet_tag }}
-{{ 'preloader.js' | asset_url | script_tag }}
 
 
 {% schema %}
@@ -109,4 +104,3 @@
       ]
     }
   {% endschema %}
-

@@ -277,7 +277,7 @@
        data-popup 
        data-enable-test-mode="{% if section.settings.enable_test_mode %}true{% else %}false{% endif %}">
     {% if section.settings.popup_image != blank %}
-      <div class="email-popup__image" style="background-image: url('{{ section.settings.popup_image | img_url: 'master' }}')"></div>
+      <div class="email-popup__image" data-popup-image="{{ section.settings.popup_image | image_url: width: 900 }}"></div>
       <div class="email-popup__content">
     {% else %}
       <div class="email-popup__content" style="width: 100%">
@@ -491,12 +491,15 @@
       this.overlay = document.querySelector('[data-popup-overlay]');
       this.closeButton = document.querySelector('[data-popup-close]');
       this.popupContent = document.querySelector('.email-popup__content');
+      this.popupImage = document.querySelector('.email-popup__image[data-popup-image]');
       this.isSuccess = window.location.search.includes('customer_posted=true');
-      this.isTestMode = this.popup.dataset.enableTestMode === 'true';
-      
+      this.isTestMode = this.popup && this.popup.dataset.enableTestMode === 'true';
+      this.interactionHandler = this.handleFirstInteraction.bind(this);
+
+      if (!this.popup || !this.overlay || !this.closeButton || !this.popupContent) return;
       this.init();
     }
-    
+
     init() {
       if (this.isSuccess) {
         this.showSuccessPopup();
@@ -504,17 +507,21 @@
       }
       if (!this.isTestMode && this.wasPopupShown()) return;
 
-      requestAnimationFrame(() => {
+      if (this.isTestMode) {
         requestAnimationFrame(() => {
-          this.showPopup();
+          requestAnimationFrame(() => {
+            this.showPopup();
+          });
         });
-      });
+      } else {
+        this.bindFirstInteraction();
+      }
 
       this.closeButton.addEventListener('click', (e) => {
         e.stopPropagation();
         this.hidePopup();
       });
-      
+
       this.overlay.addEventListener('click', (e) => {
         if (e.target === this.overlay) {
           this.hidePopup();
@@ -526,7 +533,35 @@
       });
     }
 
+    bindFirstInteraction() {
+      const passiveOnce = { once: true, passive: true };
+      window.addEventListener('pointerdown', this.interactionHandler, passiveOnce);
+      window.addEventListener('touchstart', this.interactionHandler, passiveOnce);
+      window.addEventListener('scroll', this.interactionHandler, passiveOnce);
+      window.addEventListener('keydown', this.interactionHandler, { once: true });
+    }
+
+    unbindFirstInteraction() {
+      window.removeEventListener('pointerdown', this.interactionHandler);
+      window.removeEventListener('touchstart', this.interactionHandler);
+      window.removeEventListener('scroll', this.interactionHandler);
+      window.removeEventListener('keydown', this.interactionHandler);
+    }
+
+    handleFirstInteraction() {
+      this.unbindFirstInteraction();
+      requestAnimationFrame(() => this.showPopup());
+    }
+
+    ensurePopupImage() {
+      if (!this.popupImage) return;
+      const popupImageUrl = this.popupImage.dataset.popupImage;
+      if (!popupImageUrl || this.popupImage.style.backgroundImage) return;
+      this.popupImage.style.backgroundImage = "url('" + popupImageUrl + "')";
+    }
+
     showPopup() {
+      this.ensurePopupImage();
       this.popup.classList.add('active');
       this.overlay.classList.add('active');
       this.overlay.style.overflow = 'hidden';
@@ -536,6 +571,7 @@
       this.popup.classList.remove('active');
       this.overlay.classList.remove('active');
       this.overlay.style.overflow = '';
+      this.unbindFirstInteraction();
       if (!this.isTestMode) {
         this.setPopupShown();
       }
@@ -551,25 +587,25 @@
 
     showSuccessPopup() {
       const form = this.popup.querySelector('.email-popup__form');
-      form.style.display = 'none';
-      
+      if (form) form.style.display = 'none';
+
       const successContent = `
         <div class="email-popup__success">
           <h2 class="email-popup__title">{{ section.settings.success_title }}</h2>
           <p class="email-popup__description">{{ section.settings.success_message }}</p>
         </div>
       `;
-      
+
       this.popupContent.insertAdjacentHTML('beforeend', successContent);
-      
       this.showPopup();
-      
+
       setTimeout(() => {
         this.hidePopup();
         window.history.replaceState({}, document.title, window.location.pathname);
       }, 5000);
     }
   }
+
   document.addEventListener('DOMContentLoaded', function() {
     new EmailPopup();
   });

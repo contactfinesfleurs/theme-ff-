@@ -37,6 +37,17 @@
   <link rel="preload" href="{{ 'plain-jane.css' | asset_url }}" as="style">
   <link rel="stylesheet" href="{{ 'plain-jane.css' | asset_url }}" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="{{ 'plain-jane.css' | asset_url }}"></noscript>
+  {% if settings.show_home_logo and settings.enter_screen_logo %}
+    {% assign home_logo_size = settings.enter_screen_logo_size | default: 300 %}
+    <link
+      rel="preload"
+      as="image"
+      href="{{ settings.enter_screen_logo | image_url: width: 800 }}"
+      imagesrcset="{{ settings.enter_screen_logo | image_url: width: 320 }} 320w, {{ settings.enter_screen_logo | image_url: width: 480 }} 480w, {{ settings.enter_screen_logo | image_url: width: 640 }} 640w, {{ settings.enter_screen_logo | image_url: width: 800 }} 800w, {{ settings.enter_screen_logo | image_url: width: 1200 }} 1200w"
+      imagesizes="(max-width: 749px) 70vw, {{ home_logo_size }}px"
+      fetchpriority="high"
+    >
+  {% endif %}
 {% else %}
   {{ 'plain-jane.css' | asset_url | stylesheet_tag }}
 {% endif %}
