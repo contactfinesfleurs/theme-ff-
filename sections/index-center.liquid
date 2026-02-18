@@ -9,13 +9,15 @@
         aria-current="page"
         class="logo-link w-inline-block w--current">
         {% if settings.enter_screen_logo %}
-          {% assign home_logo_size = settings.enter_screen_logo_size | default: 300 %}
+          {% assign home_logo_size = settings.enter_screen_logo_size | default: 120 %}
+          {% assign home_logo_2x = home_logo_size | times: 2 | at_least: 240 | at_most: 480 %}
+          {% assign home_logo_height = home_logo_size | divided_by: settings.enter_screen_logo.aspect_ratio | round %}
           <img
-            src="{{ settings.enter_screen_logo | image_url: width: 800 }}"
-            srcset="{{ settings.enter_screen_logo | image_url: width: 320 }} 320w, {{ settings.enter_screen_logo | image_url: width: 480 }} 480w, {{ settings.enter_screen_logo | image_url: width: 640 }} 640w, {{ settings.enter_screen_logo | image_url: width: 800 }} 800w, {{ settings.enter_screen_logo | image_url: width: 1200 }} 1200w"
-            sizes="(max-width: 749px) 70vw, {{ home_logo_size }}px"
-            width="{{ settings.enter_screen_logo.width }}"
-            height="{{ settings.enter_screen_logo.height }}"
+            src="{{ settings.enter_screen_logo | image_url: width: home_logo_2x }}"
+            srcset="{{ settings.enter_screen_logo | image_url: width: home_logo_size }} {{ home_logo_size }}w, {{ settings.enter_screen_logo | image_url: width: home_logo_2x }} {{ home_logo_2x }}w"
+            sizes="{{ home_logo_size }}px"
+            width="{{ home_logo_size }}"
+            height="{{ home_logo_height }}"
             loading="eager"
             decoding="sync"
             fetchpriority="high"
