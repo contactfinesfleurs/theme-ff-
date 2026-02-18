@@ -46,7 +46,9 @@
             {% render 'image-element',
               image: mobile_image,
               image_class: "minimal-hero__image",
-              alt: section.settings.title
+              alt: section.settings.title,
+              loading: 'eager',
+              fetchpriority: 'high'
             %}
           </div>
         {% else %}
@@ -77,7 +79,9 @@
           {% render 'image-element',
             image: section.settings.image_1,
             image_class: "minimal-hero__image",
-            alt: section.settings.title
+            alt: section.settings.title,
+            loading: 'eager',
+            fetchpriority: 'high'
           %}
         </div>
       {% else %}
@@ -651,4 +655,3 @@
     }
   }
   {% endschema %}
-

@@ -50,19 +50,19 @@
       "
     >
       {% if block.settings.show_collection_header %}
-        <h1
+        <h2
           style="text-align: {{ block.settings.collection_header_align }}; top:{{ block.settings.header_down }}px; left: {{ block.settings.header_right }}px;"
           class="regular-collection-text"
         >
           {{ block.settings.collection.title }}
-        </h1>
+        </h2>
       {% endif %}
       {% if block.settings.show_collection_header %}
-      <h1
+      <h2
         class="mobile-collection-text"
       >
         {{ block.settings.collection.title }}
-      </h1>
+      </h2>
       {% endif %}
       {% if block.settings.show_collection_description %}
         <p
@@ -73,14 +73,14 @@
         </p>
       {% endif %}
 
-      <h1
+      <h3
         style="text-align: {{ block.settings.collection_header_hover_align }}; top:{{ block.settings.hover_header_down }}px; left: {{ block.settings.hover_header_right }}px;"
         class="hover-text"
       >
         {% if block.settings.show_collection_hover_header %}
           {{ block.settings.hover_header_text }}
         {% endif %}
-      </h1>
+      </h3>
       <p
         style="text-align: {{ block.settings.collection_description_hover_align }}; top:{{ block.settings.hover_description_down }}px; left: {{ block.settings.hover_description_right }}px;"
         class="hover-text"
