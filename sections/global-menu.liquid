@@ -1,4 +1,10 @@
-{{ 'pushy.css' | asset_url | stylesheet_tag }}
+{% if request.page_type == 'index' %}
+  <link rel="preload" href="{{ 'pushy.css' | asset_url }}" as="style">
+  <link rel="stylesheet" href="{{ 'pushy.css' | asset_url }}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="{{ 'pushy.css' | asset_url }}"></noscript>
+{% else %}
+  {{ 'pushy.css' | asset_url | stylesheet_tag }}
+{% endif %}
 
   {% if template.name != 'password' %}
 

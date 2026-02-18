@@ -91,11 +91,13 @@ min-height: 100%;
         <div style="--hide-video: {{ display }}; position: relative; width: 100%; height: 100%;" class="video-container">
             <video
                     id="background-video-{{ section.id }}"
-                    class="video-js myVideo"
+                    class="myVideo"
                     playsinline
                     muted
+                    defaultmuted
+                    autoplay
+                    loop
                     preload="metadata"
-                    data-setup='{}'
                     style="
         width: 100%;
         height: 100%;

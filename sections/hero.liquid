@@ -60,13 +60,12 @@
       <div class="minimal-hero__video-container {% if section.settings.use_image_mobile %}desktop-only-first{% endif %}">
         <video
           id="hero-video-{{ section.id }}"
-          class="minimal-hero__video video-js myVideo"
+          class="minimal-hero__video myVideo"
           playsinline
           muted
           loop
           autoplay
           preload="metadata"
-          data-setup='{}'
           {% if hero_video_poster != blank %}
             poster="{{ hero_video_poster | image_url: width: 1600 }}"
           {% endif %}

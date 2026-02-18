@@ -1,4 +1,4 @@
-{% if section.settings.show_preloader %}
+{% if section.settings.show_preloader and request.page_type != 'index' %}
     <div id="preloader"
          data-duration="{{ section.settings.preloader_duration }}"
          style="background-color:{{ section.settings.preloader_color }};">

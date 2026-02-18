@@ -206,16 +206,12 @@
       </script>
     {% endif %}
     {{ content_for_header }}
-    {%- assign needs_video_js = false -%}
-    {%- if content_for_layout contains 'video-js myVideo' -%}
-      {%- assign needs_video_js = true -%}
+    {%- assign needs_background_video = false -%}
+    {%- if content_for_layout contains 'myVideo' -%}
+      {%- assign needs_background_video = true -%}
     {%- endif -%}
-    {% if needs_video_js %}
-      <link rel="preload" href="{{ 'video.css' | asset_url }}" as="style">
-      <link rel="stylesheet" href="{{ 'video.css' | asset_url }}" media="print" onload="this.media='all'">
-      <noscript><link rel="stylesheet" href="{{ 'video.css' | asset_url }}"></noscript>
-      {{ 'video.js' | asset_url | script_tag: defer: true }}
-      {{ 'background-video.js' | asset_url | script_tag: defer: true }}
+    {% if needs_background_video %}
+      <script src="{{ 'background-video.js' | asset_url }}" defer></script>
     {% endif %}
    <!-- Google Webmaster Tools Site Verification -->
 <meta name="google-site-verification" content="cB62P-eDi__LzriWzrvLY6j1tRQ6VdE1BcfK9zIL1Fk" />

@@ -1,44 +1,59 @@
 (function() {
-  document.addEventListener('DOMContentLoaded', () => {
-      const videoElements = document.querySelectorAll('.video-js.myVideo');
-    if (!videoElements.length || typeof window.videojs !== 'function') {
+  function attemptPlay(videoElement) {
+    if (!videoElement) {
       return;
     }
-    videoElements.forEach(videoElement => {
-      const player = videojs(videoElement.id, {
-        autoplay: false,
-        muted: true,
-        loop: true,
-        controls: false,
-        fluid: false,
-        fill: true,
-        responsive: true
-      });
 
-      player.ready(() => {
-        player.loop(true);
-        player.play().catch(error => {
-          console.log("Autoplay blocked:", error);
-        });
-      });
+    videoElement.muted = true;
+    videoElement.defaultMuted = true;
+    videoElement.setAttribute('muted', '');
+    videoElement.setAttribute('playsinline', '');
+    videoElement.setAttribute('autoplay', '');
+    videoElement.setAttribute('loop', '');
 
-      document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-          player.play().catch(error => {
-            console.log("Playback failed on visibility change:", error);
-          });
-        }
-      });
+    var playPromise = videoElement.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(function() {});
+    }
+  }
 
-      if (Shopify.designMode) {
-        document.addEventListener('shopify:section:load', (event) => {
-          if (event.target.contains(videoElement)) {
-            player.play().catch(error => {
-              console.log("Playback failed after section load:", error);
-            });
-          }
-        });
+  function initVideos(scope) {
+    var root = scope || document;
+    var videoElements = root.querySelectorAll('.myVideo');
+    if (!videoElements.length) {
+      return;
+    }
+
+    videoElements.forEach(function(videoElement) {
+      if (videoElement.readyState >= 2) {
+        attemptPlay(videoElement);
+        return;
       }
+
+      videoElement.addEventListener(
+        'loadeddata',
+        function() {
+          attemptPlay(videoElement);
+        },
+        { once: true }
+      );
     });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initVideos(document);
   });
-})(); 
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState !== 'visible') {
+      return;
+    }
+    initVideos(document);
+  });
+
+  if (window.Shopify && Shopify.designMode) {
+    document.addEventListener('shopify:section:load', function(event) {
+      initVideos(event.target);
+    });
+  }
+})();
