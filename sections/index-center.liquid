@@ -600,57 +600,7 @@
 </div>
 
 
-<script>
-  (function () {
-    function indexSideFunc() {
-      var announcementBar = document.querySelector('.text-block');
-      var navIcon = document.querySelector('.menu-btn');
-      if (!announcementBar || !navIcon) return;
-
-      function handleDOMContentLoaded() {
-        if (document.querySelector('.announcement-floater-enabled')) {
-          navIcon.style.right = '3.7%';
-        } else {
-          navIcon.style.left = '1%';
-        }
-
-        function getComputedMargins(element) {
-          var styles = window.getComputedStyle(element);
-          return {
-            top: parseFloat(styles.marginTop),
-            bottom: parseFloat(styles.marginBottom)
-          };
-        }
-
-        function updateFilterBtnPosition() {
-          var announcementBarHeight = announcementBar.offsetHeight;
-          var announcementBarMargins = getComputedMargins(announcementBar);
-          var totalAnnouncementBarHeight = announcementBarHeight + announcementBarMargins.top + announcementBarMargins.bottom;
-          navIcon.style.top = totalAnnouncementBarHeight + 4 + 'px';
-        }
-
-        updateFilterBtnPosition();
-        window.removeEventListener('resize', updateFilterBtnPosition);
-        window.addEventListener('resize', updateFilterBtnPosition);
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', handleDOMContentLoaded, { once: true });
-      } else {
-        handleDOMContentLoaded();
-      }
-    }
-
-    if (window.Shopify && Shopify.designMode) {
-      indexSideFunc();
-      document.addEventListener('shopify:section:load', function () {
-        indexSideFunc();
-      });
-    } else {
-      indexSideFunc();
-    }
-  })();
-</script>
+<script src="{{ 'index-classic-raw.js' | asset_url }}" defer type="text/javascript"></script>
 
 
 {% schema %}
