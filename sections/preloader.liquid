@@ -4,21 +4,25 @@
          style="background-color:{{ section.settings.preloader_color }};">
     {% if section.settings.preloader_logo_type == 'image' %}
             {% if section.settings.preloader_logo %}
+            {% assign preloader_logo_width = 300 %}
+            {% assign preloader_logo_height = preloader_logo_width | divided_by: section.settings.preloader_logo.aspect_ratio | round %}
              <img src="{{ section.settings.preloader_logo | image_url: width: 300 }}"
-              height="auto"
+              width="{{ preloader_logo_width }}"
+              height="{{ preloader_logo_height }}"
               style="width: 300px;"
               alt="Logo"
               class="preloader-logo"
             >
             {% else %}
-            <img src="{{ 'Supreme-dummy.png' | asset_url }}" alt="" class="preloader-logo">
+            <img src="{{ 'Supreme-dummy.png' | asset_url }}" width="300" height="80" alt="" class="preloader-logo">
             {% endif %}
     {% elsif section.settings.preloader_logo_type == 'text' %}
       <h6 style="color: {{ section.settings.preloader_txt_color }}; font-size: {{ section.settings.preloader_txt_size }}px;" class="preloader-logo">{{ section.settings.preloader_text }}</h6>
     {% endif %}
     </div>
-  {{ 'preloader.css' | asset_url | stylesheet_tag }}
-  {{ 'preloader.js' | asset_url | script_tag }}
+  <link rel="stylesheet" href="{{ 'preloader.css' | asset_url }}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="{{ 'preloader.css' | asset_url }}"></noscript>
+  <script src="{{ 'preloader.js' | asset_url }}" defer></script>
 {% endif %}
 
 

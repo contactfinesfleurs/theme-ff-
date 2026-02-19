@@ -606,8 +606,7 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    new EmailPopup();
-  });
+  if('requestIdleCallback' in window){requestIdleCallback(function(){new EmailPopup()},{timeout:3000})}
+  else{setTimeout(function(){new EmailPopup()},1000)}
 })();
     </script>

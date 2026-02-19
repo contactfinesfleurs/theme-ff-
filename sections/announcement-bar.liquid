@@ -94,17 +94,15 @@
 
 {% if template.name != 'password' and settings.show_announcement_bar %}
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var announcementBar = document.querySelector('.text-block.announcement-floater-enabled');
-      var collectionDisplay1 = document.getElementById('collection-products-display-1');
-
-      if (!announcementBar || !collectionDisplay1) return;
-
-      announcementBar.style.width = '92%';
-      announcementBar.style.marginLeft = 'auto';
-      announcementBar.style.marginRight = 'auto';
-      announcementBar.style.marginTop = '20px';
-      announcementBar.style.marginBottom = '20px';
-    });
+    (function(){
+      function initAnnouncement(){
+        var ab=document.querySelector('.text-block.announcement-floater-enabled');
+        var cd=document.getElementById('collection-products-display-1');
+        if(!ab||!cd)return;
+        ab.style.width='92%';ab.style.marginLeft='auto';ab.style.marginRight='auto';ab.style.marginTop='20px';ab.style.marginBottom='20px';
+      }
+      if('requestIdleCallback' in window){requestIdleCallback(initAnnouncement,{timeout:2000})}
+      else{setTimeout(initAnnouncement,100)}
+    })();
   </script>
 {% endif %}

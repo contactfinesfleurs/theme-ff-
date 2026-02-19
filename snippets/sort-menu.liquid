@@ -68,6 +68,10 @@
     var currentSort = new URLSearchParams(window.location.search).get('sort_by') || 'manual';
     var sortMenuClose = document.getElementById('sort-menu-close');
 
+    if (!sortMenu || !sortMenuHandle) {
+      return;
+    }
+
     function showSortMenuOnMobile() {
       if (isMobile) {
         var overlay = document.createElement('div');
