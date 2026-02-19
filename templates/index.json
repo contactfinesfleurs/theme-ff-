@@ -28,6 +28,7 @@
     },
     "preloader_CreNEy": {
       "type": "preloader",
+      "disabled": true,
       "settings": {
         "show_preloader": false,
         "preloader_color": "#ffffff",
