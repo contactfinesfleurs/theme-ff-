@@ -230,7 +230,7 @@
         </div>
       </div>
     {% endif %}
-    {% unless request.page_type == 'password' %}
+    {% unless request.page_type == 'password' or request.page_type == 'index' %}
       {% section 'global-nav' %}
     {% endunless %}
     {% unless request.page_type == 'index' or request.page_type == 'password' %}
