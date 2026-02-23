@@ -24,4 +24,8 @@
     <a class="ff-nav-link{% if active_item == 'us' %} is-active{% endif %}" href="{{ about_url }}">us</a>
     <a class="ff-nav-link{% if active_item == 'contact' %} is-active{% endif %}" href="{{ contact_url }}">contact</a>
   </nav>
+
+  <a class="ff-cart" href="{{ routes.cart_url }}" aria-label="Cart ({{ cart.item_count }})">
+    {%- if cart.item_count > 0 -%}{{ cart.item_count }}{%- endif -%}
+  </a>
 </header>

@@ -11,14 +11,23 @@
   <div class="ff-wrap ff-wrap--page">
     {% render 'ff-min-nav', active: nav_active, class: 'ff-header--page' %}
 
-    <div class="ff-page-content">
-      <h1 class="ff-page-title">{{ page.title }}</h1>
-      <div class="ff-page-richtext">
-        {% if page.content != blank %}
-          {{ page.content }}
-        {% else %}
-          <p>{{ section.settings.fallback_text }}</p>
+    <div class="ff-content-box">
+      <div class="ff-about-inner">
+        <h1 class="ff-about-heading">FINES FLEURS</h1>
+
+        {% if template.suffix == 'about' %}
+          <p class="ff-about-sub">about us</p>
+        {% elsif page.title != blank %}
+          <p class="ff-about-sub">{{ page.title }}</p>
         {% endif %}
+
+        <div class="ff-about-text">
+          {% if page.content != blank %}
+            {{ page.content }}
+          {% else %}
+            <p>{{ section.settings.fallback_text }}</p>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>

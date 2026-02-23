@@ -29,18 +29,28 @@
 
     <div class="ff-product-layout">
       <div class="ff-product-gallery">
-        {% assign image_count = 0 %}
-        {% for media in product.media %}
-          {% if media.media_type == 'image' and image_count < 4 %}
-            <a class="ff-gallery-item" href="{{ media | image_url: width: 2200 }}">
-              {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', alt: media.alt }}
-            </a>
-            {% assign image_count = image_count | plus: 1 %}
+        {%- comment -%} Main image — first product image {%- endcomment -%}
+        {% assign first_image = product.media | where: 'media_type', 'image' | first %}
+        <div class="ff-gallery-main">
+          {% if first_image != blank %}
+            {{ first_image | image_url: width: 1600 | image_tag: loading: 'eager', alt: first_image.alt }}
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag }}
           {% endif %}
-        {% endfor %}
+        </div>
 
-        {% if image_count == 0 %}
-          <div class="ff-gallery-item">{{ 'product-1' | placeholder_svg_tag }}</div>
+        {%- comment -%} Thumbnails — images 2-4 {%- endcomment -%}
+        {% assign thumb_images = product.media | where: 'media_type', 'image' %}
+        {% if thumb_images.size > 1 %}
+          <div class="ff-gallery-thumbs">
+            {% for media in thumb_images %}
+              {% if forloop.index == 1 %}{% continue %}{% endif %}
+              {% if forloop.index > 4 %}{% break %}{% endif %}
+              <div class="ff-thumb-item">
+                {{ media | image_url: width: 400 | image_tag: loading: 'lazy', alt: media.alt }}
+              </div>
+            {% endfor %}
+          </div>
         {% endif %}
       </div>
 
@@ -109,7 +119,7 @@
           {% endif %}
 
           <button class="ff-add-to-cart" type="submit" name="add" {% unless product.available %}disabled{% endunless %}>
-            Add to cart
+            ajouter au panier
           </button>
         {% endform %}
 

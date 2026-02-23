@@ -2,43 +2,69 @@
   <div class="ff-wrap ff-wrap--page">
     {% render 'ff-min-nav', active: 'contact', class: 'ff-header--page' %}
 
-    <div class="ff-page-content">
-      <h1 class="ff-page-title">{{ page.title | default: 'Contact' }}</h1>
+    <div class="ff-content-box">
+      <div class="ff-contact-inner">
+        {% form 'contact', class: 'ff-contact-form' %}
 
-      <div class="ff-page-richtext">
-        {% if page.content != blank %}
-          {{ page.content }}
-        {% else %}
-          <p>{{ section.settings.contact_text }}</p>
-        {% endif %}
+          {% if form.posted_successfully? %}
+            <p style="margin-bottom:20px;font-size:16px;">Thank you — we'll get back to you shortly.</p>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="ff-form-error" style="margin-bottom:16px;">{{ form.errors | default_errors }}</div>
+          {% endif %}
+
+          <div class="ff-form-row">
+            <input
+              class="ff-input"
+              type="text"
+              name="contact[first_name]"
+              placeholder="First Name"
+              value="{{ form.first_name }}">
+            <input
+              class="ff-input"
+              type="text"
+              name="contact[last_name]"
+              placeholder="Last Name"
+              value="{{ form.last_name }}">
+          </div>
+
+          <div class="ff-form-row">
+            <input
+              class="ff-input"
+              type="email"
+              name="contact[email]"
+              placeholder="Email Address"
+              value="{{ form.email }}"
+              required>
+            <input
+              class="ff-input"
+              type="text"
+              name="contact[order_number]"
+              placeholder="Order Number"
+              value="{{ form.order_number }}">
+          </div>
+
+          <input
+            class="ff-input"
+            type="text"
+            name="contact[subject]"
+            placeholder="Subject"
+            value="{{ form.subject }}">
+
+          <textarea
+            class="ff-textarea"
+            name="contact[body]"
+            placeholder="Message"
+            required>{{ form.body }}</textarea>
+
+          <div class="ff-form-buttons">
+            <a class="ff-btn" href="{{ routes.root_url }}">Back Home</a>
+            <button class="ff-btn" type="submit">Send</button>
+          </div>
+
+        {% endform %}
       </div>
-
-      {% form 'contact', class: 'ff-contact-form' %}
-        {% if form.posted_successfully? %}
-          <p>Thanks, we received your message.</p>
-        {% endif %}
-
-        {% if form.errors %}
-          <div class="ff-form-error">{{ form.errors | default_errors }}</div>
-        {% endif %}
-
-        <div class="ff-form-group">
-          <label class="ff-form-label" for="ff-contact-name">Name</label>
-          <input class="ff-input" id="ff-contact-name" type="text" name="contact[name]" value="{{ form.name }}">
-        </div>
-
-        <div class="ff-form-group">
-          <label class="ff-form-label" for="ff-contact-email">Email</label>
-          <input class="ff-input" id="ff-contact-email" type="email" name="contact[email]" value="{{ form.email }}" required>
-        </div>
-
-        <div class="ff-form-group">
-          <label class="ff-form-label" for="ff-contact-message">Message</label>
-          <textarea class="ff-textarea" id="ff-contact-message" name="contact[body]" required>{{ form.body }}</textarea>
-        </div>
-
-        <button class="ff-add-to-cart" type="submit">Send message</button>
-      {% endform %}
     </div>
   </div>
 </section>
@@ -46,14 +72,7 @@
 {% schema %}
 {
   "name": "FF Minimal Contact",
-  "settings": [
-    {
-      "type": "textarea",
-      "id": "contact_text",
-      "label": "Fallback intro text",
-      "default": "Use this form for questions about products, delivery and wholesale requests."
-    }
-  ],
+  "settings": [],
   "presets": [
     {
       "name": "FF Minimal Contact"

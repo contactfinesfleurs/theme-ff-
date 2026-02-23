@@ -9,7 +9,7 @@
   <head>
     {%- liquid
       assign ff_minimal_layout = false
-      if request.page_type == 'index' or request.page_type == 'collection' or request.page_type == 'product' or request.page_type == 'page'
+      if request.page_type == 'index' or request.page_type == 'collection' or request.page_type == 'product' or request.page_type == 'page' or request.page_type == 'password'
         assign ff_minimal_layout = true
       endif
     -%}
@@ -41,9 +41,10 @@
           font-family: "{{ settings.custom_body_font_name }}";
           src: url("{{ settings.custom_body_font }}") format("woff2")
           , url("{{ settings.custom_body_font }}") format("woff");
+          font-display: swap;
         }
       {% else %}
-      {{ settings.body_font | font_face }}
+      {{ settings.body_font | font_face: font_display: 'swap' }}
     {% endif %}
     /* HEADER FONTS */
     {% if settings.enable_custom_font_header %}
@@ -51,9 +52,10 @@
         font-family: "{{ settings.custom_font_header_name }}";
         src: url("{{ settings.custom_font_header }}") format("woff2")
         , url("{{ settings.custom_font_header }}") format("woff");
+        font-display: swap;
       }
     {% else %}
-    {{ settings.font_header | font_face }}
+    {{ settings.font_header | font_face: font_display: 'swap' }}
   {% endif %}
   /* BUTTON FONTS */
   {% if settings.enable_custom_btn_font %}
@@ -61,9 +63,10 @@
       font-family: "{{ settings.custom_btn_font_name }}";
       src: url("{{ settings.custom_btn_font }}") format("woff2")
       , url("{{ settings.custom_btn_font }}") format("woff");
+      font-display: swap;
     }
   {% else %}
-  {{ settings.btn_font | font_face }}
+  {{ settings.btn_font | font_face: font_display: 'swap' }}
 {% endif %}
 /* ENTER NAVIGATION FONTS */
 {% if settings.enable_custom_nav_font %}
@@ -71,9 +74,10 @@
     font-family: "{{ settings.custom_nav_font_name }}";
     src: url("{{ settings.custom_nav_font }}") format("woff2")
     , url("{{ settings.custom_nav_font }}") format("woff");
+    font-display: swap;
   }
 {% else %}
-{{ settings.nav_font | font_face }}
+{{ settings.nav_font | font_face: font_display: 'swap' }}
 {% endif %}
 /* COUNTDOWN TIMER FONT */
 {% if settings.enable_custom_countdown_font %}
@@ -81,9 +85,10 @@
     font-family: "{{ settings.custom_countdown_font_name }}";
     src: url("{{ settings.custom_countdown_font }}") format("woff2")
     , url("{{ settings.custom_countdown_font }}") format("woff");
+    font-display: swap;
   }
 {% else %}
-{{ settings.countdown_font | font_face }}
+{{ settings.countdown_font | font_face: font_display: 'swap' }}
 {% endif %}
 /* MARQUEE FONT */
 {% if settings.enable_custom_marquee_font %}
@@ -91,9 +96,10 @@
     font-family: "{{ settings.custom_marquee_font_name }}";
     src: url("{{ settings.custom_marquee_font }}") format("woff2")
     , url("{{ settings.custom_marquee_font }}") format("woff");
+    font-display: swap;
   }
 {% else %}
-{{ settings.marquee_font | font_face }}
+{{ settings.marquee_font | font_face: font_display: 'swap' }}
 {% endif %}
 :root  {
   --font_body: {% if settings.enable_custom_body_font %}{{ settings.custom_body_font_name }}

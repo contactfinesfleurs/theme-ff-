@@ -4,6 +4,7 @@
 
     {% paginate collection.products by section.settings.products_per_page %}
       {% if collection.products_count > 0 %}
+        <div class="ff-content-box">
         <div class="ff-collection-grid">
           {% for product in collection.products %}
             <article class="ff-product-card">
@@ -27,6 +28,7 @@
               </a>
             </article>
           {% endfor %}
+        </div>
         </div>
 
         {% if paginate.pages > 1 %}
