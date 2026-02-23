@@ -46,11 +46,10 @@
 
   .{{ section_scope }}__inner {
     width: 100%;
-    padding: 0 clamp(24px, 5.6vw, 92px);
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    max-width: 1720px;
+    padding: 0 clamp(24px, 5.4vw, 92px);
+    display: flex;
     align-items: center;
-    column-gap: clamp(28px, 5vw, 140px);
   }
 
   .{{ section_scope }}__logo-link {
@@ -61,7 +60,7 @@
   }
 
   .{{ section_scope }}__logo-image {
-    width: clamp(190px, 18vw, 280px);
+    width: clamp(190px, 17vw, 300px);
     height: auto;
     display: block;
   }
@@ -76,18 +75,18 @@
   }
 
   .{{ section_scope }}__nav {
-    justify-self: center;
     display: flex;
     align-items: center;
-    gap: clamp(26px, 3.2vw, 70px);
+    margin-left: clamp(80px, 18vw, 300px);
+    gap: clamp(24px, 3.1vw, 80px);
   }
 
   .{{ section_scope }}__link {
     position: relative;
     padding-bottom: 0.34em;
-    color: #4e5764;
+    color: #3d434c;
     font-family: "DM Sans", sans-serif;
-    font-size: clamp(1.35rem, 2.2vw, 2.65rem);
+    font-size: clamp(1.35rem, 2.15vw, 2.6rem);
     font-weight: 500;
     line-height: 1;
     text-transform: lowercase;
@@ -114,28 +113,18 @@
     background: #111;
   }
 
-  .{{ section_scope }}__spacer {
-    justify-self: end;
-    width: clamp(190px, 18vw, 280px);
-    height: 1px;
-    visibility: hidden;
-  }
-
   @media (max-width: 980px) {
-    .{{ section_scope }}__inner {
-      column-gap: clamp(20px, 3vw, 42px);
-    }
-
     .{{ section_scope }}__logo-image {
-      width: clamp(160px, 26vw, 220px);
-    }
-
-    .{{ section_scope }}__spacer {
-      width: clamp(160px, 26vw, 220px);
+      width: clamp(160px, 24vw, 220px);
     }
 
     .{{ section_scope }}__link {
       font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+    }
+
+    .{{ section_scope }}__nav {
+      margin-left: clamp(36px, 8vw, 90px);
+      gap: clamp(18px, 2.4vw, 34px);
     }
   }
 
@@ -145,15 +134,14 @@
     }
 
     .{{ section_scope }}__inner {
-      grid-template-columns: 1fr;
-      row-gap: 26px;
-      justify-items: center;
+      flex-direction: column;
+      row-gap: 24px;
       text-align: center;
     }
 
     .{{ section_scope }}__logo-link,
     .{{ section_scope }}__nav {
-      justify-self: center;
+      margin-left: 0;
     }
 
     .{{ section_scope }}__logo-image {
@@ -174,9 +162,6 @@
       font-size: clamp(1rem, 5.4vw, 1.4rem);
     }
 
-    .{{ section_scope }}__spacer {
-      display: none;
-    }
   }
 </style>
 
