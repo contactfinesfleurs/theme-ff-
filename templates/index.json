@@ -12,7 +12,7 @@
     "preloader": {
       "type": "preloader",
       "settings": {
-        "show_preloader": false,
+        "show_preloader": true,
         "preloader_color": "#ffffff",
         "preloader_logo_type": "text",
         "preloader_text": "Plain Jane 3.0",
@@ -23,7 +23,6 @@
     },
     "email_popup": {
       "type": "email-popup",
-      "disabled": true,
       "settings": {
         "popup_title": "GET NOTIFIED OF NEXT DROP",
         "popup_description": "Lorem ipsum dolor sit amet consectetur. Mauris orci viverra nec ac aliquet elit imperdiet egestas sit.",
@@ -94,7 +93,6 @@
     },
     "index-center": {
       "type": "index-center",
-      "disabled": true,
       "settings": {
         "show_date_time": true,
         "index_date_color": "#000000",
