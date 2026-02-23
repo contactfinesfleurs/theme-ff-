@@ -6,6 +6,7 @@ function indexSideFunc() {
 
 
     if(announcementBar) {
+        console.log("announcement bar present")
         function handleDOMContentLoaded() {
             // Get the announcement bar and filter button elements
 

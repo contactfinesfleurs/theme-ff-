@@ -11,53 +11,60 @@
   "sections": {
     "background": {
       "type": "default-background",
-      "settings": {
-        "password_bg_style": "color",
-        "bg_color": "#ffffff",
-        "bg_color_mobile": "#ffffff",
-        "overlay_top_color": "#000000",
-        "overlay_top_opacity": 0,
-        "overlay_bottom_color": "#000000",
-        "overlay_bottom_opacity": 0,
-        "overlay_top_color_mobile": "#000000",
-        "overlay_top_opacity_mobile": 0,
-        "overlay_bottom_color_mobile": "#000000",
-        "overlay_bottom_opacity_mobile": 0,
-        "show_background_image_mobile": false
-      }
+      "settings": {}
     },
     "clock": {
       "type": "default-timezone",
-      "settings": {
-        "index_date_color": "#000",
-        "index_time_color": "#000",
-        "background_color": "transparent"
-      }
+      "settings": {}
     },
     "search": {
       "type": "search-input",
+      "settings": {}
+    },
+    "image-stream": {
+      "type": "image-stream",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        },
+        "slide-4": {
+          "type": "slide",
+          "settings": {
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3",
+        "slide-4"
+      ],
       "settings": {
-        "search_box_input_bg_color": "#fff",
-        "search_box_input_txt_color": "#000",
-        "enable_search_input_radius": true,
-        "show_product_titles": true,
-        "show_product_prices": true,
-        "background_color": "#ffffff",
-        "no_results_color": "#000",
-        "search_card_header_color": "#000",
-        "search_card_price_color": "#000",
-        "sold_out_label": "SOLD OUT",
-        "sale_label": "ON SALE",
-        "sold_out_bg_color": "#000000",
-        "sold_out_text_color": "#FFFFFF",
-        "sale_bg_color": "#FF4D4D",
-        "sale_text_color": "#FFFFFF"
+        "header_text": "",
+        "header_link_text": ""
       }
     }
   },
   "order": [
     "background",
     "clock",
-    "search"
+    "search",
+    "image-stream"
   ]
 }

@@ -9,30 +9,19 @@
         aria-current="page"
         class="logo-link w-inline-block w--current">
         {% if settings.enter_screen_logo %}
-          {% assign home_logo_size = settings.enter_screen_logo_size | default: 120 %}
-          {% assign home_logo_2x = home_logo_size | times: 2 | at_least: 240 | at_most: 480 %}
-          {% assign home_logo_height = home_logo_size | divided_by: settings.enter_screen_logo.aspect_ratio | round %}
           <img
-            src="{{ settings.enter_screen_logo | image_url: width: home_logo_2x }}"
-            srcset="{{ settings.enter_screen_logo | image_url: width: home_logo_size }} {{ home_logo_size }}w, {{ settings.enter_screen_logo | image_url: width: home_logo_2x }} {{ home_logo_2x }}w"
-            sizes="{{ home_logo_size }}px"
-            width="{{ home_logo_size }}"
-            height="{{ home_logo_height }}"
-            loading="eager"
-            decoding="sync"
-            fetchpriority="high"
-            style="width: {{ home_logo_size }}px;"
-            alt="{{ shop.name | escape }}"
+            src="{{ settings.enter_screen_logo | image_url }}"
+            height="auto"
+            style="width: {{ settings.enter_screen_logo_size }}px;"
+            alt="Logo"
             class="logo">
         {% else %}
 
           <img
+            height="auto"
             style="width: {{ settings.enter_screen_logo_size }}px;"
             src="{{ 'Supreme-dummy.png' | asset_url }}"
-            loading="eager"
-            decoding="sync"
-            fetchpriority="high"
-            alt="{{ shop.name | escape }}"
+            alt=""
             class="logo">
 
         {% endif %}
@@ -600,7 +589,7 @@
 </div>
 
 
-<script src="{{ 'index-classic-raw.js' | asset_url }}" defer type="text/javascript"></script>
+<script src="{{ 'index-classic-raw.js' | asset_url }}" type="text/javascript"></script>
 
 
 {% schema %}

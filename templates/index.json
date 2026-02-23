@@ -1,29 +1,44 @@
-{
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
   "sections": {
+    "preloader": {
+      "type": "preloader",
+      "settings": {}
+    },
+    "email_popup": {
+      "type": "email-popup",
+      "settings": {}
+    },
     "background": {
       "type": "default-background",
       "settings": {
-        "password_bg_style": "color",
-        "bg_color": "#ffffff",
-        "bg_color_mobile": "#ffffff",
-        "overlay_top_color": "#000000",
-        "overlay_top_opacity": 0,
-        "overlay_bottom_color": "#000000",
-        "overlay_bottom_opacity": 0,
-        "overlay_top_color_mobile": "#000000",
-        "overlay_top_opacity_mobile": 0,
-        "overlay_bottom_color_mobile": "#000000",
-        "overlay_bottom_opacity_mobile": 0,
-        "show_background_image_mobile": false
       }
     },
-    "hero": {
-      "type": "homepage-hero",
+    "dynamic_background": {
+      "type": "dynamic-background",
+      "settings": {
+        "password_bg_style": "color",
+        "show_marquee": false
+      }
+    },
+    "index-center": {
+      "type": "index-center",
       "settings": {}
     }
   },
   "order": [
+    "preloader",
+    "email_popup",
     "background",
-    "hero"
+    "dynamic_background",
+    "index-center"
   ]
 }
