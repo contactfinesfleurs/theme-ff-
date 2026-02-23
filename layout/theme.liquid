@@ -7,28 +7,7 @@
   data-money-format="{{ shop.money_format | escape }}"
   store={{ shop.email }}>
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['"DM Sans"', 'sans-serif'],
-            },
-          },
-        },
-      }
-    </script>
-    <style type="text/tailwindcss">
-      @layer base {
-        body { font-family: 'DM Sans', sans-serif; }
-      }
-    </style>
     <style>
-      {% unless request.page_type == 'index' %}
       shopify-accelerated-checkout {
         --shopify-accelerated-checkout-button-block-size: 20px;
         --shopify-accelerated-checkout-button-border-radius: 0;
@@ -50,17 +29,15 @@
         --shopify-accelerated-checkout-skeleton-animation-duration: 4s;
         --shopify-accelerated-checkout-skeleton-animation-timing-function: ease;
       }
-      {% endunless %}
       /* BODY FONTS */
       {% if settings.enable_custom_body_font %}
         @font-face {
           font-family: "{{ settings.custom_body_font_name }}";
           src: url("{{ settings.custom_body_font }}") format("woff2")
           , url("{{ settings.custom_body_font }}") format("woff");
-          font-display: swap;
         }
       {% else %}
-      {{ settings.body_font | font_face: font_display: 'swap' }}
+      {{ settings.body_font | font_face }}
     {% endif %}
     /* HEADER FONTS */
     {% if settings.enable_custom_font_header %}
@@ -68,10 +45,9 @@
         font-family: "{{ settings.custom_font_header_name }}";
         src: url("{{ settings.custom_font_header }}") format("woff2")
         , url("{{ settings.custom_font_header }}") format("woff");
-        font-display: swap;
       }
     {% else %}
-    {{ settings.font_header | font_face: font_display: 'swap' }}
+    {{ settings.font_header | font_face }}
   {% endif %}
   /* BUTTON FONTS */
   {% if settings.enable_custom_btn_font %}
@@ -79,10 +55,9 @@
       font-family: "{{ settings.custom_btn_font_name }}";
       src: url("{{ settings.custom_btn_font }}") format("woff2")
       , url("{{ settings.custom_btn_font }}") format("woff");
-      font-display: swap;
     }
   {% else %}
-  {{ settings.btn_font | font_face: font_display: 'swap' }}
+  {{ settings.btn_font | font_face }}
 {% endif %}
 /* ENTER NAVIGATION FONTS */
 {% if settings.enable_custom_nav_font %}
@@ -90,22 +65,19 @@
     font-family: "{{ settings.custom_nav_font_name }}";
     src: url("{{ settings.custom_nav_font }}") format("woff2")
     , url("{{ settings.custom_nav_font }}") format("woff");
-    font-display: swap;
   }
 {% else %}
-{{ settings.nav_font | font_face: font_display: 'swap' }}
+{{ settings.nav_font | font_face }}
 {% endif %}
-{% unless request.page_type == 'index' %}
 /* COUNTDOWN TIMER FONT */
 {% if settings.enable_custom_countdown_font %}
   @font-face {
     font-family: "{{ settings.custom_countdown_font_name }}";
     src: url("{{ settings.custom_countdown_font }}") format("woff2")
     , url("{{ settings.custom_countdown_font }}") format("woff");
-    font-display: swap;
   }
 {% else %}
-{{ settings.countdown_font | font_face: font_display: 'swap' }}
+{{ settings.countdown_font | font_face }}
 {% endif %}
 /* MARQUEE FONT */
 {% if settings.enable_custom_marquee_font %}
@@ -113,12 +85,10 @@
     font-family: "{{ settings.custom_marquee_font_name }}";
     src: url("{{ settings.custom_marquee_font }}") format("woff2")
     , url("{{ settings.custom_marquee_font }}") format("woff");
-    font-display: swap;
   }
 {% else %}
-{{ settings.marquee_font | font_face: font_display: 'swap' }}
+{{ settings.marquee_font | font_face }}
 {% endif %}
-{% endunless %}
 :root  {
   --font_body: {% if settings.enable_custom_body_font %}{{ settings.custom_body_font_name }}
 {% else %}{{ settings.body_font.family }}
@@ -139,7 +109,6 @@
 {% else %}{{ settings.marquee_font.family }}
 {% endif %};
 }
-{% if template contains 'product' %}
 .fullscreen-gallery {
   position: fixed;
   top: 0;
@@ -148,7 +117,11 @@
   height: 100%;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.9) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
   z-index: 9999;
   overflow-y: auto;
   display: none;
@@ -160,34 +133,77 @@
 }
 @supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
   .fullscreen-gallery {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
   }
 }
-.fullscreen-gallery.active { opacity: 1; }
-.fullscreen-gallery-content { padding: 20px; padding-top: 60px; max-width: 1200px; margin: 0 auto; position: relative; }
-.fullscreen-slide { margin: 20px 0; display: flex; justify-content: center; align-items: center; }
-.fullscreen-slide img, .fullscreen-slide video, .fullscreen-slide .media-model { max-width: 100%; height: auto; max-height: 90vh; object-fit: contain; }
-.close-gallery { position: sticky; top: 15px; right: 25px; color: #fff; font-size: 35px; cursor: pointer; z-index: 10000; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.5); border-radius: 50%; text-align: center; line-height: 1; margin-left: auto; margin-bottom: -40px; font-family: Arial, Helvetica, sans-serif; }
-.close-gallery:hover { background: rgba(0, 0, 0, 0.8); transform: scale(1.1); transition: all 0.3s ease; }
-{% endif %}
+.fullscreen-gallery.active {
+  opacity: 1;
+}
+.fullscreen-gallery-content {
+  padding: 20px;
+  padding-top: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.fullscreen-slide {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fullscreen-slide img,
+.fullscreen-slide video,
+.fullscreen-slide .media-model {
+  max-width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+}
+.close-gallery {
+  position: sticky;
+  top: 15px;
+  right: 25px;
+  color: #fff;
+  font-size: 35px;
+  cursor: pointer;
+  z-index: 10000;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1;
+  margin-left: auto;
+  margin-bottom: -40px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.close-gallery:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
 </style>
     {%- liquid
         render "__default-head"
     -%}
-    {% comment %} Homepage redirect removed — homepage is now a landing page {% endcomment %}
+    {% if settings.hide_homepage and template == 'index' %}
+      <script>
+        window.location.href = "{{ settings.homepage_redirect_url | default: collections['all'].url }}";
+      </script>
+    {% endif %}
     {{ content_for_header }}
-    <script>
-      window.addEventListener('DOMContentLoaded', function () {
-        if (!document.querySelector('.myVideo')) return;
-        var script = document.createElement('script');
-        script.src = "{{ 'background-video.js' | asset_url }}";
-        script.defer = true;
-        document.head.appendChild(script);
-      }, { once: true });
-    </script>
-   <!-- Google Webmaster Tools Site Verification -->
-<meta name="google-site-verification" content="cB62P-eDi__LzriWzrvLY6j1tRQ6VdE1BcfK9zIL1Fk" />
-</head>
+    {{ 'video.css' | asset_url | stylesheet_tag }}
+    {{ 'video.js' | asset_url | script_tag }}
+    {{ 'background-video.js' | asset_url | script_tag }}
+  </head>
   <body
     style="
         background-color: {{ settings.theme_background_color }};
@@ -215,10 +231,10 @@
     class="{{ bodyClasses }} {{ "template-" | append: request.page_type | handle }}"
     d3503khivhk343="{{ settings.3593809343bfibhiddsfh_relfe3252_fdfg }}">
     <div id="search-blur-backdrop" class="search-blur-backdrop"></div>
-    {% if template contains 'product' %}
-      <div class="fullscreen-gallery" style="display: none;">
-        <span class="close-gallery">&times;</span>
-        <div class="fullscreen-gallery-content">
+    <div class="fullscreen-gallery" style="display: none;">
+      <span class="close-gallery">&times;</span>
+      <div class="fullscreen-gallery-content">
+        {% if template contains 'product' %}
           {% for media in product.media %}
             <div class="fullscreen-slide">
               {% case media.media_type %}
@@ -227,9 +243,9 @@
               {% endcase %}
             </div>
           {% endfor %}
-        </div>
+        {% endif %}
       </div>
-    {% endif %}
+    </div>
     {% unless request.page_type == 'password' %}
       {% section 'global-nav' %}
     {% endunless %}
@@ -237,18 +253,18 @@
       {% section 'cart-drawer' %}
     {% endunless %}
     <main id="container" style="flex: 1; background-color: transparent; width: 100%;">
-      {% if request.page_type == 'index' %}
-        <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
-          {{ shop.name }}
-        </h1>
-      {% endif %}
       {% section 'announcement-bar' %}
       {{ content_for_layout }}
   </main>
     {% sections 'email-popup' %}
-    {% comment %} Music player removed {% endcomment %}
+    {% section 'music-player' %}
 
-    {% comment %} Sort menu floater removed — collection page redesigned {% endcomment %}
+  <div
+  id="sort-menu"
+  class="sort-menu"
+  style="display: none; position: fixed; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 9999;">
+  <div id="sort-menu-handle" style="cursor: move; padding: 10px; background-color: #e0e0e0; text-align: center;">Drag to move</div>
+  </div>
     {% if settings.hide_footer_on_all_pages == false %}
       {% case template.name %}
         {% when 'index' %}
@@ -266,13 +282,62 @@
         {% section 'theme-footer' %}
     {% endcase %}
   {% endif %}
-  {% comment %} Clock script removed — no pages display date/time anymore {% endcomment %}
-  {% unless request.page_type == 'index' %}
-    <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer type="text/javascript"></script>
-    <script src="{{ 'g-animate.js' | asset_url }}" defer type="text/javascript"></script>
-    <script src="{{ 'g-scroll.js' | asset_url }}" defer type="text/javascript"></script>
-    <script src="{{ 'ts.js' | asset_url }}" defer></script>
-  {% endunless %}
+  {% comment %} {{ 'shopify-currency.js' | asset_url | script_tag }} {% endcomment %}
+  <script>
+      (function() {
+    document.addEventListener("DOMContentLoaded", function() {
+      const storeTimezone = "{{ settings.timezone }}";
+      const storeTimeOffset = parseInt("0") || 0;
+      function updateClock() {
+        const now = new Date(); 
+        now.setMinutes(now.getMinutes() + storeTimeOffset);
+        let options, dateOptions;
+        try {
+          options = { 
+            timeZone: storeTimezone, 
+            hour: "numeric", 
+            minute: "numeric", 
+            hour12: true,
+            timeZoneName: "short"
+          };
+          dateOptions = { 
+            timeZone: storeTimezone, 
+            year: "numeric", 
+            month: "2-digit", 
+            day: "2-digit"
+          };
+        } catch (e) {
+          console.warn("Invalid timezone, falling back to local time", e);
+          options = { 
+            hour: "numeric", 
+            minute: "numeric", 
+            hour12: true,
+            timeZoneName: "short"
+          };
+          dateOptions = { 
+            year: "numeric", 
+            month: "2-digit", 
+            day: "2-digit"
+          };
+        }
+        const formatter = new Intl.DateTimeFormat("en-US", options);
+        const dateFormatter = new Intl.DateTimeFormat("en-US", dateOptions);
+        const formattedTime = formatter.format(now);
+        const formattedDate = dateFormatter.format(now).replace(/(\d+)\/(\d+)\/(\d+)/, '$1/$2/$3');
+        document.querySelectorAll(".date").forEach(el => el.textContent = formattedDate);
+        document.querySelectorAll(".time").forEach(el => el.textContent = formattedTime);
+      }
+      updateClock(); 
+      setInterval(updateClock, 60000); 
+    });
+  })();
+  </script>
+  <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" type="text/javascript"></script>
+  <script src="{{ 'pushy.js' | asset_url }}" type="text/javascript"></script>
+  <script src="{{ 'g-animate.js' | asset_url }}" type="text/javascript"></script>
+  <script src="{{ 'g-scroll.js' | asset_url }}" type="text/javascript"></script>
+  <script src="{{ 'ts.js' | asset_url }}"></script> 
+  <script src="{{ 'music.js' | asset_url }}"></script>
 </body>
 
 </html>
