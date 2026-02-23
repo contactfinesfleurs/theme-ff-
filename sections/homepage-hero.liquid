@@ -1,25 +1,167 @@
 {%- comment -%}
-  Homepage Hero — Clean minimal landing page with centered logo
+  Homepage Hero — horizontal logo + menu layout matching the provided target.
 {%- endcomment -%}
 
-<div class="flex items-center justify-center" style="min-height: calc(100vh - 80px);">
-  <div class="flex items-center justify-center gap-5 sm:gap-7 px-6">
-    {% if settings.enter_screen_logo %}
-      <img
-        src="{{ settings.enter_screen_logo | image_url: width: 300 }}"
-        srcset="{{ settings.enter_screen_logo | image_url: width: 150 }} 150w, {{ settings.enter_screen_logo | image_url: width: 300 }} 300w"
-        sizes="(max-width: 640px) 60px, 80px"
-        alt="{{ shop.name | escape }}"
-        class="h-14 sm:h-16 md:h-20 w-auto flex-shrink-0"
-        loading="eager"
-        decoding="sync"
-        fetchpriority="high">
-    {% endif %}
-    <span class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-[0.2em] uppercase">
-      FINES FLEURS
-    </span>
+{%- assign section_scope = 'ff-home-' | append: section.id -%}
+
+<section class="{{ section_scope }}">
+  <div class="{{ section_scope }}__inner">
+    <a href="{{ routes.root_url }}" class="{{ section_scope }}__logo-link">
+      {% if settings.enter_screen_logo %}
+        <img
+          src="{{ settings.enter_screen_logo | image_url: width: 700 }}"
+          srcset="{{ settings.enter_screen_logo | image_url: width: 320 }} 320w, {{ settings.enter_screen_logo | image_url: width: 700 }} 700w"
+          sizes="(max-width: 740px) 180px, (max-width: 1200px) 220px, 280px"
+          alt="{{ shop.name | escape }}"
+          class="{{ section_scope }}__logo-image"
+          loading="eager"
+          decoding="sync"
+          fetchpriority="high">
+      {% else %}
+        <span class="{{ section_scope }}__logo-text">FINES FLEURS</span>
+      {% endif %}
+    </a>
+
+    <nav class="{{ section_scope }}__nav" aria-label="Main navigation">
+      <a href="{{ routes.root_url }}" class="{{ section_scope }}__link {{ section_scope }}__link--active">home</a>
+      <a href="{% if collections['all'] %}{{ collections['all'].url }}{% else %}/collections/all{% endif %}" class="{{ section_scope }}__link">shop</a>
+      <a href="/pages/about" class="{{ section_scope }}__link">us</a>
+      <a href="/pages/contact" class="{{ section_scope }}__link">contact</a>
+    </nav>
   </div>
-</div>
+</section>
+
+<style>
+  .{{ section_scope }} {
+    position: relative;
+    z-index: 3;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .{{ section_scope }}__inner {
+    width: 100%;
+    max-width: 1760px;
+    margin: 0 auto;
+    padding: 0 clamp(26px, 5.5vw, 96px);
+    display: flex;
+    align-items: center;
+  }
+
+  .{{ section_scope }}__logo-link {
+    flex: 0 0 auto;
+    color: #111;
+    text-decoration: none;
+    line-height: 0;
+  }
+
+  .{{ section_scope }}__logo-image {
+    width: clamp(190px, 16vw, 300px);
+    height: auto;
+    display: block;
+  }
+
+  .{{ section_scope }}__logo-text {
+    display: inline-block;
+    font-family: var(--font_header), "Impact", sans-serif;
+    font-size: clamp(2.3rem, 5vw, 4.7rem);
+    line-height: 0.9;
+    letter-spacing: 0.012em;
+    text-transform: uppercase;
+  }
+
+  .{{ section_scope }}__nav {
+    display: flex;
+    align-items: center;
+    margin-left: clamp(86px, 17vw, 320px);
+    gap: clamp(30px, 3.4vw, 92px);
+  }
+
+  .{{ section_scope }}__link {
+    position: relative;
+    padding-bottom: 0.36em;
+    color: #171717;
+    font-family: "DM Sans", sans-serif;
+    font-size: clamp(1.2rem, 1.95vw, 2.45rem);
+    font-weight: 500;
+    line-height: 1;
+    text-transform: lowercase;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .{{ section_scope }}__link:hover {
+    opacity: 0.65;
+  }
+
+  .{{ section_scope }}__link--active {
+    opacity: 1;
+  }
+
+  .{{ section_scope }}__link--active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #111;
+  }
+
+  @media (max-width: 1024px) {
+    .{{ section_scope }}__logo-image {
+      width: clamp(160px, 22vw, 235px);
+    }
+
+    .{{ section_scope }}__link {
+      font-size: clamp(1.02rem, 2.3vw, 1.5rem);
+    }
+
+    .{{ section_scope }}__nav {
+      margin-left: clamp(36px, 8vw, 110px);
+      gap: clamp(20px, 2.7vw, 46px);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .{{ section_scope }} {
+      justify-content: center;
+      padding: 22px 0;
+    }
+
+    .{{ section_scope }}__inner {
+      flex-direction: column;
+      row-gap: 22px;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .{{ section_scope }}__nav {
+      margin-left: 0;
+    }
+
+    .{{ section_scope }}__logo-image {
+      width: clamp(150px, 48vw, 190px);
+    }
+
+    .{{ section_scope }}__logo-text {
+      font-size: clamp(2.1rem, 12vw, 3.2rem);
+    }
+
+    .{{ section_scope }}__nav {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px 24px;
+    }
+
+    .{{ section_scope }}__link {
+      font-size: clamp(1rem, 5.1vw, 1.32rem);
+    }
+
+  }
+</style>
 
 {% schema %}
 {
@@ -28,7 +170,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Displays the store logo centered on a clean white background. Logo is configured in Theme Settings > Logo."
+      "content": "Full-page landing layout. Logo and navigation are centered vertically on the page. Logo is configured in Theme Settings > Logo."
     }
   ],
   "presets": [
