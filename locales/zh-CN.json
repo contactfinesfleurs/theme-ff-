@@ -8,10 +8,10 @@
  * ------------------------------------------------------------
  */
 {
-  "tn7d8e379f": "02/22/2023",
+  "tn7d8e379f": "02\/22\/2023",
   "t589b2285": "2:22PM",
   "t4c641ebb": "密码",
-  "tn5ac62c12": "Off-White c/o Virgil Abloh™ 开启了一个新叙事，那里自由思考激发了未来的先锋模式，想象的时代成为现实的产物。",
+  "tn5ac62c12": "Off-White c\/o Virgil Abloh™ 开启了一个新叙事，那里自由思考激发了未来的先锋模式，想象的时代成为现实的产物。",
   "tn5ecce4ba": "受到Virgil的艺术愿景和方法的启发，Off-White™ 培养了一批创意人才，他们在各自领域表现卓越，并且与Virgil有着强烈的个人联系。 Ibrahim与Virgil和Off-White™ 的关系通过Instagram的私信建立并成长，在过去三年里，无论在个人还是职业上都蓬勃发展，建立了基于相互尊重和共同价值观的深厚纽带。",
   "t65b2da83": "“在九年内打造一个成功的奢侈品牌，这是一种天才表现。我钦佩这一壮举，并希望在此基础上继续打造一个丰富的遗产。他革命性地融合了跨越世代和年代的街头服饰和奢侈品。他向世界展示了，那些没有被代表的人、处于弱势地位的人，尤其是黑人，拥有卓越的智慧，并能够平等地推动和竞争体制。他激发了希望，并带来了改变。” - Ibrahim Kamara, Off-White™ 艺术与形象总监",
   "tn3c849388": "返回主页",
@@ -32,7 +32,7 @@
   "tn11f7e1": "缺货",
   "t43e13c3e": "下一个商品 >",
   "tn33c4345d": "继续购物",
-  "tn437bd530": "春/夏 23",
+  "tn437bd530": "春\/夏 23",
   "t502cc34d": "我们相信，在业务的各个方面使用可持续和道德的做法，从材料采购到产品制造和运输。",
   "tn10d26d54": "立即购买",
   "tn54cb6016": "客户信息",
@@ -40,7 +40,7 @@
   "tn35b49c7e": "送货地址",
   "t12d3df93": "运输方式",
   "tn175ec138": "付款信息",
-  "t7df1": " / ",
+  "t7df1": " \/ ",
   "t789bff0f": "账单地址",
   "tn3eedfb0d": "订单商品",
   "tn77079b6c": "订单摘要",
@@ -91,8 +91,8 @@
       "address_1": "地址 1",
       "address_2": "地址 2",
       "city": "城市",
-      "country_region": "国家/地区",
-      "state_province": "州/省",
+      "country_region": "国家\/地区",
+      "state_province": "州\/省",
       "zip": "邮编",
       "phone": "电话",
       "make_default_address": "设为默认地址?",
@@ -166,51 +166,6 @@
   "footer": {
     "email": {
       "placeholder": "输入电子邮件"
-    }
-  },
-  "pagefly": {
-    "products": {
-      "product": {
-        "regular_price": "Regular price",
-        "sold_out": "Sold out",
-        "unavailable": "Unavailable",
-        "on_sale": "Sale",
-        "quantity": "Quantity",
-        "add_to_cart": "Add to cart",
-        "back_to_collection": "Back to {{ title }}",
-        "view_details": "View details"
-      }
-    },
-    "article": {
-      "tags": "Tags:",
-      "all_topics": "All topics",
-      "by_author": "by {{ author }}",
-      "posted_in": "Posted in",
-      "read_more": "Read more",
-      "back_to_blog": "Back to {{ title }}"
-    },
-    "comments": {
-      "title": "Leave a comment",
-      "name": "Name",
-      "email": "Email",
-      "message": "Message",
-      "post": "Post comment",
-      "moderated": "Please note, comments must be approved before they are published",
-      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.",
-      "success": "Your comment was posted successfully! Thank you!",
-      "comments_with_count": {
-        "one": "{{ count }} comment",
-        "other": "{{ count }} comments"
-      }
-    },
-    "password_page": {
-      "login_form_message": "Enter store using password:",
-      "login_form_password_label": "Password",
-      "login_form_password_placeholder": "Your password",
-      "login_form_submit": "Enter",
-      "signup_form_email_label": "Email",
-      "signup_form_success": "We will send you an email right before we open!",
-      "password_link": "Enter using password"
     }
   }
 }

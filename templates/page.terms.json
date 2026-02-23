@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "ff-min-page",
+      "settings": {
+        "fallback_text": "Define delivery timelines, shipping regions and order handling conditions here."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

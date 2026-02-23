@@ -1,0 +1,44 @@
+{% liquid
+  assign nav_active = ''
+  if template.suffix == 'about'
+    assign nav_active = 'us'
+  elsif template.suffix == 'contact'
+    assign nav_active = 'contact'
+  endif
+%}
+
+<section class="ff-site">
+  <div class="ff-wrap">
+    {% render 'ff-min-nav', active: nav_active, class: 'ff-header--page' %}
+
+    <div class="ff-page-content">
+      <h1 class="ff-page-title">{{ page.title }}</h1>
+      <div class="ff-page-richtext">
+        {% if page.content != blank %}
+          {{ page.content }}
+        {% else %}
+          <p>{{ section.settings.fallback_text }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FF Minimal Page",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "fallback_text",
+      "label": "Fallback text",
+      "default": "Use this page to introduce your brand story, delivery terms or refund policy."
+    }
+  ],
+  "presets": [
+    {
+      "name": "FF Minimal Page"
+    }
+  ]
+}
+{% endschema %}

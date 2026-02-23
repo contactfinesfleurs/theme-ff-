@@ -1,0 +1,166 @@
+{% liquid
+  assign feature_metafield = product.metafields.custom.features
+  assign shipping_metafield = product.metafields.custom.shipping_information
+  assign care_metafield = product.metafields.custom.care_instructions
+
+  assign shipping_text = shipping_metafield.value | default: shipping_metafield | default: section.settings.shipping_information
+  assign care_text = care_metafield.value | default: care_metafield | default: section.settings.care_instructions
+
+  assign size_chart_url = ''
+  if product.metafields.custom.size_chart != blank
+    assign size_chart_url = product.metafields.custom.size_chart.value.url | default: product.metafields.custom.size_chart.value | default: product.metafields.custom.size_chart
+  elsif section.settings.size_chart_page != blank
+    assign size_chart_url = section.settings.size_chart_page.url
+  endif
+
+  assign size_option_index = -1
+  for option in product.options_with_values
+    assign option_name = option.name | downcase
+    if option_name contains 'size' or option_name contains 'taille'
+      assign size_option_index = forloop.index0
+      break
+    endif
+  endfor
+%}
+
+<section class="ff-site">
+  <div class="ff-wrap">
+    {% render 'ff-min-nav', active: 'shop', class: 'ff-header--page' %}
+
+    <div class="ff-product-layout">
+      <div class="ff-product-gallery">
+        {% assign image_count = 0 %}
+        {% for media in product.media %}
+          {% if media.media_type == 'image' and image_count < 4 %}
+            <a class="ff-gallery-item" href="{{ media | image_url: width: 2200 }}">
+              {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', alt: media.alt }}
+            </a>
+            {% assign image_count = image_count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+
+        {% if image_count == 0 %}
+          <div class="ff-gallery-item">{{ 'product-1' | placeholder_svg_tag }}</div>
+        {% endif %}
+      </div>
+
+      <div>
+        <h1 class="ff-product-heading">{{ product.title }}</h1>
+        <p class="ff-product-price-main">{{ product.selected_or_first_available_variant.price | money }}</p>
+
+        <div class="ff-product-desc">{{ product.description }}</div>
+
+        <ul class="ff-feature-list">
+          {% if feature_metafield != blank and feature_metafield.type contains 'list' %}
+            {% for feature in feature_metafield.value %}
+              {% if feature != blank %}
+                <li>{{ feature }}</li>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            {% assign feature_text = feature_metafield.value | default: feature_metafield | default: section.settings.feature_list %}
+            {% assign feature_lines = feature_text | newline_to_br | split: '<br />' %}
+            {% for line in feature_lines %}
+              {% assign clean_line = line | strip %}
+              {% if clean_line != blank %}
+                <li>{{ clean_line }}</li>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </ul>
+
+        {% form 'product', product, class: 'ff-product-form' %}
+          <label class="ff-form-label" for="ff-size-select">Taille (FR/EU)</label>
+
+          {% if product.has_only_default_variant %}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <div class="ff-size-row">
+              <span>{{ product.selected_or_first_available_variant.title }}</span>
+              {% if size_chart_url != blank %}
+                <a class="ff-size-chart-link" href="{{ size_chart_url }}">size chart</a>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="ff-size-row">
+              <select class="ff-select" id="ff-size-select" name="id">
+                {% for variant in product.variants %}
+                  <option
+                    value="{{ variant.id }}"
+                    {% if variant.id == product.selected_or_first_available_variant.id %}
+                      selected
+                    {% endif %}
+                    {% unless variant.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    {% if size_option_index >= 0 %}
+                      {{ variant.options[size_option_index] }}{% unless variant.available %} - Sold out{% endunless %}
+                    {% else %}
+                      {{ variant.title }}{% unless variant.available %} - Sold out{% endunless %}
+                    {% endif %}
+                  </option>
+                {% endfor %}
+              </select>
+
+              {% if size_chart_url != blank %}
+                <a class="ff-size-chart-link" href="{{ size_chart_url }}">size chart</a>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <button class="ff-add-to-cart" type="submit" name="add" {% unless product.available %}disabled{% endunless %}>
+            Add to cart
+          </button>
+        {% endform %}
+
+        <div class="ff-accordion-list">
+          <details class="ff-accordion" open>
+            <summary>Shipping information</summary>
+            <div class="ff-accordion-content">{{ shipping_text | newline_to_br }}</div>
+          </details>
+
+          <details class="ff-accordion">
+            <summary>Care instructions</summary>
+            <div class="ff-accordion-content">{{ care_text | newline_to_br }}</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FF Minimal Product",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "feature_list",
+      "label": "Fallback bullet points",
+      "default": "Premium floral blend\nHand-packed in France\nLimited seasonal release"
+    },
+    {
+      "type": "textarea",
+      "id": "shipping_information",
+      "label": "Fallback shipping information",
+      "default": "Orders are prepared in 1-2 business days and shipped with tracked delivery."
+    },
+    {
+      "type": "textarea",
+      "id": "care_instructions",
+      "label": "Fallback care instructions",
+      "default": "Keep in a cool and dry place. Avoid direct sunlight and humidity."
+    },
+    {
+      "type": "page",
+      "id": "size_chart_page",
+      "label": "Fallback size chart page"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FF Minimal Product"
+    }
+  ]
+}
+{% endschema %}

@@ -7,13 +7,13 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "tn7d8e379f": "",
   "t589b2285": "",
   "t4c641ebb": "Password",
-  "tn5ac62c12": "",
-  "tn5ecce4ba": "",
-  "t65b2da83": "",
+  "tn5ac62c12": "Off-White c\/o Virgil Abloh™ embarks on a new narrative where free thinking inspires a pioneering format for the future, where the age of imagination is the product of reality.",
+  "tn5ecce4ba": "Inspired by Virgil’s vision and approach to his art, Off-White™ nourishes a collective of creative minds that represent the best in their category and have a strong and personal connection with Virgil. Ibrahim’s relationship with Virgil and Off-White™, born and nurtured through Instagram DMs, blossomed both personally and professionally over the last 3 years creating a strong bond based on mutual respect and shared values.",
+  "t65b2da83": "“Making a successful luxury brand in nine years is genius. It’s a feat that I admire and hope to continue building upon with a rich legacy. He revolutionised streetwear and luxury that crosses generations and decades. He showed the world that the underrepresented, the underdogs and Black people, in particular, have brilliant minds and can push and compete equally in the establishment. He inspired hope and brought about change.” - Ibrahim Kamara, Art&Image Director Off-White™",
   "tn3c849388": "Back Home",
   "t5a0ea5a1": "Thank you! Your submission has been received!",
   "tnc0d2788": "Back Home",
@@ -32,7 +32,7 @@
   "tn11f7e1": "Out of Stock",
   "t43e13c3e": "Next Item >",
   "tn33c4345d": "Keep Shopping",
-  "tn437bd530": "Fall Winter 2026",
+  "tn437bd530": "Spring\/Summer 23",
   "t502cc34d": "We believe in using sustainable and ethical practices in all aspects of our business, from sourcing materials to manufacturing and shipping our products.",
   "tn10d26d54": "Shop Now",
   "tn54cb6016": "Customer Information",
@@ -40,12 +40,12 @@
   "tn35b49c7e": "Shipping Address",
   "t12d3df93": "Shipping Method",
   "tn175ec138": "Payment Info",
-  "t7df1": " / ",
+  "t7df1": " \/ ",
   "t789bff0f": "Billing Address",
   "tn3eedfb0d": "Items in Order",
   "tn77079b6c": "Order Summary",
   "t4d3eb24": "Total",
-  "tn65f5fa1c": "Free Shipping over 150 €",
+  "tn65f5fa1c": "FREE USA SHIPPING ON ALL ORDERS OVER $200 USD",
   "tn40b0787c": "Page Not Found",
   "t556d64d8": "The page you are looking for doesn't exist or has been moved",
   "general": {
@@ -91,8 +91,8 @@
       "address_1": "Address 1",
       "address_2": "Address 2",
       "city": "City",
-      "country_region": "Country/Region",
-      "state_province": "State/Province",
+      "country_region": "Country\/Region",
+      "state_province": "State\/Province",
       "zip": "Zip",
       "phone": "Phone",
       "default_address": "Default Address",
@@ -174,50 +174,5 @@
   "collection": {
     "on_sale": "ON SALE",
     "sold_out": "SOLD OUT"
-  },
-  "pagefly": {
-    "products": {
-      "product": {
-        "regular_price": "Regular price",
-        "sold_out": "Sold out",
-        "unavailable": "Unavailable",
-        "on_sale": "Sale",
-        "quantity": "Quantity",
-        "add_to_cart": "Add to cart",
-        "back_to_collection": "Back to {{ title }}",
-        "view_details": "View details"
-      }
-    },
-    "article": {
-      "tags": "Tags:",
-      "all_topics": "All topics",
-      "by_author": "by {{ author }}",
-      "posted_in": "Posted in",
-      "read_more": "Read more",
-      "back_to_blog": "Back to {{ title }}"
-    },
-    "comments": {
-      "title": "Leave a comment",
-      "name": "Name",
-      "email": "Email",
-      "message": "Message",
-      "post": "Post comment",
-      "moderated": "Please note, comments must be approved before they are published",
-      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.",
-      "success": "Your comment was posted successfully! Thank you!",
-      "comments_with_count": {
-        "one": "{{ count }} comment",
-        "other": "{{ count }} comments"
-      }
-    },
-    "password_page": {
-      "login_form_message": "Enter store using password:",
-      "login_form_password_label": "Password",
-      "login_form_password_placeholder": "Your password",
-      "login_form_submit": "Enter",
-      "signup_form_email_label": "Email",
-      "signup_form_success": "We will send you an email right before we open!",
-      "password_link": "Enter using password"
-    }
   }
 }

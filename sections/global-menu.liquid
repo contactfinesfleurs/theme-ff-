@@ -1,8 +1,6 @@
-<link rel="stylesheet" href="{{ 'pushy.css' | asset_url }}" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="{{ 'pushy.css' | asset_url }}"></noscript>
+{{ 'pushy.css' | asset_url | stylesheet_tag }}
 
   {% if template.name != 'password' %}
-
   <!-- Pushy Menu -->
   <nav style="
     --global-text-color: {{ settings.global_nav_txt_color }};
@@ -18,28 +16,19 @@
             margin-right: auto;
             margin-bottom: 4px;
             ">
-        {% assign global_menu_logo_size = settings.global_menu_logo_size | default: 120 %}
-        {% assign global_menu_logo_2x = global_menu_logo_size | times: 2 | at_least: 240 | at_most: 600 %}
         {% if settings.global_menu_logo %}
-          {% assign global_menu_logo_height = global_menu_logo_size | divided_by: settings.global_menu_logo.aspect_ratio | round %}
           <img
-            src="{{ settings.global_menu_logo | image_url: width: global_menu_logo_2x }}"
-            srcset="{{ settings.global_menu_logo | image_url: width: global_menu_logo_size }} {{ global_menu_logo_size }}w, {{ settings.global_menu_logo | image_url: width: global_menu_logo_2x }} {{ global_menu_logo_2x }}w"
-            sizes="{{ global_menu_logo_size }}px"
-            width="{{ global_menu_logo_size }}"
-            height="{{ global_menu_logo_height }}"
-            style="width: {{ global_menu_logo_size }}px"
+            src="{{ settings.global_menu_logo | image_url }}"
+            style="width: {{ settings.global_menu_logo_size }}px"
             loading="lazy"
-            decoding="async"
-            alt="{{ shop.name | escape }}"
+            alt=""
             class="logo">
         {% else %}
           <img
             src="{{ 'gm-logo.png' | asset_url }}"
-            style="width: {{ global_menu_logo_size }}px"
+            style="width: {{ settings.global_menu_logo_size }}px"
             loading="lazy"
-            decoding="async"
-            alt="{{ shop.name | escape }}"
+            alt=""
             class="logo">
         {% endif %}
       </a>
@@ -209,45 +198,5 @@
       width: 6px;
     }
   </style>
-
-  <script>
-    (function () {
-      var pushyLoaded = false;
-
-      function loadPushy() {
-        if (pushyLoaded) return;
-        pushyLoaded = true;
-        var script = document.createElement('script');
-        script.src = "{{ 'pushy.js' | asset_url }}";
-        script.defer = true;
-        document.body.appendChild(script);
-      }
-
-      function bindMenuTrigger() {
-        var menuButton = document.querySelector('.menu-btn');
-        if (!menuButton) return;
-        menuButton.addEventListener('pointerdown', loadPushy, { once: true, passive: true });
-        menuButton.addEventListener('touchstart', loadPushy, { once: true, passive: true });
-        menuButton.addEventListener('keydown', loadPushy, { once: true });
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bindMenuTrigger, { once: true });
-      } else {
-        bindMenuTrigger();
-      }
-
-      window.addEventListener('pointerdown', loadPushy, { once: true, passive: true });
-      window.addEventListener('touchstart', loadPushy, { once: true, passive: true });
-      window.addEventListener('keydown', loadPushy, { once: true });
-      window.addEventListener('load', function () {
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadPushy, { timeout: 4000 });
-        } else {
-          setTimeout(loadPushy, 4000);
-        }
-      }, { once: true });
-    })();
-  </script>
 
 {% endif %}

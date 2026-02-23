@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "ff-min-page",
+      "settings": {
+        "fallback_text": "Explain return eligibility, refund windows and processing details here."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
