@@ -14,6 +14,7 @@
   "parent": "collection.json",
   "sections": {
     "collection_products_display_1": {
+      "type": "collection-products-display-1",
       "settings": {
         "collection_menu": ""
       },
