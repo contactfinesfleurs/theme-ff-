@@ -1,0 +1,27 @@
+{% liquid
+  assign active_item = active | default: ''
+  assign nav_class = class | default: ''
+  assign shop_url = routes.all_products_collection_url | default: '/collections/all'
+
+  assign about_url = '/pages/about'
+  assign contact_url = '/pages/contact'
+
+  if pages['about'] != blank
+    assign about_url = pages['about'].url
+  endif
+
+  if pages['contact'] != blank
+    assign contact_url = pages['contact'].url
+  endif
+%}
+
+<header class="ff-header {{ nav_class }}">
+  <a class="ff-logo" href="{{ routes.root_url }}">FINES FLEURS</a>
+
+  <nav class="ff-nav" aria-label="Primary">
+    <a class="ff-nav-link{% if active_item == 'home' %} is-active{% endif %}" href="{{ routes.root_url }}">home</a>
+    <a class="ff-nav-link{% if active_item == 'shop' %} is-active{% endif %}" href="{{ shop_url }}">shop</a>
+    <a class="ff-nav-link{% if active_item == 'us' %} is-active{% endif %}" href="{{ about_url }}">us</a>
+    <a class="ff-nav-link{% if active_item == 'contact' %} is-active{% endif %}" href="{{ contact_url }}">contact</a>
+  </nav>
+</header>

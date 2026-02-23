@@ -3,7 +3,7 @@
     "main": {
       "type": "ff-min-page",
       "settings": {
-        "fallback_text": "Use this page for delivery terms, refund policy or brand information."
+        "fallback_text": "Define delivery timelines, shipping regions and order handling conditions here."
       }
     }
   },

@@ -7,6 +7,12 @@
   data-money-format="{{ shop.money_format | escape }}"
   store={{ shop.email }}>
   <head>
+    {%- liquid
+      assign ff_minimal_layout = false
+      if request.page_type == 'index' or request.page_type == 'collection' or request.page_type == 'product' or request.page_type == 'page'
+        assign ff_minimal_layout = true
+      endif
+    -%}
     <style>
       shopify-accelerated-checkout {
         --shopify-accelerated-checkout-button-block-size: 20px;
@@ -200,9 +206,16 @@
       </script>
     {% endif %}
     {{ content_for_header }}
-    {{ 'video.css' | asset_url | stylesheet_tag }}
-    {{ 'video.js' | asset_url | script_tag }}
-    {{ 'background-video.js' | asset_url | script_tag }}
+    {% if ff_minimal_layout %}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+      {{ 'ff-minimal.css' | asset_url | stylesheet_tag }}
+    {% else %}
+      {{ 'video.css' | asset_url | stylesheet_tag }}
+      <script src="{{ 'video.js' | asset_url }}" defer></script>
+      <script src="{{ 'background-video.js' | asset_url }}" defer></script>
+    {% endif %}
   </head>
   <body
     style="
@@ -230,110 +243,117 @@
         "
     class="{{ bodyClasses }} {{ "template-" | append: request.page_type | handle }}"
     d3503khivhk343="{{ settings.3593809343bfibhiddsfh_relfe3252_fdfg }}">
-    <div id="search-blur-backdrop" class="search-blur-backdrop"></div>
-    <div class="fullscreen-gallery" style="display: none;">
-      <span class="close-gallery">&times;</span>
-      <div class="fullscreen-gallery-content">
-        {% if template contains 'product' %}
-          {% for media in product.media %}
-            <div class="fullscreen-slide">
-              {% case media.media_type %}
-                {% when 'image' %}
-                  {% render 'product-media-main', media: media %}
-              {% endcase %}
-            </div>
-          {% endfor %}
-        {% endif %}
+    {% unless ff_minimal_layout %}
+      <div id="search-blur-backdrop" class="search-blur-backdrop"></div>
+      <div class="fullscreen-gallery" style="display: none;">
+        <span class="close-gallery">&times;</span>
+        <div class="fullscreen-gallery-content">
+          {% if template contains 'product' %}
+            {% for media in product.media %}
+              <div class="fullscreen-slide">
+                {% case media.media_type %}
+                  {% when 'image' %}
+                    {% render 'product-media-main', media: media %}
+                {% endcase %}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
       </div>
-    </div>
-    {% section 'global-menu' %}
-    {% section 'cart-drawer' %}
+      {% section 'global-menu' %}
+      {% section 'cart-drawer' %}
+    {% endunless %}
     <main id="container" style="flex: 1; background-color: transparent; width: 100%;">
-      {% section 'announcement-bar' %}
+      {% unless ff_minimal_layout %}
+        {% section 'announcement-bar' %}
+      {% endunless %}
       {{ content_for_layout }}
-  </main>
-    {% sections 'email-popup' %}
-    {% section 'music-player' %}
+    </main>
+    {% unless ff_minimal_layout %}
+      {% sections 'email-popup' %}
+    {% endunless %}
 
-  <div
-  id="sort-menu"
-  class="sort-menu"
-  style="display: none; position: fixed; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 9999;">
-  <div id="sort-menu-handle" style="cursor: move; padding: 10px; background-color: #e0e0e0; text-align: center;">Drag to move</div>
-  </div>
-    {% if settings.hide_footer_on_all_pages == false %}
-      {% case template.name %}
-        {% when 'index' %}
-          {% if settings.show_footer_on_home %}
+    {% unless ff_minimal_layout %}
+      <div
+        id="sort-menu"
+        class="sort-menu"
+        style="display: none; position: fixed; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 9999;"
+      >
+        <div id="sort-menu-handle" style="cursor: move; padding: 10px; background-color: #e0e0e0; text-align: center;">Drag to move</div>
+      </div>
+      {% if settings.hide_footer_on_all_pages == false %}
+        {% case template.name %}
+          {% when 'index' %}
+            {% if settings.show_footer_on_home %}
+              {% section 'theme-footer' %}
+            {% endif %}
+
+          {% when 'collection' %}
+            {% if settings.show_footer_on_collection %}
+              {% section 'theme-footer' %}
+            {% endif %}
+
+          {% when 'password' %}
+          {% else %}
             {% section 'theme-footer' %}
-          {% endif %}
-
-        {% when 'collection' %}
-          {% if settings.show_footer_on_collection %}
-            {% section 'theme-footer' %}
-          {% endif %}
-
-        {% when 'password' %}
-      {% else %}
-        {% section 'theme-footer' %}
-    {% endcase %}
-  {% endif %}
-  {% comment %} {{ 'shopify-currency.js' | asset_url | script_tag }} {% endcomment %}
-  <script>
-      (function() {
-    document.addEventListener("DOMContentLoaded", function() {
-      const storeTimezone = "{{ settings.timezone }}";
-      const storeTimeOffset = parseInt("0") || 0;
-      function updateClock() {
-        const now = new Date(); 
-        now.setMinutes(now.getMinutes() + storeTimeOffset);
-        let options, dateOptions;
-        try {
-          options = { 
-            timeZone: storeTimezone, 
-            hour: "numeric", 
-            minute: "numeric", 
-            hour12: true,
-            timeZoneName: "short"
-          };
-          dateOptions = { 
-            timeZone: storeTimezone, 
-            year: "numeric", 
-            month: "2-digit", 
-            day: "2-digit"
-          };
-        } catch (e) {
-          console.warn("Invalid timezone, falling back to local time", e);
-          options = { 
-            hour: "numeric", 
-            minute: "numeric", 
-            hour12: true,
-            timeZoneName: "short"
-          };
-          dateOptions = { 
-            year: "numeric", 
-            month: "2-digit", 
-            day: "2-digit"
-          };
-        }
-        const formatter = new Intl.DateTimeFormat("en-US", options);
-        const dateFormatter = new Intl.DateTimeFormat("en-US", dateOptions);
-        const formattedTime = formatter.format(now);
-        const formattedDate = dateFormatter.format(now).replace(/(\d+)\/(\d+)\/(\d+)/, '$1/$2/$3');
-        document.querySelectorAll(".date").forEach(el => el.textContent = formattedDate);
-        document.querySelectorAll(".time").forEach(el => el.textContent = formattedTime);
-      }
-      updateClock(); 
-      setInterval(updateClock, 60000); 
-    });
-  })();
-  </script>
-  <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" type="text/javascript"></script>
-  <script src="{{ 'pushy.js' | asset_url }}" type="text/javascript"></script>
-  <script src="{{ 'g-animate.js' | asset_url }}" type="text/javascript"></script>
-  <script src="{{ 'g-scroll.js' | asset_url }}" type="text/javascript"></script>
-  <script src="{{ 'ts.js' | asset_url }}"></script> 
-  <script src="{{ 'music.js' | asset_url }}"></script>
+        {% endcase %}
+      {% endif %}
+      {% comment %} {{ 'shopify-currency.js' | asset_url | script_tag }} {% endcomment %}
+      <script>
+        (function() {
+          document.addEventListener("DOMContentLoaded", function() {
+            const storeTimezone = "{{ settings.timezone }}";
+            const storeTimeOffset = parseInt("0") || 0;
+            function updateClock() {
+              const now = new Date();
+              now.setMinutes(now.getMinutes() + storeTimeOffset);
+              let options, dateOptions;
+              try {
+                options = {
+                  timeZone: storeTimezone,
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                  timeZoneName: "short"
+                };
+                dateOptions = {
+                  timeZone: storeTimezone,
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit"
+                };
+              } catch (e) {
+                console.warn("Invalid timezone, falling back to local time", e);
+                options = {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                  timeZoneName: "short"
+                };
+                dateOptions = {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit"
+                };
+              }
+              const formatter = new Intl.DateTimeFormat("en-US", options);
+              const dateFormatter = new Intl.DateTimeFormat("en-US", dateOptions);
+              const formattedTime = formatter.format(now);
+              const formattedDate = dateFormatter.format(now).replace(/(\d+)\/(\d+)\/(\d+)/, '$1/$2/$3');
+              document.querySelectorAll(".date").forEach(el => el.textContent = formattedDate);
+              document.querySelectorAll(".time").forEach(el => el.textContent = formattedTime);
+            }
+            updateClock();
+            setInterval(updateClock, 60000);
+          });
+        })();
+      </script>
+      <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" type="text/javascript" defer></script>
+      <script src="{{ 'pushy.js' | asset_url }}" type="text/javascript" defer></script>
+      <script src="{{ 'g-animate.js' | asset_url }}" type="text/javascript" defer></script>
+      <script src="{{ 'g-scroll.js' | asset_url }}" type="text/javascript" defer></script>
+      <script src="{{ 'ts.js' | asset_url }}" defer></script>
+    {% endunless %}
 </body>
 
 </html>

@@ -1,0 +1,1 @@
+/* Placeholder file kept for legacy theme compatibility. */

@@ -1,0 +1,63 @@
+<section class="ff-site">
+  <div class="ff-wrap ff-wrap--page">
+    {% render 'ff-min-nav', active: 'contact', class: 'ff-header--page' %}
+
+    <div class="ff-page-content">
+      <h1 class="ff-page-title">{{ page.title | default: 'Contact' }}</h1>
+
+      <div class="ff-page-richtext">
+        {% if page.content != blank %}
+          {{ page.content }}
+        {% else %}
+          <p>{{ section.settings.contact_text }}</p>
+        {% endif %}
+      </div>
+
+      {% form 'contact', class: 'ff-contact-form' %}
+        {% if form.posted_successfully? %}
+          <p>Thanks, we received your message.</p>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="ff-form-error">{{ form.errors | default_errors }}</div>
+        {% endif %}
+
+        <div class="ff-form-group">
+          <label class="ff-form-label" for="ff-contact-name">Name</label>
+          <input class="ff-input" id="ff-contact-name" type="text" name="contact[name]" value="{{ form.name }}">
+        </div>
+
+        <div class="ff-form-group">
+          <label class="ff-form-label" for="ff-contact-email">Email</label>
+          <input class="ff-input" id="ff-contact-email" type="email" name="contact[email]" value="{{ form.email }}" required>
+        </div>
+
+        <div class="ff-form-group">
+          <label class="ff-form-label" for="ff-contact-message">Message</label>
+          <textarea class="ff-textarea" id="ff-contact-message" name="contact[body]" required>{{ form.body }}</textarea>
+        </div>
+
+        <button class="ff-add-to-cart" type="submit">Send message</button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FF Minimal Contact",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "contact_text",
+      "label": "Fallback intro text",
+      "default": "Use this form for questions about products, delivery and wholesale requests."
+    }
+  ],
+  "presets": [
+    {
+      "name": "FF Minimal Contact"
+    }
+  ]
+}
+{% endschema %}
