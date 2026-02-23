@@ -3,7 +3,7 @@
     "main": {
       "type": "ff-min-page",
       "settings": {
-        "fallback_text": "Use this page for delivery terms, refund policy or brand information."
+        "fallback_text": "Explain return eligibility, refund windows and processing details here."
       }
     }
   },

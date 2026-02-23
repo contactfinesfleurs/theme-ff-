@@ -1,37 +1,13 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "background": {
-      "type": "default-background",
-      "settings": {}
-    },
-    "clock": {
-      "type": "default-timezone",
-      "settings": {}
-    },
-    "content": {
-      "type": "contact-content",
+    "main": {
+      "type": "ff-min-contact",
       "settings": {
-        "contact-message": "Allow 3-5 business days for a response to your inquiry."
+        "contact_text": "Reach us for product questions, delivery support and wholesale requests."
       }
-    },
-    "form": {
-      "type": "contact-form",
-      "settings": {}
     }
   },
   "order": [
-    "background",
-    "clock",
-    "content",
-    "form"
+    "main"
   ]
 }
