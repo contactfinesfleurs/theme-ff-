@@ -93,13 +93,14 @@
     },
     "index-center": {
       "type": "index-center",
+      "disabled": true,
       "settings": {
         "show_date_time": true,
         "index_date_color": "#000000",
         "index_time_color": "#000000",
         "center-menu": "menu",
-        "link-alignment": "left",
-        "display_login_link": "top",
+        "link-alignment": "center",
+        "display_login_link": "hide",
         "nav_link_color": "#000000",
         "navlink_hover_color": "#ffffff",
         "navlink_background_color": "#fe0100",
