@@ -1,0 +1,41 @@
+{%- comment -%}
+  Homepage Hero — Clean minimal landing page with centered logo
+{%- endcomment -%}
+
+<div class="flex items-center justify-center" style="min-height: calc(100vh - 80px);">
+  <div class="text-center px-6">
+    {% if settings.enter_screen_logo %}
+      <img
+        src="{{ settings.enter_screen_logo | image_url: width: 600 }}"
+        srcset="{{ settings.enter_screen_logo | image_url: width: 300 }} 300w, {{ settings.enter_screen_logo | image_url: width: 600 }} 600w"
+        sizes="(max-width: 640px) 200px, 300px"
+        alt="{{ shop.name | escape }}"
+        class="mx-auto w-48 sm:w-64 md:w-72 h-auto"
+        loading="eager"
+        decoding="sync"
+        fetchpriority="high">
+    {% else %}
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[0.2em] uppercase">
+        FINES FLEURS
+      </h2>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Homepage Hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Displays the store logo centered on a clean white background. Logo is configured in Theme Settings > Logo."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Hero"
+    }
+  ]
+}
+{% endschema %}

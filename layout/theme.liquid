@@ -7,6 +7,26 @@
   data-money-format="{{ shop.money_format | escape }}"
   store={{ shop.email }}>
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"DM Sans"', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body { font-family: 'DM Sans', sans-serif; }
+      }
+    </style>
     <style>
       {% unless request.page_type == 'index' %}
       shopify-accelerated-checkout {
@@ -154,11 +174,7 @@
     {%- liquid
         render "__default-head"
     -%}
-    {% if settings.hide_homepage and template == 'index' %}
-      <script>
-        window.location.href = "{{ settings.homepage_redirect_url | default: collections['all'].url }}";
-      </script>
-    {% endif %}
+    {% comment %} Homepage redirect removed — homepage is now a landing page {% endcomment %}
     {{ content_for_header }}
     <script>
       window.addEventListener('DOMContentLoaded', function () {
@@ -214,8 +230,10 @@
         </div>
       </div>
     {% endif %}
-    {% unless request.page_type == 'index' %}
-      {% section 'global-menu' %}
+    {% unless request.page_type == 'password' %}
+      {% section 'global-nav' %}
+    {% endunless %}
+    {% unless request.page_type == 'index' or request.page_type == 'password' %}
       {% section 'cart-drawer' %}
     {% endunless %}
     <main id="container" style="flex: 1; background-color: transparent; width: 100%;">
@@ -228,18 +246,9 @@
       {{ content_for_layout }}
   </main>
     {% sections 'email-popup' %}
-    {% if settings.show_music or settings.show_song_bar %}
-      {% section 'music-player' %}
-    {% endif %}
+    {% comment %} Music player removed {% endcomment %}
 
-  {% if request.page_type == 'collection' %}
-    <div
-      id="sort-menu"
-      class="sort-menu"
-      style="display: none; position: fixed; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 9999;">
-      <div id="sort-menu-handle" style="cursor: move; padding: 10px; background-color: #e0e0e0; text-align: center;">Drag to move</div>
-    </div>
-  {% endif %}
+    {% comment %} Sort menu floater removed — collection page redesigned {% endcomment %}
     {% if settings.hide_footer_on_all_pages == false %}
       {% case template.name %}
         {% when 'index' %}
@@ -257,65 +266,13 @@
         {% section 'theme-footer' %}
     {% endcase %}
   {% endif %}
-  {% comment %} {{ 'shopify-currency.js' | asset_url | script_tag }} {% endcomment %}
-  <script>
-    (function(){
-      function initClock(){
-        var tz="{{ settings.timezone }}";
-        function u(){
-          var n=new Date(),o,d;
-          try{o={timeZone:tz,hour:"numeric",minute:"numeric",hour12:true,timeZoneName:"short"};d={timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit"};}
-          catch(e){o={hour:"numeric",minute:"numeric",hour12:true,timeZoneName:"short"};d={year:"numeric",month:"2-digit",day:"2-digit"};}
-          var t=new Intl.DateTimeFormat("en-US",o).format(n);
-          var dd=new Intl.DateTimeFormat("en-US",d).format(n).replace(/(\d+)\/(\d+)\/(\d+)/,'$1/$2/$3');
-          document.querySelectorAll(".date").forEach(function(e){e.textContent=dd});
-          document.querySelectorAll(".time").forEach(function(e){e.textContent=t});
-        }
-        u();setInterval(u,60000);
-      }
-      if('requestIdleCallback' in window){requestIdleCallback(initClock,{timeout:2000})}
-      else{setTimeout(initClock,100)}
-    })();
-  </script>
-  {% if request.page_type == 'index' %}
-    {% if settings.show_music %}
-      <script>
-        (function() {
-          var musicLoaded = false;
-
-          function loadMusicScript() {
-            if (musicLoaded) return;
-            musicLoaded = true;
-            var script = document.createElement('script');
-            script.src = "{{ 'music.js' | asset_url }}";
-            script.defer = true;
-            document.body.appendChild(script);
-          }
-
-          var interactionEvents = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
-          interactionEvents.forEach(function(eventName) {
-            window.addEventListener(eventName, loadMusicScript, { once: true, passive: true });
-          });
-
-          window.addEventListener('load', function() {
-            if ('requestIdleCallback' in window) {
-              requestIdleCallback(loadMusicScript, { timeout: 5000 });
-            } else {
-              setTimeout(loadMusicScript, 5000);
-            }
-          });
-        })();
-      </script>
-    {% endif %}
-  {% else %}
+  {% comment %} Clock script removed — no pages display date/time anymore {% endcomment %}
+  {% unless request.page_type == 'index' %}
     <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer type="text/javascript"></script>
     <script src="{{ 'g-animate.js' | asset_url }}" defer type="text/javascript"></script>
     <script src="{{ 'g-scroll.js' | asset_url }}" defer type="text/javascript"></script>
     <script src="{{ 'ts.js' | asset_url }}" defer></script>
-    {% if settings.show_music %}
-      <script src="{{ 'music.js' | asset_url }}" defer></script>
-    {% endif %}
-  {% endif %}
+  {% endunless %}
 </body>
 
 </html>

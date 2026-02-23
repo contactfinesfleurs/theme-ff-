@@ -17,13 +17,13 @@
         "show_background_image_mobile": false
       }
     },
-    "form": {
-      "type": "contact-form",
+    "policy_content": {
+      "type": "policy-content",
       "settings": {}
     }
   },
   "order": [
     "background",
-    "form"
+    "policy_content"
   ]
 }
