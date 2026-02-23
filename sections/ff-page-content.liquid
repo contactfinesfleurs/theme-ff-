@@ -1,0 +1,40 @@
+<div class="ff-shell">
+  {% render 'ff-site-nav', variant: 'page' %}
+
+  <main class="ff-static-wrap">
+    <h1 class="ff-static-title">{{ page.title | default: section.settings.fallback_title }}</h1>
+
+    <div class="ff-static-content">
+      {% if page.content != blank %}
+        {{ page.content }}
+      {% else %}
+        {{ section.settings.fallback_content }}
+      {% endif %}
+    </div>
+  </main>
+</div>
+
+{% schema %}
+{
+  "name": "FF Page Content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "fallback_title",
+      "label": "Fallback title",
+      "default": "about us"
+    },
+    {
+      "type": "richtext",
+      "id": "fallback_content",
+      "label": "Fallback content",
+      "default": "<p>Write your page content in Shopify Pages.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FF Page Content"
+    }
+  ]
+}
+{% endschema %}

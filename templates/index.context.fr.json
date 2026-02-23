@@ -12,13 +12,5 @@
   "context": {
     "market": "fr"
   },
-  "sections": {
-    "preloader_CreNEy": {
-      "type": "preloader",
-      "settings": {
-        "preloader_text": "LA COLLECTION PRINTEMPS-ÉTÉ 2025 EST DISPONIBLE."
-      },
-      "blocks": {}
-    }
-  }
+  "sections": {}
 }

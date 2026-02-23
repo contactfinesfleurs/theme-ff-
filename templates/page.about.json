@@ -9,32 +9,15 @@
  */
 {
   "sections": {
-    "background": {
-      "type": "default-background",
+    "ff_about": {
+      "type": "ff-page-content",
       "settings": {
-        "password_bg_style": "color",
-        "bg_color": "#ffffff",
-        "bg_color_mobile": "#ffffff",
-        "overlay_top_color": "#000000",
-        "overlay_top_opacity": 0,
-        "overlay_bottom_color": "#000000",
-        "overlay_bottom_opacity": 0,
-        "overlay_top_color_mobile": "#000000",
-        "overlay_top_opacity_mobile": 0,
-        "overlay_bottom_color_mobile": "#000000",
-        "overlay_bottom_opacity_mobile": 0,
-        "show_background_image_mobile": false
-      }
-    },
-    "about_content": {
-      "type": "about-us-content",
-      "settings": {
-        "subtitle": "about us"
+        "fallback_title": "about us",
+        "fallback_content": "<p>Tell your story here.</p>"
       }
     }
   },
   "order": [
-    "background",
-    "about_content"
+    "ff_about"
   ]
 }

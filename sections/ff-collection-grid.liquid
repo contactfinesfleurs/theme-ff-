@@ -1,0 +1,72 @@
+<div class="ff-shell">
+  {% render 'ff-site-nav', variant: 'page' %}
+
+  <main class="ff-page-wrap">
+    {% if collection and collection.products_count > 0 %}
+      {% paginate collection.products by section.settings.products_per_page %}
+        <div class="ff-collection-grid">
+          {% for item in collection.products %}
+            <a href="{{ item.url | within: collection }}" class="ff-product-card">
+              <div class="ff-product-media">
+                {% if item.featured_image %}
+                  <img
+                    src="{{ item.featured_image | image_url: width: 1400 }}"
+                    srcset="{{ item.featured_image | image_url: width: 480 }} 480w, {{ item.featured_image | image_url: width: 720 }} 720w, {{ item.featured_image | image_url: width: 1024 }} 1024w, {{ item.featured_image | image_url: width: 1400 }} 1400w"
+                    sizes="(max-width: 620px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    alt="{{ item.featured_image.alt | default: item.title | escape }}"
+                    loading="lazy">
+                {% endif %}
+              </div>
+              <h3 class="ff-product-title">{{ item.title }}</h3>
+              <p class="ff-product-price">{{ item.price | money }}</p>
+            </a>
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          <nav class="ff-pagination" aria-label="Collection pagination">
+            {% if paginate.previous %}
+              <a class="ff-pagination-link" href="{{ paginate.previous.url }}" aria-label="Previous page">&larr;</a>
+            {% endif %}
+
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <a class="ff-pagination-link" href="{{ part.url }}">{{ part.title }}</a>
+              {% else %}
+                <span class="ff-pagination-current">{{ part.title }}</span>
+              {% endif %}
+            {% endfor %}
+
+            {% if paginate.next %}
+              <a class="ff-pagination-link" href="{{ paginate.next.url }}" aria-label="Next page">&rarr;</a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      {% endpaginate %}
+    {% else %}
+      <p class="ff-empty">No products available in this collection.</p>
+    {% endif %}
+  </main>
+</div>
+
+{% schema %}
+{
+  "name": "FF Collection Grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 6,
+      "max": 36,
+      "step": 3,
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "FF Collection Grid"
+    }
+  ]
+}
+{% endschema %}

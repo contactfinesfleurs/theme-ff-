@@ -9,12 +9,15 @@
  */
 {
   "sections": {
-    "ff_contact": {
-      "type": "ff-contact-form",
-      "settings": {}
+    "ff_terms_refund": {
+      "type": "ff-page-content",
+      "settings": {
+        "fallback_title": "terms of delivery / refund policy",
+        "fallback_content": "<p>Add your terms and refund policy text here.</p>"
+      }
     }
   },
   "order": [
-    "ff_contact"
+    "ff_terms_refund"
   ]
 }

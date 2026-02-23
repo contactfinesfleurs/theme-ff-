@@ -9,74 +9,14 @@
  */
 {
   "sections": {
-    "background": {
-      "type": "default-background",
+    "ff_collection": {
+      "type": "ff-collection-grid",
       "settings": {
-        "password_bg_style": "color",
-        "bg_color": "#ffffff",
-        "bg_color_mobile": "#ffffff",
-        "overlay_top_color": "#000000",
-        "overlay_top_opacity": 0,
-        "overlay_bottom_color": "#000000",
-        "overlay_bottom_opacity": 0,
-        "overlay_top_color_mobile": "#000000",
-        "overlay_top_opacity_mobile": 0,
-        "overlay_bottom_color_mobile": "#000000",
-        "overlay_bottom_opacity_mobile": 0,
-        "show_background_image_mobile": false
-      }
-    },
-    "collection_products_display_1": {
-      "type": "collection-products-display-1",
-      "blocks": {
-        "sort_option_1": {
-          "type": "sort_option",
-          "settings": {
-            "title": "Featured",
-            "sort_by": "manual"
-          }
-        },
-        "sort_option_2": {
-          "type": "sort_option",
-          "settings": {
-            "title": "Lowest Priced",
-            "sort_by": "price-ascending"
-          }
-        },
-        "sort_option_3": {
-          "type": "sort_option",
-          "settings": {
-            "title": "Newest First",
-            "sort_by": "created-descending"
-          }
-        },
-        "sort_option_4": {
-          "type": "sort_option",
-          "settings": {
-            "title": "A - Z Order",
-            "sort_by": "title-ascending"
-          }
-        }
-      },
-      "block_order": [
-        "sort_option_1",
-        "sort_option_2",
-        "sort_option_3",
-        "sort_option_4"
-      ],
-      "settings": {
-        "show_title": true,
-        "show_price": true,
-        "show_compare_price": false,
-        "currency_format": "without_currency",
-        "show_on_sale": false,
-        "show_oos": true,
-        "pagination_type": "infinite_scroll"
+        "products_per_page": 12
       }
     }
   },
   "order": [
-    "background",
-    "collection_products_display_1"
+    "ff_collection"
   ]
 }

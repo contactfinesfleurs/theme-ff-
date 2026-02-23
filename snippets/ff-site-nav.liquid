@@ -1,0 +1,40 @@
+{%- liquid
+  assign nav_variant = variant | default: 'page'
+  assign active_tab = ''
+
+  if request.page_type == 'index'
+    assign active_tab = 'home'
+  elsif request.page_type == 'collection' or request.page_type == 'product' or template.name == 'list-collections'
+    assign active_tab = 'shop'
+  elsif request.page_type == 'page' and (template.suffix == 'about' or page.handle == 'about' or page.handle == 'us')
+    assign active_tab = 'us'
+  elsif request.page_type == 'page' and (template.suffix == 'contact' or page.handle == 'contact')
+    assign active_tab = 'contact'
+  endif
+
+  assign shop_url = '/collections/all'
+  if collections['all'] != blank
+    assign shop_url = collections['all'].url
+  elsif collection != blank
+    assign shop_url = collection.url
+  endif
+-%}
+
+<nav class="ff-nav ff-nav--{{ nav_variant }}" aria-label="Main Navigation">
+  <a href="{{ routes.root_url }}" class="ff-brand">FINES FLEURS</a>
+
+  <ul class="ff-nav-links">
+    <li class="ff-nav-item{% if active_tab == 'home' %} is-active{% endif %}">
+      <a href="{{ routes.root_url }}" class="ff-nav-item-link">home</a>
+    </li>
+    <li class="ff-nav-item{% if active_tab == 'shop' %} is-active{% endif %}">
+      <a href="{{ shop_url }}" class="ff-nav-item-link">shop</a>
+    </li>
+    <li class="ff-nav-item{% if active_tab == 'us' %} is-active{% endif %}">
+      <a href="/pages/about" class="ff-nav-item-link">us</a>
+    </li>
+    <li class="ff-nav-item{% if active_tab == 'contact' %} is-active{% endif %}">
+      <a href="/pages/contact" class="ff-nav-item-link">contact</a>
+    </li>
+  </ul>
+</nav>
