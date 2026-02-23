@@ -246,14 +246,22 @@
         {% endif %}
       </div>
     </div>
-    {% section 'global-menu' %}
-    {% section 'cart-drawer' %}
+    {% unless request.page_type == 'index' or request.page_type == 'password' %}
+      {% section 'global-menu' %}
+    {% endunless %}
+    {% unless request.page_type == 'index' or request.page_type == 'password' %}
+      {% section 'cart-drawer' %}
+    {% endunless %}
     <main id="container" style="flex: 1; background-color: transparent; width: 100%;">
-      {% section 'announcement-bar' %}
+      {% unless request.page_type == 'index' %}
+        {% section 'announcement-bar' %}
+      {% endunless %}
       {{ content_for_layout }}
   </main>
-    {% sections 'email-popup' %}
-    {% section 'music-player' %}
+    {% unless request.page_type == 'index' %}
+      {% sections 'email-popup' %}
+      {% section 'music-player' %}
+    {% endunless %}
 
   <div
   id="sort-menu"
