@@ -1,0 +1,72 @@
+<section class="ff-site">
+  <div class="ff-wrap">
+    {% render 'ff-min-nav', active: 'shop', class: 'ff-header--page' %}
+
+    {% paginate collection.products by section.settings.products_per_page %}
+      {% if collection.products_count > 0 %}
+        <div class="ff-collection-grid">
+          {% for product in collection.products %}
+            <article class="ff-product-card">
+              <a class="ff-product-card-link" href="{{ product.url }}">
+                <div class="ff-product-image-wrap">
+                  {% if product.featured_media != blank %}
+                    {{
+                      product.featured_media
+                      | image_url: width: 1400
+                      | image_tag: class: 'ff-product-image', loading: 'lazy', alt: product.title
+                    }}
+                  {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'ff-product-image' }}
+                  {% endif %}
+                </div>
+
+                <div class="ff-product-meta">
+                  <h2 class="ff-product-name">{{ product.title }}</h2>
+                  <p class="ff-product-price">{{ product.price | money }}</p>
+                </div>
+              </a>
+            </article>
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          <nav class="ff-pagination" aria-label="Pagination">
+            {% if paginate.previous %}
+              <a class="ff-pagination-link" href="{{ paginate.previous.url }}">Previous</a>
+            {% endif %}
+
+            <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
+
+            {% if paginate.next %}
+              <a class="ff-pagination-link" href="{{ paginate.next.url }}">Next</a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      {% else %}
+        <p class="ff-empty">No products yet.</p>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FF Minimal Collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 8,
+      "label": "Products per page"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FF Minimal Collection"
+    }
+  ]
+}
+{% endschema %}
