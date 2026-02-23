@@ -12,5 +12,12 @@
   "context": {
     "market": "fr"
   },
-  "sections": {}
+  "sections": {
+    "preloader_CreNEy": {
+      "settings": {
+        "preloader_text": "LA COLLECTION PRINTEMPS-ÉTÉ 2025 EST DISPONIBLE."
+      },
+      "blocks": {}
+    }
+  }
 }
