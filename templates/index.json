@@ -23,7 +23,6 @@
     },
     "email_popup": {
       "type": "email-popup",
-      "disabled": true,
       "settings": {
         "popup_title": "GET NOTIFIED OF NEXT DROP",
         "popup_description": "Lorem ipsum dolor sit amet consectetur. Mauris orci viverra nec ac aliquet elit imperdiet egestas sit.",
@@ -98,9 +97,9 @@
         "show_date_time": true,
         "index_date_color": "#000000",
         "index_time_color": "#000000",
-        "center-menu": "",
-        "link-alignment": "left",
-        "display_login_link": "top",
+        "center-menu": "menu",
+        "link-alignment": "center",
+        "display_login_link": "hide",
         "nav_link_color": "#000000",
         "navlink_hover_color": "#ffffff",
         "navlink_background_color": "#fe0100",
