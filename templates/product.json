@@ -82,7 +82,7 @@
         "product_accordion-1"
       ],
       "settings": {
-        "show_sticky_button": true,
+        "show_sticky_button": false,
         "sticky_btn_text_available": "Commander",
         "sticky_btn_text_unavailable": "Me prevenir"
       }
