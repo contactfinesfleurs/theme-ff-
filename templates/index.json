@@ -13,8 +13,8 @@
       "type": "default-background",
       "settings": {
         "password_bg_style": "color",
-        "bg_color": "#ffffff",
-        "bg_color_mobile": "#ffffff",
+        "bg_color": "#ededed",
+        "bg_color_mobile": "#ededed",
         "overlay_top_color": "#000000",
         "overlay_top_opacity": 0,
         "overlay_bottom_color": "#000000",
