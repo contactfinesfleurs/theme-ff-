@@ -9,16 +9,67 @@
  */
 {
   "sections": {
-    "ff_product": {
-      "type": "ff-product-detail",
-      "settings": {
-        "default_features": "Premium textile\nCoupe ajustee\nFabrication en petite serie",
-        "shipping_information": "Products are made to order. Shipping usually occurs between 1 and 4 weeks after order confirmation.",
-        "care_instructions": "Wash inside out at low temperature. Do not tumble dry. Iron on low heat."
-      }
+    "header": {
+      "type": "product-logo-section",
+      "settings": {}
+    },
+    "background": {
+      "type": "default-background",
+      "settings": {}
+    },
+    "product-section-2": {
+      "type": "product-section-2",
+      "blocks": {
+        "on_sale_label-1": {
+          "type": "on_sale_label",
+          "settings": {}
+        },
+        "product_header-1": {
+          "type": "product_header",
+          "settings": {}
+        },
+        "product_price-1": {
+          "type": "product_price",
+          "settings": {}
+        },
+        "product_description-1": {
+          "type": "product_description",
+          "settings": {}
+        },
+        "product_gallery-1": {
+          "type": "product_gallery",
+          "settings": {}
+        },
+        "product_variations-1": {
+          "type": "product_variations",
+          "settings": {}
+        },
+        "product_accordion-1": {
+          "type": "product_accordion",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "on_sale_label-1",
+        "product_header-1",
+        "product_price-1",
+        "product_description-1",
+        "product_gallery-1",
+        "product_variations-1",
+        "product_accordion-1"
+      ],
+      "settings": {}
+    },
+    "related_products": {
+      "type": "related-products",
+      "settings": {}
     }
   },
   "order": [
-    "ff_product"
+    "header",
+    "background",
+    "product-section-2",
+    "related_products"
   ]
 }

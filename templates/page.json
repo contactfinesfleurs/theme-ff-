@@ -9,15 +9,22 @@
  */
 {
   "sections": {
-    "ff_page": {
-      "type": "ff-page-content",
-      "settings": {
-        "fallback_title": "page",
-        "fallback_content": "<p>Add your content in Shopify Pages.</p>"
-      }
+    "background": {
+      "type": "default-background",
+      "settings": {}
+    },
+    "clock": {
+      "type": "default-timezone",
+      "settings": {}
+    },
+    "page-builder": {
+      "type": "page-text",
+      "settings": {}
     }
   },
   "order": [
-    "ff_page"
+    "background",
+    "clock",
+    "page-builder"
   ]
 }

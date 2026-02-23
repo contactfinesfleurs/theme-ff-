@@ -9,12 +9,29 @@
  */
 {
   "sections": {
-    "ff_contact": {
-      "type": "ff-contact-form",
+    "background": {
+      "type": "default-background",
+      "settings": {}
+    },
+    "clock": {
+      "type": "default-timezone",
+      "settings": {}
+    },
+    "content": {
+      "type": "contact-content",
+      "settings": {
+        "contact-message": "Allow 3-5 business days for a response to your inquiry."
+      }
+    },
+    "form": {
+      "type": "contact-form",
       "settings": {}
     }
   },
   "order": [
-    "ff_contact"
+    "background",
+    "clock",
+    "content",
+    "form"
   ]
 }
