@@ -12,13 +12,21 @@
           <img
             data-src="{{ item.featured_media.preview_image | img_url: 'master' }}" alt="{{ item.featured_media.preview_image.alt }}" 
             style="width: 100%; height: 100%; --product-border-color: {{ section.settings.product_border_color }}; --product-border-thickness: {{ section.settings.product_border_thickness | append: "px"}};" 
-            class="product-image" data-commerce-type="variation-image"> 
+            class="product-image" data-commerce-type="variation-image"
+            width="{{ item.featured_media.preview_image.width }}"
+            height="{{ item.featured_media.preview_image.height }}"
+            loading="lazy"
+            decoding="async"> 
         {% if settings.enable_product_hover %}
           {% if item.media[1].preview_image != null and item.media[1].media_type != 'video' and item.media[1].media_type != 'external_video' %}
           <img 
             data-src="{{ item.media[1].preview_image | img_url: 'master' }}" alt="{{ item.media[1].preview_image.alt }}"
             style="position: absolute; top: 0; width: 100%; height: auto; visibility: hidden; --product-border-color: {{ section.settings.product_border_color }}; --product-border-thickness: {{ section.settings.product_border_thickness | append: "px"}};" 
-            class="product-image" data-commerce-type="variation-image" >
+            class="product-image" data-commerce-type="variation-image"
+            width="{{ item.media[1].preview_image.width }}"
+            height="{{ item.media[1].preview_image.height }}"
+            loading="lazy"
+            decoding="async" >
           {% endif %}
         {% endif %}
     </a>
@@ -120,7 +128,7 @@
 {%- for item in collections.all.products -%}
   <div style="width: {{ settings.product-size }}%" role="listitem" class="collection-item w-dyn-item">
     <a href="{{ item.url | within: collection }}" class="link-block-2 w-inline-block">
-      <img style="--product-border-color: {{ section.settings.product_border_color }}; --product-border-thickness: {{ section.settings.product_border_thickness | append: "px"}};" src="{{ item.featured_image | img_url: 'master' }}"  alt="{{ item.featured_image.alt }}" class="product-image" data-commerce-type="variation-image" srcset="{{ item.featured_image | img_url: '1920x' }} 1920w,{{ item.featured_image | img_url: '1600x' }} 1600w,{{ item.featured_image | img_url: '1366x' }} 1366w,{{ item.featured_image | img_url: '1024x' }} 1024w,{{ item.featured_image | img_url: '768x' }} 768w,{{ item.featured_image | img_url: '640x' }} 640w">
+      <img style="--product-border-color: {{ section.settings.product_border_color }}; --product-border-thickness: {{ section.settings.product_border_thickness | append: "px"}};" src="{{ item.featured_image | img_url: 'master' }}"  alt="{{ item.featured_image.alt }}" class="product-image" data-commerce-type="variation-image" srcset="{{ item.featured_image | img_url: '1920x' }} 1920w,{{ item.featured_image | img_url: '1600x' }} 1600w,{{ item.featured_image | img_url: '1366x' }} 1366w,{{ item.featured_image | img_url: '1024x' }} 1024w,{{ item.featured_image | img_url: '768x' }} 768w,{{ item.featured_image | img_url: '640x' }} 640w" sizes="(min-width: 1200px) 533px, (min-width: 990px) calc(46.5vw - 10px), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)" width="{{ item.featured_image.width }}" height="{{ item.featured_image.height }}" loading="lazy" decoding="async">
     </a>
   {%- if section.settings.show-title -%}
     <div style="color: {{ section.settings.product_title_color }}; font-size:{{ section.settings.product_title_size }}px;" class="prouduct-title">{{ item.title }}</div>
