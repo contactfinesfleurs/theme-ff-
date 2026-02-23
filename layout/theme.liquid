@@ -246,12 +246,8 @@
         {% endif %}
       </div>
     </div>
-    {% unless request.page_type == 'password' %}
-      {% section 'global-nav' %}
-    {% endunless %}
-    {% unless request.page_type == 'index' or request.page_type == 'password' %}
-      {% section 'cart-drawer' %}
-    {% endunless %}
+    {% section 'global-menu' %}
+    {% section 'cart-drawer' %}
     <main id="container" style="flex: 1; background-color: transparent; width: 100%;">
       {% section 'announcement-bar' %}
       {{ content_for_layout }}
