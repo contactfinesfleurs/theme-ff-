@@ -28,6 +28,8 @@
     },
     "hero": {
       "type": "homepage-hero",
+      "disabled": true,
+      "custom_css": [],
       "settings": {}
     }
   },
